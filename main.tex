@@ -1,0 +1,139 @@
+\documentclass[
+%  draft,  % skip loading figures, delete this for final version
+%  abstract,  % generate only title page and abstract page for student registry submission
+  a4paper,
+  11pt,  % or 12pt
+  authoryear,
+  index,                            % for index at end of thesis
+  dvipsnames,
+%  fleqn,  % align formulas to the left side
+%  twoside,
+%  openright
+]{report}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{misc/headings}               % uncomment for fancy layout
+\input{misc/preamble}
+\input{misc/thesis-info}
+\input{misc/glossaries}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\optionalindent{}        % uncomment for fancy layout
+%%
+\begin{document}
+\pagenumbering{roman}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{misc/title_page}
+% \input{misc/dedication}
+\input{misc/declaration}
+\input{misc/acknowledgements}
+% \input{misc/authorization}
+\input{misc/abstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+%%
+\clearpage
+\addcontentsline{toc}{chapter}{List of Abbreviations}
+% \printglossary[type=\acronymtype,title=List of Abbreviations]
+\printnoidxglossaries[type=\acronymtype,title=List of Abbreviations]
+%%
+\clearpage
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+%%
+\clearpage
+\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
+%%
+% \input{misc/notations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand\optionalindent{\tabto{1.2cm}}  % uncomment for fancy layout
+\newpage
+\pagenumbering{arabic}
+\pagestyle{fancy}
+%%
+\input{ch/01_introduction/00_introduction}
+\input{ch/01_introduction/01_functional_connectivity}
+\input{ch/01_introduction/02_functional_networks}
+\input{ch/01_introduction/03_tvfc}
+\input{ch/01_introduction/04_problem_statement}
+\input{ch/01_introduction/05_fc_and_depression}
+\input{ch/01_introduction/06_thesis_outline}
+%%
+\input{ch/02_methods/00_methods}
+\input{ch/02_methods/01_established_methods}
+\input{ch/02_methods/02_wishart_process}
+\input{ch/02_methods/03_TVFC_biomarkers}
+\input{ch/02_methods/04_benchmark_evaluation}
+\input{ch/02_methods/05_discussion}
+%%
+\input{03_simulations/03_00_simulations}
+\input{03_simulations/03_01_methodology}
+\input{03_simulations/03_02_results}
+\input{03_simulations/03_03_discussion}
+%%
+\input{04_real_data/04_00_real_data}
+\input{04_real_data/04_01_00_resting-state}
+\input{04_real_data/04_01_01_data}
+\input{04_real_data/04_01_02_methodology}
+\input{04_real_data/04_01_03_results}
+\input{04_real_data/04_02_00_task}
+\input{04_real_data/04_02_01_data}
+\input{04_real_data/04_02_02_methodology}
+\input{04_real_data/04_02_03_results}
+\input{04_real_data/04_03_00_discussion}
+%%
+\input{ch/05_ukb/00_clinical_application}
+\input{ch/05_ukb/01_data}
+\input{ch/05_ukb/02_methodology}
+\input{ch/05_ukb/03_results}
+\input{ch/05_ukb/04_discussion}
+%%
+\input{ch/06_discussion/00_discussion}
+\input{ch/06_discussion/01_summary}
+\input{ch/06_discussion/02_limitations_data}
+\input{ch/06_discussion/03_method_considerations}
+\input{ch/06_discussion/04_future_work}
+\input{ch/06_discussion/05_robust_science}
+\input{ch/06_discussion/06_concluding_remarks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\todototoc
+\listoftodos[Notes]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\renewcommand\optionalindent{}              % uncomment for fancy layout?
+\renewcommand{\bibname}{References}         % changes the default name `Bibliography` -> `References'
+\addcontentsline{toc}{chapter}{References}
+\printbibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+% \begin{appendices}                        % Using appendices environment for more functionality
+%\chapter{Appendix Title}
+%\section*{Section Title}
+% \input{appendix}
+\appendix
+%%
+% \input{appendix/03_d2_impact_of_noise}
+% \input{appendix/03_d2_plots}
+% \input{appendix/03_d3d_plots}
+% \input{appendix/03_d3s_plots}
+% \input{appendix/03_quantitative_results}
+%%
+% \input{appendix/04_d50_analysis}
+% \input{appendix/04_extra_subject_measure_predictions}
+%%
+\input{appendix/05_ukb_with_other_methods}
+%%
+\input{appendix/four_levels_of_computational_psychiatry}
+%%
+% \end{appendices}
+%%
+% \printthesisindex  % if index is present
+%%
+\end{document}
