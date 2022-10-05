@@ -1,0 +1,93 @@
+% The \resizebox scales down the table and its fontsize to \textwidth
+
+\begin{table*}[t]
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{ l | l | c | c | c | c }
+      \toprule
+      \textbf{Functional network}     & \textbf{Macro region}           & \textbf{Subregion}    & \textbf{Volume ($mm^3$; L/R)}     & \textbf{Lobe} & \textbf{Cortex}                       \\
+      \midrule
+      Central executive               & Middle frontal gyrus            & 9-46d                 & 3,184 / 3,421         & Frontal               & Dorsolateral prefrontal                   \\
+      network (CEN)                   &                                 & 46                    & 3,433 / 3,042         & Frontal               & Dorsolateral prefrontal                   \\
+                                      &                                 & a9-46v                & 2,738 / 1,890         & Frontal               & Dorsolateral prefrontal                   \\
+                                      \cmidrule{2-6}
+                                      & Anterior inferior               & PFop                  & 1,284 / 1,424         & Parietal              & Inferior parietal                         \\
+                                      & parietal lobule                 & PF                    & 4,068 / 3,282         & Parietal              & Inferior parietal                         \\
+                                      &                                 & PFt                   & ~~958 / 1,347         & Parietal              & Inferior parietal                         \\
+                                      \cmidrule{2-6}
+                                      & Midcingulate gyrus              & p24pr                 & 1,039 / 1,336         & Frontal               & Anterior cingulate and medial prefrontal  \\
+                                      &                                 & 24dv                  & ~~732 / 1,117         & Frontal               & Paracentral lobular and mid cingulate     \\
+                                      &                                 & 24dd                  & 2,287 / 2,279         & Frontal               & Paracentral lobular and mid cingulate     \\
+                                      &                                 & 33pr                  & ~~287 / ~~581         & Frontal               & Anterior cingulate and medial prefrontal  \\
+                                      &                                 & a24pr                 & ~~854 / ~~938         & Frontal               & Anterior cingulate and medial prefrontal  \\
+                                      &                                 & a32pr                 & 1,617 / ~~827         & Frontal               & Anterior cingulate and medial prefrontal  \\
+                                      &                                 & p32pr                 & ~~924 / 1,182         & Frontal               & Anterior cingulate and medial prefrontal  \\
+      \midrule
+      Default mode                    & Medial prefrontal               & 8BM                   & 2,103 / 2,524         & Frontal               & Anterior cingulate and medial prefrontal  \\
+      network (DMN)                   & cortex (mPFC)                   & 9m                    & 4,190 / 4,676         & Frontal               & Anterior cingulate and medial prefrontal  \\
+                                      &                                 & 10v                   & 2,161 / 2,017         & Frontal               & Anterior cingulate and medial prefrontal  \\
+                                      &                                 & 10r                   & 1,044 / ~~923         & Frontal               & Anterior cingulate and medial prefrontal  \\
+                                      &                                 & 25                    & ~~901 / ~~729         & Frontal               & Anterior cingulate and medial prefrontal  \\
+                                      \cmidrule{2-6}
+                                      & Posterior cingulate             & DVT                   & 1,205 / 1,515         & Occipital / Parietal  & Posterior cingulate                       \\
+                                      & cortex (PCC)                    & ProS                  & ~~501 / ~~562         & Parietal              & Posterior cingulate                       \\
+                                      &                                 & POS1                  & 1,965 / 2,251         & Parietal              & Posterior cingulate                       \\
+                                      &                                 & POS2                  & 2,384 / 2,207         & Occipital / Parietal  & Posterior cingulate                       \\
+                                      &                                 & RSC                   & ~~843 / 1,079         & Parietal              & Posterior cingulate                       \\
+                                      &                                 & v23ab                 & ~~690 / ~~702         & Parietal              & Posterior cingulate                       \\
+                                      &                                 & d23ab                 & 1,207 / ~~911         & Parietal              & Posterior cingulate                       \\
+                                      &                                 & 31pv                  & ~~538 / ~~541         & Parietal              & Posterior cingulate                       \\
+                                      &                                 & 31pd                  & ~~586 / ~~307         & Parietal              & Posterior cingulate                       \\
+                                      &                                 & 31a                   & 1,089 / ~~770         & Parietal              & Posterior cingulate                       \\
+                                      &                                 & 23d                   & 1,038 / 1,114         & Parietal              & Posterior cingulate                       \\
+                                      &                                 & 23c                   & 1,065 / 1,695         & Parietal              & Paracentral lobular and mid cingulate     \\
+                                      &                                 & PCV                   & 1,528 / 1,587         & Parietal              & Posterior cingulate                       \\
+                                      &                                 & 7m                    & 1,741 / 1,260         & Parietal              & Posterior cingulate                       \\
+                                      \cmidrule{2-6}
+                                      & Posterior inferior              & PGp                   & 1,808 / 2,911         & Occipital / Parietal  & Inferior parietal                         \\
+                                      & parietal lobule                 & PGs                   & 3,143 / 1,902         & Parietal              & Inferior parietal                         \\
+                                      &                                 & IP0                   & ~~872 / ~~984         & Occipital / Parietal  & Inferior parietal                         \\
+                                      &                                 & IP1                   & 1,154 / 1,194         & Parietal              & Inferior parietal                         \\
+                                      \cmidrule{2-6}
+                                      & Inferior frontal gyrus          & 44                    & 1,947 / 2,681         & Frontal               & Inferior frontal                          \\
+                                      &                                 & 45                    & 2,727 / 2,066         & Frontal               & Inferior frontal                          \\
+                                      &                                 & IFJp                  & ~~672 / ~~397         & Frontal               & Inferior frontal                          \\
+                                      &                                 & IFJa                  & 1,012 / ~~523         & Frontal               & Inferior frontal                          \\
+                                      &                                 & IFSp                  & 1,073 / 1,389         & Frontal               & Inferior frontal                          \\
+                                      &                                 & IFSa                  & 1,558 / 1,954         & Frontal               & Inferior frontal                          \\
+                                      &                                 & 47l                   & 1,936 / 1,725         & Frontal               & Inferior frontal                          \\
+                                      &                                 & p47r                  & 1,330 / 1,577         & Frontal               & Inferior frontal                          \\
+                                      \cmidrule{2-6}
+                                      & Middle temporal gyrus           & TE1a                  & 4,040 / 3,409         & Temporal              & Lateral temporal                          \\
+                                      &                                 & TE1m                  & 2,631 / 2,592         & Temporal              & Lateral temporal                          \\
+                                      &                                 & TE1p                  & 5,111 / 4,107         & Temporal              & Lateral temporal                          \\
+                                      &                                 & PHT                   & 2,843 / 3,265         & Temporal              & Lateral temporal                          \\
+                                      \cmidrule{2-6}
+                                      & Parahippocampal cortex          & PHA1                  & 1,200 / 1,188         & Temporal              & Medial temporal                           \\
+                                      &                                 & PHA2                  & ~~236 / ~~339         & Temporal              & Medial temporal                           \\
+                                      &                                 & PHA3                  & 1,194 / ~~479         & Temporal              & Medial temporal                           \\
+                                      \cmidrule{2-6}
+                                      & Superior temporal sulcus        & STSda                 & 1,424 / 1,719         & Temporal              & Auditory association                      \\
+                                      &                                 & STSdp                 & 1,130 / 1,498         & Temporal              & Auditory association                      \\
+                                      &                                 & STSva                 & 1,004 / 1,720         & Temporal              & Auditory association                      \\
+                                      &                                 & STSvp                 & 1,644 / 1,985         & Temporal              & Auditory association                      \\
+      \midrule
+      Salience network (SN)           & Anterior insula (AI)            & AAIC                  & 1,388 / 1,450         & Insula                & Insular and frontal opercular             \\
+                                      &                                 & MI                    & 1,704 / 1,350         & Insula                & Insular and frontal opercular             \\
+                                      \cmidrule{2-6}
+                                      & Anterior cingulate              & s32                   & ~~310 / ~~561         & Frontal               & Anterior cingulate and medial prefrontal  \\
+                                      & cortex (ACC)                    & p32                   & ~~530 / ~~857         & Frontal               & Anterior cingulate and medial prefrontal  \\
+                                      &                                 & a24                   & 1,443 / 1,533         & Frontal               & Anterior cingulate and medial prefrontal  \\
+                                      &                                 & p24                   & 1,427 / 1,403         & Frontal               & Anterior cingulate and medial prefrontal  \\
+                                      &                                 & d32                   & 1,611 / 1,775         & Frontal               & Anterior cingulate and medial prefrontal  \\
+      \bottomrule
+    \end{tabular}
+  }
+  \caption{
+    UK Biobank functional network macro regions and respective subregion constituents.
+    Subregions are denoted in HCP-MMP1.0 parcellation nomenclature~\parencite{Glasser2016}.
+    Each subregion is further divided in a left- and right hemisphere component.
+    % Subregion sizes are denoted in number of voxels.
+    % Subregion sizes are denoted in $mm^3$.
+  }
+  \label{tab:ukbiobank-functional-networks}
+\end{table*}
