@@ -1,12 +1,11 @@
 \documentclass[
   % draft,                            % comment for final version: uncomment to skip loading figures
-%  abstract,                        % generate only title page and abstract page for student registry submission
+  % abstract,                         % generate only title page and abstract page for student registry submission
   a4paper,
-  11pt,  % or 12pt
+  12pt,                             % should be 11pt or 12pt
   dvipsnames,
-%  fleqn,                           % align formulas to the left side
-  % twoside,                        % uncomment for final version: different left and right side pages
-  % openright                       % uncomment for final version: start new chapters on right hand side page
+  twoside,                          % uncomment for final version: different left and right side pages
+  openright                         % uncomment for final version: start new chapters on right hand side page
 ]{report}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -23,18 +22,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{misc/title_page}
 % \input{misc/dedication}
+\thispagestyle{empty}
 \input{misc/declaration}
+\clearpage
+\thispagestyle{empty}
 \input{misc/acknowledgements}
 % \input{misc/authorization}
 \input{misc/abstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \tableofcontents
-%%
-\clearpage
-\addcontentsline{toc}{chapter}{List of Abbreviations}
-% \printglossary[type=\acronymtype,title=List of Abbreviations]
-\printnoidxglossaries[type=\acronymtype,title=List of Abbreviations]
 %%
 \clearpage
 \addcontentsline{toc}{chapter}{List of Figures}
@@ -44,6 +41,11 @@
 \addcontentsline{toc}{chapter}{List of Tables}
 \listoftables
 %%
+\clearpage
+\addcontentsline{toc}{chapter}{Acronyms}
+% \printglossary[type=\acronymtype,title=List of Abbreviations]
+\printnoidxglossaries
+%%
 % \input{misc/notations}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -51,50 +53,39 @@
 \newpage
 \pagenumbering{arabic}
 \pagestyle{fancy}                               % uncomment for final version: add fancy headers and footers
-\linenumbers
+% \linenumbers
 %%
-\input{ch/01_introduction/00_introduction}
-\input{ch/01_introduction/01_functional_connectivity}
-\input{ch/01_introduction/02_functional_networks}
-\input{ch/01_introduction/03_tvfc}
-\input{ch/01_introduction/04_problem_statement}
-\input{ch/01_introduction/05_fc_and_depression}
-\input{ch/01_introduction/06_thesis_outline}
+\input{ch/1_Introduction/0_Introduction}
+\input{ch/1_Introduction/1_Functional_connectivity}
+\input{ch/1_Introduction/2_Functional_networks}
+\input{ch/1_Introduction/3_TVFC}
+\input{ch/1_Introduction/4_The_trouble_with_estimating_TVFC}
+\input{ch/1_Introduction/5_Functional_connectivity_and_depression}
+\input{ch/1_Introduction/6_Outline_and_contributions_of_thesis}
 %%
-\input{ch/02_methods/00_methods}
-\input{ch/02_methods/01_established_methods}
-\input{ch/02_methods/02_sw-cv}
-\input{ch/02_methods/03_wishart_process}
-\input{ch/02_methods/04_TVFC_biomarkers}
-\input{ch/02_methods/05_benchmark_evaluation}
-\input{ch/02_methods/06_discussion}
+\input{ch/2_Robust_estimation_of_TVFC/0_Introduction}
+\input{ch/2_Robust_estimation_of_TVFC/1_Established_methods_and_baselines}
+\input{ch/2_Robust_estimation_of_TVFC/2_Cross-validated_sliding-windows}
+\input{ch/2_Robust_estimation_of_TVFC/3_The_Wishart_process}
+\input{ch/2_Robust_estimation_of_TVFC/4_Extracting_TVFC-based_features_and_biomarkers}
+\input{ch/2_Robust_estimation_of_TVFC/5_The_benchmarking_framework}
+\input{ch/2_Robust_estimation_of_TVFC/6_Discussion}
 %%
-\input{ch/03_benchmarking/00_introduction}
-\input{ch/03_benchmarking/01_methodology}
-\input{ch/03_benchmarking/02_results}
-\input{ch/03_benchmarking/03_discussion}
+\input{ch/3_Benchmarking_TVFC_estimation/0_Introduction}
+\input{ch/3_Benchmarking_TVFC_estimation/1_Material_and_methods}
+\input{ch/3_Benchmarking_TVFC_estimation/2_Results}
+\input{ch/3_Benchmarking_TVFC_estimation/3_Discussion}
 %%
-\input{ch/04_ukb/00_clinical_application}
-\input{ch/04_ukb/01_data}
-\input{ch/04_ukb/02_methodology}
-\input{ch/04_ukb/03_results}
-\input{ch/04_ukb/04_discussion}
+\input{ch/4_TVFC_and_depression/0_Introduction}
+\input{ch/4_TVFC_and_depression/1_Data_cohorts_and_parcellations}
+\input{ch/4_TVFC_and_depression/2_Material_and_methods}
+\input{ch/4_TVFC_and_depression/3_Results}
+\input{ch/4_TVFC_and_depression/4_Discussion}
 %%
-\input{ch/05_discussion/00_discussion}
-\input{ch/05_discussion/01_summary}
-\input{ch/05_discussion/02_limitations_data}
-\input{ch/05_discussion/03_method_considerations}
-\input{ch/05_discussion/04_future_work}
-\input{ch/05_discussion/05_robust_science}
-\input{ch/05_discussion/06_concluding_remarks}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\clearpage
-\nolinenumbers
-\renewcommand\optionalindent{}              % uncomment for fancy layout?
-\renewcommand{\bibname}{References}         % changes the default name `Bibliography` -> `References'
-\addcontentsline{toc}{chapter}{References}
-\printbibliography
+\input{ch/5_Discussion/0_Introduction}
+\input{ch/5_Discussion/1_Summary_of_presented_work}
+\input{ch/5_Discussion/2_Future_work}
+\input{ch/5_Discussion/3_Concluding_remarks}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
@@ -106,12 +97,17 @@
 \appendix
 %%
 \input{appendix/03_extra_benchmarking_results}
-% \input{appendix/03_d2_impact_of_noise}
-% \input{appendix/03_d3d_plots}
-% \input{appendix/03_d3s_plots}
-%%
+\input{appendix/hcp_extra_results}
 \input{appendix/04_ukb_with_other_methods}
+% \input{appendix/ukb_graph_analysis}
+% \input{appendix/four_levels_of_computational_psychiatry}
 %%
-\input{appendix/four_levels_of_computational_psychiatry}
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\nolinenumbers
+\renewcommand\optionalindent{}              % uncomment for fancy layout?
+\renewcommand{\bibname}{References}         % changes the default name `Bibliography` -> `References'
+\addcontentsline{toc}{chapter}{References}
+\printbibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
