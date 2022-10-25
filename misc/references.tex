@@ -1,0 +1,41 @@
+\usepackage[
+    abbreviate=false,
+    backend=biber,                % biber is the default, can use bibtex or bibtex8 as well
+    backref=true,                 % whether to add citation page(s) to References
+    bibstyle=authoryear,          % can set to 'draft' when writing
+    block=space,                  % none, space, par, nbpar (does not allow page breaks), or ragged
+    citestyle=authoryear,         % citation style, e.g. Kampman (2022)
+    doi=true,                     % whether to print DOIs in References
+    isbn=false,                   % whether to print International Standard Serial Number (ISSN) in References
+    mincitenames=1,
+    maxcitenames=3,
+    minbibnames=2,
+    maxbibnames=10,
+    sorting=nyt,                  % 'count' for sorting in order of number of times cited
+    url=false,                    % whether to print URLs in References
+    bibwarn=true
+]{biblatex}
+
+\addbibresource{references.bib}
+
+\renewcommand*{\nameyeardelim}{\addcomma\space}  % add comma between author and year
+
+\renewcommand*{\bibfont}{\small}                 % smaller font size for References
+
+% The hyperref package transforms citations into hyperlinks.
+\usepackage[
+    citecolor=blue,
+    colorlinks,
+    linkcolor=MidnightBlue,
+    pdfborder={0 0 0},
+    pdfauthor={Onno Pepijn Kampman},
+    pdfkeywords={functional connectivity, time-varying functional connectivity, Wishart process, depression},
+    pdfsubject={This thesis studies robust estimation of time-varying functional connectivity using Wishart processes, and its utility for understanding depression.},
+    pdftitle={Robust time-varying functional connectivity estimation and its relevance for depression},
+    urlcolor=blue
+]{hyperref}
+
+% \usepackage[printonlyused,withpage]{acronym}
+
+% REFERENCES
+%   https://mirrors.concertpass.com/tex-archive/macros/latex/contrib/biblatex/doc/biblatex.pdf

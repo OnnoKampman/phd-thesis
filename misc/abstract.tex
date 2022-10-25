@@ -1,21 +1,20 @@
 \chapter*{Abstract}
 
-This thesis investigates how to robustly estimate \gls{tvfc}--a construct in neuroimaging research that looks at changes in functional coupling (correlation between time series) between brain regions during a \gls{fmri} scan--and how it can be used as a lens through which to study depression as a functional disorder.
+This thesis investigates how to robustly estimate \gls{tvfc}, a construct in neuroimaging research that looks at changes in functional coupling (correlation between time series) between brain regions during a \gls{fmri} scan, and how it can be used as a lens through which to study depression as a functional disorder.
 
 Unfortunately, the field of \gls{tvfc} is still riddled with uncertainty, especially regarding its estimation.
 This is mainly due to the absence of a ground truth.
-Without resolving this first, the value of any study--including this depression study--is significantly undermined and conclusions made therein less trustworthy.
-Therefore, I propose a novel and principled method for estimating \gls{tvfc}--based on the \gls{wp}, a covariance matrix stochastic process that has recently become computationally tractable--and introduce a comprehensive benchmarking framework based on machine learning principles to make sure it performs better than existing methods in the field.
+Without resolving this first, the value of any study, including this depression study, is significantly undermined and conclusions made therein less trustworthy.
+Therefore, I propose a novel and principled method for estimating \gls{tvfc}, based on the \gls{wp}, a covariance matrix stochastic process that has recently become computationally tractable, and introduce a comprehensive benchmarking framework based on machine learning principles to make sure it performs better than existing methods in the field.
 These benchmarks include simulations, subject phenotype prediction, test-retest studies, brain state analyses, external task prediction, and a range of qualitative method comparisons.
 Furthermore, I introduce a benchmark based on cross-validation, that can be run on any data set.
-The \gls{wp} model is found to outperform other common estimation methods, such as standard \gls{sw} approaches and \gls{dcc}.
-However, with another newly introduced way of optimizing \gls{sw} estimation, I find this method to perform competitively as well.
+The \gls{wp} model is found to outperform other common estimation methods, such as \gls{sw} approaches and \gls{dcc}.
 
-Returning to the depression study, I find several differences between depressed and healthy control cohorts.
-My study is run on thousands of participants from the UK Biobank, yielding unprecedented statistical power and robustness.
+Returning to the depression study, several differences are found between depressed and healthy control cohorts.
+The study is run on thousands of participants from the UK Biobank, yielding unprecedented statistical power and robustness.
 I investigate connectivity between individual brain regions as well as \glspl{fn}.
 Generally, depressed participants show decreased global connectivity, and increased connectivity instability (as measured by the temporal characteristics of estimated \gls{tvfc}).
-By defining multiple depression phenotypes, I find that brain dynamics are affected especially when patients have been professionally diagnosed or indicated a depressed state during the \gls{fmri} scan, but were less or not at all affected based on self-reported past instances and genetic predisposition.
+By defining multiple depression phenotypes, I find that brain dynamics are affected especially when patients have been professionally diagnosed or indicated to be depressed during their \gls{fmri} scan, but were less or not at all affected based on self-reported past instances and genetic predisposition.
 I show that choosing a different \gls{tvfc} estimation method would have changed our scientific conclusions.
 This sensitivity to seemingly arbitrary researcher choices highlights the need for robust method development and the importance of community-approved benchmarking.
 
