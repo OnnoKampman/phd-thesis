@@ -1,0 +1,120 @@
+\clearpage
+\section{Discussion}
+%%%%%
+
+The aim of this chapter was to convince ourselves what the best approach for estimating \gls{tvfc} is.
+How well did we succeed in that?
+
+%%
+\subsection{Simulations}
+%%
+
+In summary, we studied simulated time series defined by a range of edge case and (possibly) realistic covariance structures.
+We took advantage of the flexibility simulations bring, and studied the impact of data dimensionality and noise configurations.
+These simulation benchmarks have taught us the following.
+
+Firstly, we found that \gls{sw-cv} and its ability to find an appropriate window length works well.
+The \gls{wp} approaches learn kernel lengthscales $l$ as a hyperparameter, and it seems to have a similar function as the window length.
+%
+Furthermore, we have replicated the frequent observation that standard \gls{sw} approaches can produce spurious correlation structures if the underlying covariance structure is actually static.
+Caution is required to avoid false positive conclusions.
+We also saw that \gls{dcc} models can still yield these.
+%
+The \gls{wp} approach generally works well, but may smooth out the estimates too much.
+We also see that all models perform poorly on the `state transition' data set.
+As such we learned that if we expect to see drastic sudden changes in covariance structure, the current approaches may all be insufficient.
+%
+Quantifying our results, we see the \gls{wp} model outperforming the others in most cases.
+Combined with the additional qualitative benefits of this model, uncertainty modeling for example, we have established its promise for application in neuroimaging.
+%
+Lastly, we found all results to be broadly robust to data dimensionality and noise characteristics.
+
+However, these results cannot be considered conclusive, because we still do not know what covariance structures can be found in real data.
+Are they transient or spike-like point processes consisting of state transition events?
+These simulation benchmarks can certainly rule out some methods, but do not paint a full picture.
+%
+To dive deeper, we needed to investigate method estimates on real data.
+The closer our benchmarks are to actual practical applications, the more valuable they will be.
+For example, we do not actually know if it matters if a method's estimates are more `noisy' (see \gls{dcc} estimates for periodic covariance structures).
+Perhaps capturing general trends is good enough for most practical scenarios.
+
+%%
+\subsection{Resting-state fMRI}
+\label{subsec:benchmarking-discussion-rs-fmri}
+%%
+
+In summary, we studied several popular types of \gls{rs-fmri} benchmarks on a single, large, and publicly available data set.
+These benchmarks have taught us the following.
+
+Firstly, we find large qualitative differences in the \gls{tvfc} estimates between different estimation methods.
+But how relevant are these?
+%
+The \gls{rs-fmri} benchmarks have taught us that choice of \gls{tvfc} estimation method greatly affects the utility of these estimates to predict subject measures.
+In general, we find the \gls{svwp} and \gls{sw-cv} methods to do similarly well.
+However, each has different predictive power for different subject measures and different qualitative characteristics.
+%
+In terms of the test-retest studies, the results are harder to interpret.
+All methods seem to do relatively similarly here, but \gls{dcc} estimate variances are much more robust across scanning sessions.
+In fact, the utility of test-retest studies in general is questionnable.
+It is unclear if we want to pick up on reliable characteristics or those that are indicative of cognitive occupation during a scan.
+Test-retest reliability may be desired, but optimizing for it for its own sake misses the point.
+Underwriting this, in a recent opinion piece \textcite{Finn2021b} also argued that (behaviorally) \emph{predictive} connectomes are more important than reliable connectomes.
+%
+In terms of the imputation benchmark, we find performance to be related to subject measure prediction performance.
+This again confirms its promise as benchmark in situations where no ground truth is available.
+%
+Lastly, the brain state analysis demonstrated that \gls{tvfc} estimation method choice impacts not only the brain states extracted, but also related metrics such as switch rates.
+
+%%
+\subsection{Task-based fMRI}
+%%
+
+In summary, we used an \gls{tb-fmri} data set with external visual task to induce a covariance structure in individuals, which was attempted to be reconstructed.
+
+Unlike the simulations and \gls{rs-fmri} benchmarks, this \gls{tb-fmri} benchmark has a clear winner.
+None of the methods except the \gls{vwp} was able to recover (some of) the external stimulus presence.
+
+However, this data set may be too simple in some sense, and not representative of realistic stimuli humans experience.
+Other \gls{tb-fmri} with richer task structure could be added to these benchmarks.
+For example, \textcite{Xie2019} studied classification accuracy in a multi-task setting data set, where the external stimulus again was used as a proxy for ground truth.
+
+%%
+\subsection{Reflection on benchmarking}
+\label{subsec:benchmarking-reflection}
+%%
+
+What have we learned from these benchmarks?
+%
+We have not only proposed novel ways of estimating \gls{tvfc}, but also motivated and demonstrated how to think about robustly estimating it: by framing and designing benchmarks as prediction problems.
+
+Overall we consider the \gls{wp} to perform well, and best among these methods considered.
+%
+Having the benchmarking framework in place also allows us to make model adjustments and rapidly check if these improved performance.
+Ideas for model extensions will be discussed in \cref{subsec:model-extensions}.
+
+Equally insightful and encouraging is that the imputation benchmark generally corresponds to estimation method performance on the concurrent benchmark.
+Given such a strong relationship between performance on this benchmark and the more informative benchmark, researchers may decide on which \gls{tvfc} estimation method to use in practice by running the imputation benchmark on their data set at hand.
+This is the beauty of the imputation benchmark: it uses real data and thus a real ground truth, and it can be run on any data set without the need for expert labeling or concurrent information.
+
+%%
+\subsubsection{Sudden changes and change points}
+\label{subsec:sudden-changes}
+%%
+
+One of the open questions brought to the fore in this thesis concerns \gls{tvfc} change points.
+We must still consider the possibility of real covariance structures to be organized in change points, for which additional benchmarks need to be designed.
+This is one of the biggest gaps in the framework at the moment.
+
+It is often assumed that covariance between two brain regions can change and switch rapidly.
+The prior of the \gls{wp} is that covariance changes slowly.
+As we have seen, none of the proposed models are actually capable of picking up on sudden changes in covariance structure.
+Therefore, the real question is whether such jumps can be expected in real data.
+As argued by~\textcite{Lindquist2014} as well, if we expect sudden changes in our structure, we may need a different class of models.
+Another probabilistic approach to modeling \gls{tvfc} was also not able to capture the jagged dynamics of discrete jumps and states~\parencite{Li2019b}.
+
+Change point detection algorithms can help determine whether such sudden changes exist.
+There is a whole literature on modeling brain state change points or switches directly from data~\parencite[see e.g.][]{Robinson2010, Cribben2012, Cribben2013, Lindquist2014, Ou2014, Xu2015, Kim2021, Anastasiou2022}.
+We may take inspiration from \textcite{Saatci2010, Wilson2013} on change point kernels to include in the \gls{wp} models.
+
+Other types of neuroimaging data, such as local field potential time series data, often include outliers.
+If such outliers cannot be discarded as anomalies, but are expected under the scientific framework to be biologically insightful, this limits methods such as the \gls{wp}.
