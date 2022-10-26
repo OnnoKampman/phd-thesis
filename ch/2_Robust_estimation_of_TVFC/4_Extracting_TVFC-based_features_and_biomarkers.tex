@@ -1,0 +1,154 @@
+\clearpage
+\section{Extracting TVFC-based features and biomarkers}
+\label{sec:tvfc-feature-extraction}
+%%%%%
+
+\info[inline]{Paragraph: Introduce importance of feature extraction.}
+For a given scan, we estimate \gls{tvfc} as a rather large $N \times D \times D$ tensor.
+This contrasts \gls{sfc} analyses, where the $N \times D$ data is typically \emph{reduced} in dimensionality to~$D \times D$.
+%
+In most practical settings and applications, however, we wish to study more interpretable features.
+Therefore, it is important to extract features (or \emph{biomarkers} in neuroscientific and clinical contexts) from our predicted correlation structure.
+Here we discuss several of such features that will be used in the ensuing chapters.
+Details on how exactly they are computed and their relevance for cognition and depression will be discussed in the respective chapters.
+
+\info[inline]{Paragraph: Discuss what we want from extracted features.}
+Any data processing step cannot add any information, but merely destroy it.
+Therefore, feature extraction should encompass information preservation while removing redundant information (for the particular task at hand) and noise.
+If we desire to use our estimated \gls{tvfc} in some practical application to make predictions, perhaps this estimation can be skipped and models can be trained directly on node time series data.
+However, in our context we are interested in the covariance structure itself; as a wiring diagram of the functional interactions within the brain.
+%
+Extracting features is a crucial step when planning to run any supervised learning algorithm.
+In fact, it has been argued that strong performance of artificial neural networks may largely be due to their ability to automatically extract meaningful features from data (in contrast to features hand-crafted by humans).
+
+%%
+\subsection{TVFC summary measures}
+\label{subsec:tvfc-summary-measures}
+%%
+
+One common way to extract features in \gls{tvfc} neuroimaging is to take edge-wise summary measures (or \emph{statistics}) across time.
+%
+Typical summary measures include the mean~\parencite[analogous to \gls{sfc} estimates; sometimes considered the connection `strength', see e.g.][]{Choe2017} and standard deviation or variance~\parencite[see e.g.][]{Chang2010, Hutchison2013b, Kucyi2013, Kucyi2014, Kaiser2015, Demirtas2016, Choe2017}.
+Variance (or standard deviation) is sometimes interpreted to represent connectivity `stability' or `flexibility'~\parencite[see e.g.][]{Allen2014}.
+However, we need to be vigilant with vague terminology and premature interpretations.
+
+More precisely, \gls{tvfc} means are calculated as
+\begin{equation}
+  \mu_{i,j} = \frac{1}{N} \sum_{n=1}^N \mathbf{\Sigma}_{n,i,j},
+\end{equation}
+and \gls{tvfc} variances are calculated as
+\begin{equation}
+  \sigma^2_{i,j} = \frac{1}{N} \sum_{n=1}^N (\mathbf{\Sigma}_{n,i,j} - \mu_{i,j})^2,
+\end{equation}
+for the edge between nodes $1 \leq i \leq D$ and $1 \leq j \leq D$.
+
+Here we propose an additional summary measure, the \gls{tvfc} \textbf{rate-of-change}, defined as the mean absolute relative difference per subsequent time steps:
+\begin{equation}
+  r_{i,j} = \frac{1}{N-1} \sum_{n=2}^N | \frac{\mathbf{\Sigma}_{n,i,j}}{\mathbf{\Sigma}_{n-1,i,j}} - 1 |,
+\end{equation}
+for the edge between nodes $1 \leq i \leq D$ and $1 \leq j \leq D$.
+This summary measure captures how smooth a time series is over time (i.e.~the smoothness of the estimated \gls{fc} time series in our case).
+It is more informative of \gls{fc} frequency amplitudes, and is akin to \gls{fc} `variability' as described in \textcite{Allen2014}.
+To illustrate its relevance, this summary measure can distinguish two sine waves with identical mean and variance, yet oscillating at different frequencies (see e.g. \cref{fig:synthetic-covariance-structures}).
+As such it is complementary to the other two summary measures.
+
+%%
+\subsection{Brain states and related metrics}
+\label{subsec:brain-states}
+%%
+
+Another common way to reduce the dimensionality of \gls{tvfc} estimates is to assume that the estimated covariance structure at each time point can be characterized as a certain `brain state' (or `\gls{fc} state')~\parencite{Kringelbach2020}.
+Such states are short-term, recurring spatial activity \gls{fc} patterns across time and subjects.
+%
+The existence of such a state-space structure in the brain has been shown to be a valid view~\parencite{Deco2015}.
+%
+These states can be insightful on their own, or can be used as extracted features.
+For example, \textcite{Rashid2016} showed that schizophrenia patients spend more time in low-contrast states.
+One exciting aspect of the construct of brain states is that they can be synthesized across species and imaging modalities (e.g.~with microstates in \gls{eeg}, see \textcite{Allen2014} for further discussion).
+As such they can serve as a common language to bridge multiple levels of neuroscientific research.
+
+Brain states are typically extracted either by using $k$-means clustering on estimated \gls{tvfc}~\parencite[see e.g.][]{Allen2014, Abrol2016, Zhi2018, Hakimdavoodi2020} or using models (usually \glspl{hmm}, see \cref{subsec:state-based-models}) that have this states assumption baked into their definition~\parencite{Lurie2020}.
+In such latter cases we do not estimate the full \gls{tvfc} tensor.
+Thus, certain information is lost in the process.
+
+Here we extract brain states from estimated \gls{tvfc} using the original $k$-means algorithm described in \textcite{Lloyd1982}.
+All estimated correlation matrices for all~$N$ time steps and all subjects are concatenated and fed into this algorithm.
+The $k$-means algorithm requires a pre-specified number of clusters~$k$.
+One common trick to determine this number is to plot an `elbow curve'~\parencite[see e.g.][chapter 5.5]{Everitt2011}.
+Such a plot computes the summed distance between each correlation matrix and its closest (i.e.~assigned) basis state for a range of values of~$k$.
+The optimal value of~$k$ is then chosen as the one where this curve has an `elbow'; that is, after which the curve is relatively linear and after which adding another cluster does not result in a big decrease thereof.
+%
+Perhaps surprisingly, most studies using brain states to summarize the brain's activity find a relatively small number of distinct states, for example 3 in \textcite{Choe2017, Dini2021} and 12 in \textcite{Vidaurre2017}.
+
+Even though the \gls{wp} is not constrained in estimating \gls{tvfc} in grid-like fashion, we do this for extracting brain states to allow for better comparison to other methods.
+However, we could estimate as many covariance matrices at as high of a temporal resolution as we like for this task.
+%
+Furthermore, some studies have relaxed the assumption that participants are assigned to a single state, and learn a weight vector over all basis states instead for each time step~\parencite{Leonardi2014}.
+Such an approach again blurs the boundary between the continuous modeling of brain activity and viewing the brain as a state-space system.
+The latter view is still debated~\parencite[see][for an excellent discussion on the potential and shortcomings of the brain states framework]{Keilholz2017}.
+
+%%
+\subsubsection{Brain state metrics}
+%%
+
+If our estimation method produces brain states, we can also extract interpretable features from these.
+These include global metrics such as brain state switching rate (how frequently participants switch between states),
+and state-specific metrics such as occupancy rate and dwell time (the relative time participants spend in each state).
+
+%%
+\subsection{Graph theoretic analysis}
+\label{subsec:graph-theoretic-analysis}
+%%
+
+Yet another common feature set extracted from \gls{tvfc} is to (mathematically) represent brain network connectivity as a graph and then compute graph theoretic metrics~\parencite{Sporns2011}.
+Such approaches can be used to study topological properties of brain networks and the properties of connectivity in the brain.
+In graph theory, brain \glspl{roi} are represented as \textbf{nodes}.
+The \textbf{edges} between brain regions can take many forms.
+Throughout this thesis we will use the terminology of nodes and edges to describe brain regions and their respective connections.
+
+It is common to use \gls{rs-fmri} and define edge strength as a given \gls{fc} metric (often, and in our case as well, correlation).
+Edges can be thresholded and binarized, but weighted graphs are also common.
+Standard graph approaches are typically used on graphs defined by \gls{sfc}, such as decomposing networks into modules~\parencite{Betzel2016}, detecting hubs, and computing graph metrics.
+Such graph metrics fall into one of three categories: global properties (e.g.~global efficiency and path length), modularity, and local properties (e.g.~clustering).
+
+Neuroscientists have increasingly adopted techniques from the field of network science.
+Graph theoretic concepts such as centrality, efficiency, network modularity~\parencite{Zalesky2014}, and community structure have been extracted from brain networks.
+For dynamic networks, such changes have been related to learning~\parencite{Bassett2011}.
+Such dynamic changes have had a significant impact on basic neuroscience in understanding concepts such as the dynamics of integration and segregation in the brain, including in understanding disorders such as depression~\parencite{Gong2015}.
+
+Some controversy remains in graph theoretic studies.
+First of all, some graph metrics may not be applicable to the data at hand.
+Graph \emph{efficiency}, for example, assumes causal connections between nodes, and may not be valid in (undirected) graphs defined by \gls{fc}~\parencite{Chen2017}.
+Secondly, the interpretation of graph metrics often leaves much to speculation.
+
+%%
+\subsubsection{Dynamic graph theoretic metrics}
+%%
+
+As this thesis is concerned with dynamics of brain activity, we would want to study time-varying properties of graphs and graph theoretic metrics.
+However, this field has not received much attention yet.
+%
+In the simplest case these could be summary measures of graph metrics across time again.
+\textcite{Zalesky2014} demonstrated the synthesis of \gls{tvfc} with graph theory.
+Some dynamic graph studies have been run~\parencite{Bassett2011, Bassett2013}.
+This is a relatively newer approach, but we may take inspiration from the field of temporal network theory~\parencite{Holme2012, Yu2015, Thompson2017}.
+
+%%
+\subsection{Feature extraction from models}
+\label{subsec:model-features}
+%%
+
+Instead of merely describing or estimating covariance, such as the \gls{sw} approach, the \gls{wp} is a generative model.
+Like \gls{dcc}, it is a model-based approach.
+Thus, we have a full model for each scan and subject.
+Assuming we have good model of the underlying process, we may be able to extract relevant process or subject features.
+
+An example would be the learned \gls{wp} kernel length scale $l$, see \cref{eq:matern}, which could be extracted from the trained models and compared between subjects and scan times.
+The reverse may also be interesting.
+For example, in a similar Bayesian model approach, \textcite{Li2019a} defined the prior for their \gls{gp} length scale based on their expectation to find frequency dynamics close to the theta range (4-12 Hz).
+%
+With this in mind, we can make model choices that explicitly return interpretable and cognition-relevant features.
+However, \glspl{gp} (and related models) are not generally considered to be good at feature extraction, since we encode a lot of the data structure into the kernel choice.
+This leaves only several hyperparameters that dictate the data description.
+Instead, deep learning models might be better feature extractors, although the flipside is that these typically require a lot of data.
+Overall, we consider model-based approaches a promising direction for feature extraction, but one that requires much work still.

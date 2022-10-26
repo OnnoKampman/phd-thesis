@@ -1,0 +1,84 @@
+\chapter{Robust estimation of TVFC}
+\label{ch:methods}
+%%%%%
+
+\info[inline]{Paragraph: Overview of chapter.}
+In this chapter we frame and define the problem of \gls{tvfc} estimation.
+We describe key established methods for this task and the development of new ones; the \gls{wp} in particular.
+Additionally, we motivate the importance and describe several ways of extracting features or \emph{(bio)markers} from \gls{tvfc}.
+These will be used in further analyses in the following chapters.
+%
+Furthermore, we discuss how to compare and evaluate these methods, in order to weigh which one we ought to use.
+Our aim is to develop \emph{robust} \gls{tvfc} estimation methods.
+Above all, we need to convince \emph{ourselves} that any method we opt to use is valid.
+In the words of the legendary physicist Richard~Feynman: ``The first principle is that you must not fool yourself, and you are the easiest person to fool''.
+%
+This chapter closes with a short discussion on the nature of estimation methods.
+
+\info[inline]{Paragraph: Frame TVFC estimation as covariance structure estimation problem.}
+The estimation of \gls{tvfc} (as we have narrowly defined it in the introduction to this thesis) is a particular form of the more general problem of covariance structure estimation.
+This problem has been of interest to statisticians and computer scientists for a long time.
+It has been studied extensively in the machine learning and econometrics (e.g.~modern portfolio theory) communities.
+%
+However, each application domain has its own unique characteristics.
+Directly copying approaches and methods is not sufficient.
+For example, those who study financial markets are mostly interested in using covariance structure modeling to estimate \emph{future} events and returns.
+Neuroscientists typically are not interested in such forecasting.
+
+\info[inline]{Paragraph: Introduce concept of covariance.}
+To recap, the \textbf{covariance} between two random variables $X$ and $Y$ is defined as the expected value of the product of the deviations of these variables from their individual expected values (i.e.~means):
+\begin{equation}
+  \begin{aligned}
+    \sigma_{xy} & = \mathbb{E}[(X - \mathbb{E}[X])(Y - \mathbb{E}[Y])] \\ & = \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y].
+  \end{aligned}
+  \label{eq:covariance}
+\end{equation}
+It is a \emph{linear} measure of joint variability of random variables.
+A \textbf{covariance matrix} ($D = 2$ dimensional in this case; a.k.a.~variance matrices) collects all such covariances and is defined as
+\begin{equation}
+  \mathbf{\Sigma} = \begin{bmatrix}
+    \sigma_x^2  & \sigma_{xy} \\
+    \sigma_{xy} & \sigma_y^2
+  \end{bmatrix},
+\end{equation}
+where~$\sigma_x^2$ and~$\sigma_y^2$ are the respective \textbf{variances} of the random variables, and $\sigma_x$ and $\sigma_y$ are called the respective \textbf{standard deviations}.
+Covariance matrices are required to be symmetric (i.e.~$\mathbf{\Sigma} = \mathbf{\Sigma}^T$) and positive semi-definite (having only positive eigenvalues, i.e.~$\mathbf{v}^T \mathbf{\Sigma} \mathbf{v} \geq 0$ for all vectors $\mathbf{v} \in \mathbb{R}^D$).
+The converse is true as well; every symmetric, positive semi-definite matrix is a covariance matrix.
+The inverse of a covariance matrix $\mathbf{\Sigma}^{-1}$ is called a precision matrix.
+
+\info[inline]{Paragraph: Introduce concept of Pearson correlation.}
+As discussed previously, in the study of \gls{fc} it is more common to use Pearson correlation coefficients instead of covariance.
+These are \emph{dimensionless} measures of linear dependence.
+They can be understood as a normalized version of covariance.
+As such, they are more interpretable and easier to work with.
+Correlation values are bound to range~$[-1,1]$, where a correlation of~1~indicates perfect correlation (i.e.~it is possible to draw a straight line that perfectly fits all data),~-1~indicates perfect anti-correlation, and~0~indicates uncorrelation (which does \emph{not} imply independence).
+The Pearson correlation coefficient can be interpreted as a measure of how well the optimal linear function describing the random variable relationship fits the data.
+A (Pearson) \textbf{correlation matrix} is defined as
+\begin{equation}
+  \label{eq:correlation-matrix}
+  \mathbf{\Sigma} = \begin{bmatrix}
+    1 & \frac{\sigma_{xy}}{\sigma_x\sigma_y} \\
+    \frac{\sigma_{xy}}{\sigma_x\sigma_y} & 1
+  \end{bmatrix}.
+\end{equation}
+If all random variables considered have standard deviation (and variance) equal to~1, the covariance and correlation matrix are identical.\footnote{In fact, this is often the case, as normalizing time series variance is common practice in \gls{fc} studies~\parencite[see e.g.][]{Beckmann2004, Allen2014}.}
+Throughout this thesis, \gls{fc} refers to this correlation metric.
+All plots will show correlation estimates instead of covariance estimates.
+%
+We will refer to a single \gls{fc} correlation matrix as a connectivity \emph{state}, and refer to this correlation matrix as a function of time (i.e.~\gls{tvfc}) as covariance or correlation \emph{structure} (used interchangably).
+%
+On a cautionary note, using the Pearson correlation as connectivity measure may be too simple.
+It assumes that time series are homoscedastic, meaning the variance across a brain scan is homogenous.
+Furthermore, this measure is known to be heavily skewed by outliers.
+It also does not make any claims of \emph{directionality}.
+
+\info[inline]{Paragraph: Outline of this chapter.}
+The rest of this chapter is organized as follows.
+Firstly, we discuss established and commonly used \gls{tvfc} estimation methods in the field, and our particular implementation of them.
+Then, we discuss how to run the \gls{sw} method in a principled and improved way using cross-validation.
+Afterwards, we discuss a proposed new method for estimating \gls{tvfc}: the \gls{wp}.
+Then, we discuss how a range of features~\parencite[or \emph{biomarkers} as they are often called in the context of neuroimaging, see e.g.][]{Woo2017, Douw2022} can be extracted from such estimated \gls{tvfc} and the estimation methods discussed.
+%
+Finally, we discuss a framework of benchmarks by which we can robustly assess and compare method performance.
+%
+We quickly discuss key methodological issues and controversies before moving on to the empirical studies.

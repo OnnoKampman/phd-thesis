@@ -1,0 +1,149 @@
+\clearpage
+\section{Established methods and baselines}
+\label{sec:established-methods}
+%%%%%
+\info[inline]{Section: Introduce key and established TVFC estimation methods.}
+
+In this section we briefly describe established, state-of-the-art, and popular \gls{tvfc} estimation methods in the field.
+Only methods that are used as baseline methods for comparison in our benchmarks and experiments are discussed in more detail.
+
+%%
+\subsection{Static functional connectivity}
+%%
+
+\info[inline]{Paragraph: Introduce static functional connectivity estimation.}
+Any proposed \gls{tvfc} estimation method has to be compared with a \emph{static} (time-invariant) analysis.
+The \gls{sfc} approach makes the implicit assumption that the covariance between random variables of interest (e.g.~brain region time series) does not change across time (i.e.~any arbitrary length of scanning session).
+Statistically, it assumes that node time series are \emph{stationary}, and thus that connectivity can be considered a \emph{global} property.
+This approach extracts the \emph{general} functional architecture of a particular subject, instead of the moment-to-moment functional interactions.
+%
+The inclusion of \gls{sfc} in any analysis serves as a sanity check.
+The mean of \gls{tvfc} estimates should be similar to the \gls{sfc} estimate.
+Furthermore, if a \gls{tvfc} estimation method cannot outperform the \gls{sfc} estimate on some task, this may either indicate that there is no (relevant) dynamic signal in the data set, or that the estimation method is flawed.
+
+\info[inline]{Paragraph: Describe our static functional connectivity estimation.}
+A standard covariance \gls{sfc} approach simply computes the covariance between nodes (i.e.~time series) across the entire brain scan duration as in \cref{eq:covariance}:
+\begin{equation}
+  \begin{aligned}
+    \sigma_{ij} & = \mathbb{E}[(y_i - \mathbb{E}[y_i])(y_j - \mathbb{E}[y_j])] \\ & = \frac{1}{N} \sum_{n=1}^N (y_{i,n} - \bar y_i)(y_{j,n} - \bar y_j),
+  \end{aligned}
+\end{equation}
+where $\sigma_{ij}$ is the covariance between variables $y_i$ and $y_j$ (two different brain region \gls{bold} time series) for their $N$ observations in the entire time series, for $1 \leq i \leq D$ and $1 \leq j \leq D$.
+The respective Pearson correlation coefficient is then given by
+\begin{equation}
+  \label{eq:sfc-estimation}
+  \rho_{ij} = \frac{\sigma_{ij}}{\frac{1}{N} \sqrt{\sum_{n=1}^N (y_{i,n} - \bar y_i)^2 \sum_{n=1}^N (y_{j,n} - \bar y_j)^2}}.
+\end{equation}
+When $D > 2$, the full estimated correlation matrix can be estimated by looping over all edges in pairwise fashion.
+Although \gls{sfc} estimates in neuroimaging are typically computed as described here, there are many other versions available, for example using sparsity-inducing penalties~\parencite{Foti2019}.
+%
+Since we assume (or enforce) all $\bar y_i$ to be zero, perhaps the simplest connectivity estimate is the covariance matrix \gls{mle}:
+\begin{equation}
+  \hat{\mathbf{\Sigma}}^{MLE} = \frac{1}{N} \sum_{n=1}^N \mathbf{y}_{n} \mathbf{y}_{n}^T.
+\end{equation}
+However, in this work we use the unbiased estimator instead:
+\begin{equation}
+  \hat{\mathbf{\Sigma}} = \frac{1}{N - 1} \sum_{n=1}^N \mathbf{y}_{n} \mathbf{y}_{n}^T.
+\end{equation}
+For larger values of $N$ this difference becomes negligible.
+
+%%
+\subsection{Sliding-windows functional connectivity}
+\label{subsec:sliding-windows-fc}
+%%
+
+\info[inline]{Paragraph: Introduce sliding-windows functional connectivity estimation.}
+Albeit criticism, \gls{tvfc} estimation methods based on \gls{sw}~\parencite{Chang2010, Sakoglu2010, Allen2014, Shakil2016, Preti2017} are still the most commonly used throughout the neuroscience literature~\parencite{Lurie2020}.
+%
+This approach slides (or \emph{rolls}) a time window of a certain size (length)~$w$ and shape (e.g.~square, Gaussian) across the observations (typically with a step size of a single volume), and estimates the covariance or correlation as for the \gls{sfc} case in \cref{eq:sfc-estimation} for each step.
+As such it can be considered a (weighted) moving average.
+The benefits of using \gls{sw} include that it is well-established, computationally cheap, and simple to implement.
+
+\info[inline]{Paragraph: Discuss variations on sliding-windows functional connectivity.}
+Many variations on this method exist and how to best implement \gls{sw} methods has been studied extensively~\parencite[see e.g.][]{Mokhtari2019, Vergara2019}.
+One popular way to reduce sensitivity to outliers is \emph{tapered} \gls{sw}.
+This approach assigns less weight to observations further away from the center of the window~\parencite{Allen2014, Lindquist2014}.
+Effectively this just changes the shape of the window from rectangular/square into e.g.~a Gaussian curve.
+%
+Rules of thumb have been established regarding window length~$w$ and necessary data preprocessing steps.
+%
+The lack of consistency across studies in implementation of \gls{sw} is sub-optimal as it makes comparison across studies harder.
+Furthermore, stacking heuristics does not scale.
+Typically this situation is when we should start applying machine learning techniques~\parencite[][built this case beautifully]{Zinkevich2015}.
+
+\info[inline]{Paragraph: Discuss problems with sliding-windows functional connectivity.}
+The main problem with this method is that without knowing the underlying process (i.e.~covariance structure from brain dynamics), it is hard to pick the right window length.
+%
+The \gls{sw} approach is also not a \emph{model-based}~\parencite{Foti2019} or \emph{data-driven} approach.\footnote{In neuroscientific context, `data-driven' refers to extracting insights directly from data in a relatively unbiased manner. It is often juxtaposed to `hypothesis-driven' or `theory-driven' approaches.}
+Furthermore, the desired behavior at the start and end of the time series is not clear.
+See \textcite{Lindquist2014, Leonardi2015, Hindriks2016} for more important nuances and pitfalls of \gls{sw} methods.
+
+\info[inline]{Paragraph: Discuss our particular implementation.}
+In all experiments and benchmarks that follow in this thesis we implement a standard \gls{sw} approach to mimic a typical (often non-technical) investigator interested in using the construct of \gls{tvfc} to study the brain.
+Researchers are generally recommended to use a window length between 30 and 60 seconds~\parencite{Shirer2012}.
+Therefore, we implement both of these window lengths to test the limit cases.
+We implement the rectangular (non-tapered) window, with a step size of a single volume.
+We follow the rule of thumb proposed by \textcite{Leonardi2015} and high-pass filter the data to remove frequency components below $\frac{1}{w}$ before running the \gls{sw} algorithm.\footnote{\textcite{Smith2012} and \textcite{Hutchison2013} made similar suggestions.}
+Zeros are padded to the start and end of node time series to allow for computing the correlation coefficients around those locations.
+
+%%
+\subsection{Multivariate GARCH}
+%%
+
+\info[inline]{Paragraph: Introduce MGARCH.}
+A commonly used and in many applications unsurpassed algorithm for modeling time-varying covariance structures is the multivariate version of the \gls{garch}~\parencite{Engle1982, Bollerslev1986} process.
+This class of methods was first described and used in econometrics.\footnote{In this field they are commonly referred to as multivariate volatility models. In fact, methods for analyzing economic time series with time-varying volatility are deemed so important that Robert Engle and Clive Granger won the 2003 Nobel prize for their contribution to their development.}
+Work on \gls{mgarch} models is still primarily motivated by financial applications.
+In such contexts, the prediction task at hand is typically to forecast the next value(s).
+This may not typically be the case for neuroscientists (see also \cref{subsec:imputation-benchmark}).
+%
+\textcite{Lindquist2014} introduced this method for estimating \gls{tvfc}, and it has been used in many studies since~\parencite[see e.g.][]{Choe2017, Preti2017, Foti2019, Hakimdavoodi2020}.
+Factored models using low-rank decompositions to deal with high dimensions have been applied to \gls{eeg} sensor data~\parencite{Nakajima2017}.
+We discuss similarly factored models for the \gls{wp} in \cref{subsec:model-extensions}.
+%
+In their early model comparison study, \textcite{Lindquist2014} showed that this method outperforms a naive \gls{sw} approach in many ways (even after post-hoc selection of the optimal fixed window length).
+It should not come as a surprise then that methods based on \gls{sw} are not used in finance.
+%
+A commonly cited reason for the use of \gls{mgarch} in modelling financial time series is that they contain a lot of noise, requiring the use of stochastic methods.
+We argue that neuroimaging time series share these data characteristics.
+
+\info[inline]{Paragraph: Describe MGARCH algorithm.}
+Many versions and implementations of \gls{mgarch} models exist, as they describe a general \emph{family} of models~\parencite[see][for an extensive overview]{Silvennoinen2009}.
+%
+The general \gls{mgarch} framework considers a zero mean vector stochastic process $\mathbf{y}_n \in \mathbb{R}^D$ with time-varying covariance structure $\mathbf{\Sigma}_n$:
+\begin{equation}
+  \mathbf{y}_n = \mathbf{\Sigma}_n^{\frac12} \mathbf{\eta}_n,
+\end{equation}
+where $\mathbf{\eta}_n$ is an i.i.d. white noise vector process.
+As this is an autoregressive process, $\mathbf{\Sigma}_n$ is only conditioned on all observation up until time $n - 1$.
+It assumes that the variances of the individual node time series follow a vector autoregression (VAR) process.
+%
+Our job as the modeler is then to model $\mathbf{\Sigma}_n$, for which several options exist.
+In this thesis, we only consider and report the \gls{dcc} model.
+With its introduction, \textcite{Engle2002} showed it to outperform other \gls{mgarch} variants.
+It is by far the most common variant used in \gls{rs-fmri} analyses, which allows for better comparison.
+Furthermore, \textcite{Heaukulani2019} found the \gls{dcc} variant to outperform the generalized orthogonal~(GO) \gls{garch} model, which is another popular \gls{mgarch} variant.
+We implemented this latter variant and found it consistently outperformed by \gls{dcc}.
+It is therefore omitted from this work.
+
+\info[inline]{Paragraph: Describe DCC implementation.}
+More specifically, throughout this thesis, we implement DCC(1,1)-GARCH(1,1) using the open-source \texttt{R} (version 4.1.0) package \texttt{rmgarch}~\parencite{Galanos2022}.
+One of the benefits of this method is that it is well-understood and that convenient off-the-shelf implementations exist.
+\Gls{mgarch} has a number of free parameters, although these are often hard to interpret and scale with data dimension to the fourth power~\parencite{Silvennoinen2009}.
+\Gls{mgarch} models are known to scale poorly to higher dimensions, although workarounds have been proposed~\parencite[see e.g.][]{Nakajima2017}.
+Therefore, \textcite{Gourieroux2009} claimed that these models are typically limited to studying $D < 6$ components.
+
+%%
+\subsection{State-based models}
+\label{subsec:state-based-models}
+%%
+
+For completeness, we briefly review state-based models.
+These models are sometimes referred to as \emph{switching} models.
+They assume a state-space structure of brain activity, consisting of recurring \gls{fc} patterns (see \cref{subsec:brain-states} for more details on this brain state construct).
+If such an assumption is made, it makes sense to incorporate this in a model.
+
+The dominant model used for this is the \gls{hmm}~\parencite[see e.g.][]{Vidaurre2017, Ahrends2022}.
+It assumes the brain state stochastic process (often called a \emph{chain} in this context) to model is Markovian, meaning the probability of finding oneself in a given state in the sequence of all states only depends on the previous state.
+However, these states are modeled as `hidden' (i.e.~latent).
+The observable process $\mathbf{y}_n$, the \gls{bold} node time series, is then used to infer the underlying hidden brain state process.
