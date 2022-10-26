@@ -1,0 +1,44 @@
+\clearpage
+\section{The trouble with estimating TVFC}
+%%%%%
+
+\info[inline]{Paragraph: Overview, scope, and importance of problem of TVFC estimation.}
+One of the main reasons for the lack of understanding of \gls{tvfc} as a construct and its cognitive relevance is that the field still lacks a robust way of estimating \gls{tvfc}~\parencite{Foti2019, Lurie2020}.
+Many estimation methods are used in practice, and many more have been proposed.
+\gls{tvfc} estimations vary wildly across different estimation methods, and, as we will see, this results in different predictive power of subject measures (including clinical measures).
+Consequently, experimental and scientific conclusions are heavily influenced by the (seemingly arbitrary) choice of estimation method.
+This compounds onto the already large number of reseacher `degrees of freedom' present in \gls{fmri} analyses~\parencite{Gelman2013, Dafflon2022}.
+This motivates the careful and robust development of \gls{tvfc} estimation methods.
+
+\info[inline]{Paragraph: Introduce common estimation methods.}
+Common \gls{tvfc} estimation approaches include \gls{sw} methods~\parencite{Sakoglu2010, Chang2010}, multiplication of temporal derivatives~\parencite{Shine2015}, phase coherence models~\parencite{Glerean2012}, \gls{mgarch} methods~\parencite{Lindquist2014, Choe2017, Xie2019}, a range of customized Bayesian models~\parencite[see e.g.][]{Taghia2017, Lan2017, Warnick2018, Li2019b, Ebrahimi2020}, wavelet methods~\parencite{Park2014, Zhang2016}, and phase synchronization models~\parencite{Varela2001, Glerean2012, Demirtas2016, Honari2021}.
+Each of these has a range of variants and tweaks as well.
+We need to be careful with comparing these approaches head-to-head, as many of these methods extract a slightly different aspect of \gls{tvfc}, where some focus more on frequency-space information, others model change points better, and some are autoregressive whereas others are not.
+Moreover, it is often not clear what connectivity measure is of interest for answering a particular scientific question.
+This lack of clarity is another major hurdle in the field.
+%
+Part of the problem is that the target audience of proposed methods differs.
+Many of the more advanced model proposals address a very technical audience.
+This makes practical adoption unlikely.
+Additionally, such more principled and thoughtful methods are often published without clean and stable code.
+These factors have led to a misalignment between thoughtful modeling experts that develop better methods and their envisioned end users, who (understandably) still often default to the simple and practical \gls{sw} approach.
+%
+In \cref{sec:established-methods} we will go into more technical detail on the methods considered in this thesis.
+%
+Although we only consider time domain methods, time-frequency parameters can still be extracted from learned model parameters, as we shall see.
+Even though not every method is considered, when setting up the benchmarks it should be relatively straightforward to include another method to our comparison framework.
+
+\info[inline]{Paragraph: Explain why method selection is hard.}
+The lack of a ground truth correlation makes method selection a hard problem.
+This explains why the field has not settled on a single approach.
+%
+In their review, \textcite{Lurie2020} noted the pitfall of studying \gls{rs-fmri} \gls{tvfc} of lacking clear benchmarks.
+They also notd that \gls{rs-fmri} has already gone through similar controversies in its early days.
+This invites us to learn from its respective journey as a field.
+
+\info[inline]{Paragraph: State how we address this problem.}
+How do we then determine how to estimate \gls{tvfc}?
+This thesis aims to answer this question.
+In short, we propose a suite of data science problems; a range of \emph{benchmarks} (see \cref{sec:benchmark-framework}).
+These benchmarks are designed to capture and illuminate various estimation method attributes, strengths, and weaknesses.
+Overall, the results then provide an overview of method performance and failure modes.

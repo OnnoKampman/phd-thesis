@@ -1,0 +1,32 @@
+\clearpage
+\section{Outline and contributions of thesis}
+%%%%%
+
+\info[inline]{Paragraph: Overview methods development.}
+In this thesis we propose a novel method, the \gls{wp}, to estimate \gls{tvfc} in a more principled and robust way.
+Similar in spirit to the \gls{gp}, these models learn a distribution over (covariance) matrix-valued functions (where \glspl{gp} learn a distribution over scalar-valued functions).
+This class of models has become a practical possibility in neuroimaging recently, due to advancements in approximate inference routines~\parencite{Heaukulani2019} and easy-to-use computational libraries~\parencite{Matthews2017}.
+To address the practical difficulty of estimating \gls{tvfc}, we release all models and software into an open-source code repository.
+We welcome researchers and practitioners to provide feedback or to add other estimation methods to this repository.
+
+\info[inline]{Paragraph: Overview benchmarking.}
+Furthermore, we propose an extensive benchmarking framework to compare \gls{tvfc} estimation methods.
+We compare our new method to baseline approaches, such as an improved version of the \gls{sw} approach and \gls{mgarch} models.
+We discuss desired qualitative properties of \gls{tvfc} estimation methods and how they may influence which method to use.
+
+\info[inline]{Paragraph: Overview depression study.}
+Lastly, we apply this robust method (the `winner' of the benchmarking efforts) in a large, exploratory clinical study, seeking to contrast depressed and healthy individuals.
+Multiple depression phenotypes and \gls{tvfc} metrics are studied to provide a rich multiverse of scientific insight.
+
+\info[inline]{Paragraph: Provide thesis outline.}
+In \cref{ch:methods} we go through established \gls{tvfc} estimation methods, our new approach, as well as the benchmarking framework used to compare estimation methods.
+The remaining (experimental) chapters are about applying these methods.
+They are structured in ascending order of complexity and practicality, starting with simple, synthetic data sets to real, large-sample resting-state and task-based \gls{fmri} data in \cref{ch:benchmarking}, to the application in a large population study in \cref{ch:ukb}.
+In \cref{ch:discussion} we review and interpret our results, and set out directions for future work.
+
+\info[inline]{Paragraph: Final comments before wrapping up the introduction.}
+We hope this thesis and accompanying software package can help researchers make more robust \gls{tvfc} brain connectivity estimates and shed more light on what we can infer from this construct.
+Moreover, we hope it contributes to the understanding of how depression is related to the (dynamic) functional architecture of the human brain.
+%
+As we are in an interdisciplinary field, we have aimed for this thesis to be readable for as broad of an audience as (reasonably) possible, from psychologists to neuroscientists to machine learning experts to clinicians and beyond.
+This means, for example, that we have taken special care in aligning jargon across these disciplines.
