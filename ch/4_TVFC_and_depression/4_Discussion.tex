@@ -1,0 +1,131 @@
+\clearpage
+\section{Discussion}
+\label{sec:ukb-discussion}
+%%%%%
+
+Taking a step back, we review what these study results have taught us, reflect on the differences in results between the various depression phenotypes, and discuss the importance of \gls{tvfc} estimation method choice.
+A further discussion on the bigger picture and an outlook on depression research can be found in \cref{subsec:outlook-depression}.
+
+%%
+\subsection{Interpretation of results}
+%%
+\info[inline]{What are the implications of our results for the understanding of depression?}
+
+Functional connectivity can be hard to interpret.
+What does it really mean when a \gls{tvfc} summary measure varies across cohorts?
+To answer this we can link up the results with prior findings and current understanding of neural activity in the brain.
+This places our data and results within the broader context.
+%
+In terms of the mean \gls{tvfc} estimate, this has often been considered connectivity `strength'.
+Correlation between time series can be generally decreased for a number of reasons.
+Brain activity in depressed participants could just be more noisy, for example, representing a less efficient and more chaotic functional architecture.
+Confounding factors could play a role as well.
+Perhaps we are merely picking up on a cohort contrast in general arousal or drowsiness.
+However, we do pick up more strongly on certain edges.
+These particular edges should be studied in more detail.
+%
+In terms of the dynamic summary measures (variance and rate-of-change), interpretation is perhaps even harder.
+There is also less reference material.
+Higher values here could represent a functional architecture whose connections change more dramatically and more frequently, indicating a less stable organization.
+Whether this is maladaptive or not depends on context.
+Some studies have shown that in the case of schizophrenia, patients are stuck in prefrontal networks more so than \glspl{hc}.
+As such a higher degree of \gls{tvfc} variation across time may be the sign of a healthy, flexible brain.
+However, in our study we consistently find dynamics to be \emph{increased} with depression.
+
+In general we find certain edges and \glspl{roi} to be more implicated than others.
+Perhaps surprisingly we find the \gls{amg} to be less relevant compared to the \gls{hpc} and \gls{ai}.
+Many studies found the \gls{amg} to be affected, and show hypoconnectivity with \gls{pfc}~\parencite{Dannlowski2009, Burghy2012, Kong2013, Connolly2017}.
+Furthermore, we did not replicate one of the most reproduced findings: that of \emph{increased} \gls{dmn} connectivity~\parencite{Kaiser2015, Kaiser2015b, Mulders2015, Kaiser2016}.
+
+%%
+\subsection{Varying results across depression phenotypes}
+\label{subsec:variation-depression-phenotypes}
+%%
+
+One of the key findings of this study is that the way we define depression matters a lot.
+We find global connectivity strength decreased and the dynamics of two edges (\gls{hpc}-\gls{ofc} and \gls{dlpfc}-\gls{acc}) affected for participants that have ever been professionally diagnosed with \gls{mdd}.
+However, only one edge (\gls{hpc}-\gls{ai}) strength is affected for those self-reporting a lifetime instance.
+This could be due to the first phenotype being less subjective.
+These labels are \emph{inpatient}, so there are likely to be few false positives.
+This could increase the contrast between the cohorts.
+%
+Another explanation for this contrast could be that participants in the former category would have likely received (more) treatment, including anti-depressants.
+Such treatment may have had influence on these individuals' functional architecture.
+To illustrate, treatment (with antidepressants) has been shown to revert changes in \gls{dmn} connectivity~\parencite{Liston2014}.
+
+The other difference we can examine is treating depression as a trait and/or lifetime history (participants that are prone to developing depressive symptoms or have had them throughout their lives) and as a state (participants that were depressed during the \gls{fmri} scan).
+The main difference between the diagnosed lifetime occurrence and self-reported depressed state analyses is that the \gls{amg}-\gls{acc} connectivity strength is not significantly affected in the latter.
+Moreover, the connectivity rate-of-change edges are not affected for the depressed state cohorts.
+These differences are considered minor.
+However, the brain state analysis finds a more interesting contrast between these two paradigms.
+We found that hippocampal-prefrontal connections are more involved with lifetime history of depression, and anterior insular-prefrontal connections more involved with current depressive episodes.
+
+%%
+\subsection{Comparison to prior studies}
+%%
+
+While we compare directly to prior work, not all studies are created equal.
+Moreover, many previous findings may not replicate.
+In fact, there are many reasons for why many neuroimaging depression study results may be false or inflated~\parencite{Flint2021}.
+The large number of studies looking to use neuroimaging to separate \gls{mdd} patients from \glspl{hc} still lacks cohesion.
+Sample sizes are often considered a key issue~\parencite{Varoquaux2018, Szucs2020, Libedinsky2022, Marek2022}.
+For \gls{mdd} estimation from structural \gls{mri} for example, \textcite{Flint2021} showed that small sample sizes can dramatically inflate predictive power of models.
+We consider the large sample sizes in all benchmarks and experiments a major strength of the work in this thesis.
+
+Factors that impact the validity of direct comparison include: 1) choice of connectivity measure (e.g.~correlation or coherence), 2) choice of \gls{tvfc} estimation method, 3) source and version of data, 4) depression (phenotype) definition, and 5) parcellation procedure (e.g.~whether to study networks or regions and which atlas is used).
+These do not even include other implicit or explicit factors such as choices made regarding data preprocessing, participant exclusion criteria, software used, and a range of minor methodological decisions.
+It is our hope in this thesis to make at least \emph{one} of these factors less subjective: the choice of \gls{tvfc} estimation method.
+
+%%
+\subsection{Choice of TVFC estimation method}
+%%
+\info[inline]{Section: Reflect back on TVFC estimation method choice}
+
+What if we had used another \gls{tvfc} estimation method?
+Our conclusions may have been different.
+Repeats of the exact same analysis using other \gls{tvfc} estimation methods are shown in \cref{appendix:more-ukb-results}.
+Do we obtain the same conclusions?
+
+First of all, we see that the actual values of the estimate summary measures (apart from the mean) vary radically across estimation methods.
+If we were to be interested in these absolute values, this requires more attention.
+However, throughout this study we are primarily interested in cohort contrasts.
+
+For the diagnosed lifetime occurrence analysis, we find the \gls{dcc} methods to miss several \gls{sfc} edges, and return a completely different selection of edges for the rate-of-change summary measure compared to the \gls{svwp} method.
+%
+The \gls{sw-cv} method finds all \gls{sfc} edges to be decreased in connectivity with \gls{mdd}, replicating the global decreased connectivity strength effect.
+This is perhaps unsurprising; any reasonable estimation method would pick up the mean quite well.
+However, it returns many more significant increases in connectivity for the two dynamic summary measures (and generally much higher values than the \gls{svwp} estimates as well).
+Interestingly, it finds increased dynamic activity especially in the \gls{dlpfc}-\gls{acc} edge.
+%
+The story is similar for the two naive \gls{sw} approaches with window lengths of 30 and 60 seconds.
+Therefore, we carefully conclude that \gls{sw}-based methods would return more false positive rather than false negatives.
+Based on our simulations benchmarking in \cref{ch:benchmarking}, this may come as no surprise.
+%
+However, all estimation methods find an increased rate-of-change for the \gls{dlpfc}-\gls{acc} edge, indicating that this finding is robust to \gls{tvfc} estimation method choice.
+%
+Furthermore, all other methods do indeed find significantly increased \gls{tvfc} variance between all \glspl{fn}, in contrast to the \gls{svwp} estimates.
+As we have seen before, \gls{svwp} estimates are rather smooth compared to the other methods' estimates.
+If we are to believe our benchmarking has been executed properly, all of these findings could be interpreted as `spurious'.
+
+For the self-reported lifetime occurrence analysis, the \gls{dcc} methods do not find any significant alterations with depression across all edges and \gls{tvfc} summary measures.
+%
+All \gls{sw} methods find exactly the same single affected edge (\gls{hpc}-\gls{ai}), except for the 30-seconds \gls{sw} estimate that finds the rate-of-change to also be significantly affected for this edge.
+%
+Overall, this shows that the reduced \gls{sfc} with depression for this edge is reasonably robust across \gls{tvfc} estimation method, and should be studied further as an affected brain region connection.
+%
+For the \gls{fn} analysis, the \gls{dcc} methods do not return any significant cohort contrasts, just like the~60 seconds \gls{sw} method.
+The 30~seconds \gls{sw} returns the same differences as the \gls{svwp} model, except for missing the increased \gls{cen}-\gls{sn} rate-of-change.
+The \gls{sw-cv} approach only returns the two estimate means contrasts for the same two between-network connectivities as the \gls{svwp}.
+
+For the self-reported depressed state analysis, the \gls{dcc} methods predict a different set of edges whose mean \gls{tvfc} is affected in depression compared to both the \gls{sfc} and \gls{svwp} estimates.
+Furthermore, the joint approach returns many significantly different edges for the rate-of-change summary measure, where the pairwise implementation returns none (like the \gls{svwp} estimates).
+The \gls{sw-cv} estimates are broadly similar to the \gls{svwp} estimates, except for a curious rate-of-change \gls{pha}-\gls{mpfc} edge.
+%
+For the \gls{fn} analysis, all other \gls{tvfc} estimation methods find the same cohort contrasts.
+However, the \gls{sw} methods also find differences in \gls{tvfc} variance, which may be interpreted as false positives.
+
+For the \gls{prs} analysis, none of the other methods' estimates are significantly different for any of the edges, just like the \gls{sfc} and \gls{svwp} estimates.
+The null finding is robust across \gls{tvfc} estimation methods.
+
+Lastly, we note that any estimation method may return spurious structure or fail to pick up on certain structures.
+However, since we average across participants in cohorts, some of these failure modes may be hidden from our results.
