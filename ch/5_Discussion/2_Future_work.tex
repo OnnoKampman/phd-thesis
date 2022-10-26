@@ -1,0 +1,306 @@
+\clearpage
+\section{Future work}
+%%%%%
+
+In this section we discuss promising and exciting directions for future work.
+Some of these will address the limitations as discussed throughout this thesis.
+
+%%
+\subsection{Model extensions}
+\label{subsec:model-extensions}
+%%
+
+Here we describe several venues of future work to improve the \gls{wp} for the task of \gls{tvfc} estimation.
+
+%%
+\subsubsection{Decreasing Wishart process computational cost}
+\label{subsubsec:decreasing-wp-computational-cost}
+%%
+
+One area of concern for the practicality of the \gls{wp} is its relatively high computational cost (see \cref{subsec:svwp}).
+We propose several directions for future work to address this.
+
+Firstly, recent innovations in variational sparse \glspl{gp} that remove the need for inducing points all-together can be ported directly to \gls{wp} models~\parencite[see][]{Saatchi2011, Adam2020, Wilkinson2021}.
+This may prove useful when confronted with large values of $N$.
+%
+\textcite{Adam2020} proposed to combine the benefits of sparse \glspl{gp} with another common way of reducing \gls{gp} computational complexity; using state-space model representations.
+This scales down the number of variational parameters that need to be optimized from $\mathcal{O}(M^2)$ to $\mathcal{O}(MD^2)$.
+Our view is that in \gls{fmri} contexts, the value of $N$ is typically not a computational bottleneck, as there is a definitive ceiling on the number of volumes one can acquire in current scanners.
+However, if we wish to apply the \gls{wp} to neuroimaging modalities of much greater temporal resolution (such as \gls{eeg}), reducing computational demands from large values of $N$ will prove essential.
+Furthermore, advances in \gls{fmri} may reduce the \gls{tr} of scans.
+
+Secondly, the low rank (or \emph{factored}) implementation as discussed in \textcite{Heaukulani2019} can help in situations when $D$ (number of time series) is large.
+\textcite{Heaukulani2019} proposed a model variant~\parencite[in turn built upon work by][]{Fox2015} that may be especially relevant for the field of neuroimaging.
+It suggests to assign each node in a weighted manner to $K \ll D$ clusters, and only learn correlation structure between these clusters.
+Hereby we reduce $\mathbf{F}_n$ in \cref{eq:sigma-definition} from a $D \times \nu$ to a $K \times \nu$ sized matrix.
+This way, apart from reducing the number of model parameters, it can be seen as a dimensionality reduction step.
+%
+In fact, this may be helpful for dimensionality reduction in general in neuroimaging.
+Instead of treating each node as independent, we assign it to one of a specified number of clusters.
+Then, we only model the interaction and covariance between these clusters.
+Such an approach assumes that not every brain region can independently co-vary with each other.
+It posits an inherent \gls{fn} organization onto the brain.
+Whether it is beneficial to reduce data dimensionality before analysis (e.g.~through \gls{ica}) or allow the model to learn whether such structure is helpful, that proof is in the pudding.
+
+Finally, we emphasize that since our \gls{wp} is based on \texttt{Tensorflow} and gradient descent, we can leverage GPU-accelerated hardware.
+This can greatly improve computation times, especially as such hardware is becoming increasingly available at a lower cost.
+This stands in contrast with using sampling methods to infer model parameters.
+%
+It may be worthwile to try such sampling methods as inference routine, replacing our \gls{vi} routine.
+Especially promising may be the application of elliptical slice sampling~\parencite{Murray2010}.
+In this paradigm we may not need the mean-field assumption anymore.
+
+%%
+\subsubsection{Revisiting the zero mean assumption}
+%%
+
+Recall that in \cref{sec:wishart-process} we assumed mean function $\mathbf{\mu}_n$ to be zero(s).
+In fact, this assumption is fair if we subtract the empirical mean from data.
+%
+However, it is possible that models that include and estimate the mean function can yield better covariance estimates.
+This is a point made by \textcite{Lan2017} too.
+A natural candidate would be Gaussian process regression networks (GPRN)~\parencite{Wilson2012}.
+These models may also be necessary to model autocorrelation in data better.
+
+On the other hand, increasing model complexity comes at a price.
+But given our benchmarking framework, it is worth a try to implement such models and add them to the comparison.
+
+%%
+\subsubsection{Multi-subject fMRI}
+%%
+
+Typical \gls{fmri} data sets include relatively small time series data sets for a number of subjects (typically 10-20 for small studies or thousands for large biobanks).
+In larger studies, data is usually collected across multiple sites and scanners.
+
+A remaining challenge is to model this intersubject variability~\parencite{Allen2012}.
+We may want to model all subjects jointly or share model parameters across subjects.
+In fact, this is where the benefits of model-based \gls{tvfc} estimation become more obvious.
+
+Several efforts have already been made in this direction.
+For example, \textcite{Ebrahimi2020} proposed a probabilistic model that considers all subject data jointly.
+
+%%
+\subsection{Benchmark framework extensions}
+\label{subsec:benchmark-framework-extensions}
+%%
+
+Although we have looked at quite a \emph{qualitatively} exhaustive range of benchmarks, there are still opportunities to add more benchmarks to the framework to improve the robustness of conclusions and acceptance by the community.
+On the other hand, in general it is not about maximizing the number of data sets included, but running the lowest number of experiments to validate a certain methodological decisions.
+
+We argue that adding benchmark data sets for the \emph{same} prediction task increases robustness, whereas adding benchmarks with completely \emph{new} prediction tasks has an extra function.
+%
+For example, in the test-retest study from \textcite{Choe2017}, the authors ran the same analysis on another data set (the Kirby data).
+The findings about which \gls{tvfc} estimation method should be used were the same.
+Such repeated experiments are valuable in the sense that they increase confidence in findings (i.e.~these are robust across e.g.~data collection routines, scanners, demographics).
+However, the lack of \emph{new} insights highlights the limited utility of simply adding more (similar) data sets with the same prediction task.
+
+%%
+\subsubsection{Adding more data sets to the benchmarking framework}
+%%
+
+Several existing data sets can be used to enrich our benchmarking framework.
+Moreover, the data from the UK Biobank can also be used in the benchmarking effort.
+
+Many additional data collection efforts are on the way.
+Particularly exciting is the ABCD study, which is recruiting young adolescents and tracking them for a decade~\parencite{Karcher2021}.
+
+%%
+\subsubsection{Adding more prediction tasks to the benchmarking framework}
+\label{subsec:spurious-brain-states}
+%%
+
+Many prediction tasks can be added to the benchmarking.
+Some of these would require new protocol designs and collection of new data.
+
+One key open question remains whether it makes sense to posit that \gls{fc} does not vary smoothly across time, but jumps between discrete states.
+Future work should study whether this is a fair assumption.
+A carefully designed prediction task could in fact help to decide if brain states are artifacts of estimation method choice, or valid constructs that accurately model underlying brain dynamics.
+
+Other modalities should be considered too.
+We study \gls{fmri} but this work is also relevant for \gls{eeg} and \gls{meg}, or local field potential (LFP) signals.
+These modalities measure different physical processes and have different spatial-temporal resolutions and noise characteristics.
+Therefore, each of these will require some adjustments and newly designed benchmarks.
+
+Whole-brain studies have highlighted that the structural connectivity of the brain imposes what sort of functional connectivity we may observe~\parencite{vandenHeuvel2009, Deco2011}.
+Such structure has not been included in this work.
+Future work should design multi-modal benchmarks too.
+It would be of interest to learn what additional information \gls{fc} captures on top of structural information.
+
+%%
+\subsubsection{Adding more estimation methods to the benchmarking framework}
+%%
+
+This thesis considered several established \gls{tvfc} estimation methods for comparison.
+Many other methods can be added to increase confidence in our results.
+
+Firstly, methods can be added that directly estimate the same properties (i.e.~full correlation structure).
+Such methods would, for example, include tapered \gls{sw}.
+
+Secondly, methods that estimated \emph{related} properties (e.g.~time-domain brain state estimation models) can be added.
+Such methods would include, for example, \glspl{hmm}.
+Comparison will be more difficult, and prediction tasks need to be carefully designed to allow for fair comparison.
+
+Finally, comparison across properties can be considered.
+For example, comparing time-domain and frequency-domain extracted connectivity measures.
+Even more so, this requires careful design of prediction tasks.
+The general principle to design such tasks as close to realistic use cases is advised.
+
+%%
+\subsection{Outlook on TVFC estimation}
+%%
+
+The aim of this thesis was to provide a principled and effective method for \gls{tvfc} estimation and (perhaps more importantly) a framework that helps decide what estimation method to use.
+However, there are still unsolved questions regarding \gls{tvfc} and its estimation.
+As we have seen, it remains non-trivial to assess which \gls{tvfc} estimation method performs best.
+Crucially, this may also depend on the context it is used in.
+
+Here we will discuss several additional desired properties of \gls{tvfc} estimation methods and how the discussed methods perform in this sense.
+Furthermore, we give hands-on advice to anyone studying \gls{tvfc}.
+
+%%
+\subsubsection{Computational complexity, ease-of-use, software}
+%%
+
+The benefits of using a more sophisticated model come at the cost of (computational) complexity.
+Such complexity adds to the technical debt of a system~\parencite{Sculley2015} and the benefits must be carefully weighed.
+The \gls{sw} approach, for instance, is very cheap, even for large cohort data sets.
+When analyzing a large cohort data set, the \gls{wp} model may take days or weeks to model all covariance structures.
+This may well be worth it, and this could be alleviated by good software engineering practices such as including such estimation in acquisition pipelines to be run immediately after data collection.
+%
+As discussed in \cref{subsubsec:decreasing-wp-computational-cost}, there are possibilities to reduce computational complexity of the \gls{wp}.
+
+Moreover, it is crucial that advances in modeling get picked up in the community.
+The availability of clean software with good documentation is essential for such uptake.
+We have aimed to make implementation of the \gls{wp} in Python as straightforward as possible.
+All software will be made available upon publication.
+
+%%
+\subsubsection{Robustness to researcher degrees of freedom}
+\label{subsec:robustness}
+%%
+
+In light of the ongoing reproducibility crisis, academic disciplines can also learn best practices from each other~\textcite{Bell2021}.
+A common criticism of studies in psychology and neuroscience is that researchers have the freedom to make many seemingly arbitrary choices.
+We have briefly touched upon the impact of such `researcher degrees of freedom'~\parencite{Gelman2013} throughout this thesis.
+These choices can happen at any stage, from data collection to neuroimaging data preprocessing to analysis and significance determination.
+Often such choices are made unconcsciously.
+
+We can take a step back and look at different types of researcher choices.
+%
+The first set are trivial ones that do not need any justification.
+It does not make sense to mix human and mice brains in a study, for example.
+The second are those where strong theoretical guarantees exist, or where a strong argument can be made on the basis of mental reasoning.
+%
+Then there are those we can benchmark.
+An excellent example is \textcite{Li2019a}, where it is shown that if you want to use \gls{fc} to characterize subject measures, it is best to apply \gls{gsr} in data preprocessing pipelines.
+As such, in Bayesian jargon, benchmarking can be considered marginalizating out a single researcher choice.
+Alternatively, or complementary, benchmarking or mapping exercises can also provide a rich profile to allow researcher to make more informed decisions.
+For example, in an extensive study, \textcite{Wang2014} proposed a framework to compare different connectivity measures.
+%
+However, no matter how rigorous we motivate our choices, some will always be left to make for the foreseeable future.
+For example, let us consider the study in \cref{ch:ukb}.
+Which data set do we study?
+How do we define depression?
+Do we use atlas A or B for parcellation~\parencite[see also][]{Dadashkarimi2021}?
+Do we consider time-domain or frequency-domain coupling as an indication of connectivity strength between two brain regions?
+
+One way to increase robustness of our conclusions is to \emph{formalize} these choice using a multiverse analysis framework~\parencite{Steegen2016}.
+This views each decision `universe' in parallel, and aims to run the analysis in each universe and then examine the full multiverse of results.
+If a scientific conclusion holds in most universes, it can be considered more robust.
+Of course, this approach is often infeasible or unrealistic.
+In cases where obtaining experimental results is expensive, methods using active learning can help.
+This determines where to optimally find the next most informative result.
+Such approaches have recently been demonstrated for increasing robustness in neuroimaging data processing pipeline choices~\parencite{Dafflon2022}.
+Similarly, this framework has been proposed to be useful for exploring model hyperparameter space when training machine learning models~\parencite{Bell2022}.
+
+%%
+\subsubsection{Concrete advice for practitioners}
+%%
+
+Given a novel data set, how should we estimate \gls{tvfc}?
+One of our recommendations, as demonstrated in \cref{ch:ukb} already, is to run the imputation benchmark on any newly collected data set.
+It is also recommended to implement a \gls{sfc} estimate for comparison.
+If the decision is made to use \gls{sw} approaches, we strongly recommend cross-validating the window length.
+
+%%
+\subsection{Outlook on TVFC in depression research}
+\label{subsec:outlook-depression}
+%%
+
+Understanding depression requires different perspectives.
+The view in this thesis is just one of many.
+True progress will be driven by integrative and collaborative approaches.\footnote{I do not make any comparative claims about what research paradigms should be prioritized in terms of resources. Or, at an even higher level, whether understanding, treatment, or prevention should be given priority. That discussion is way above my pay grade.}
+
+Several promising next steps that follow from this thesis and other considerations are briefly discussed here.
+
+%%
+\subsubsection{Expanding the analysis}
+%%
+
+As argued for the benchmarks, we can increase the robustness of our findings by running the same analysis on a different depression data set.
+This would include the ABCD data for example.
+This would indicate whether our results are robust across demographics and data collection routines.
+
+%%
+\subsubsection{Bridging the levels}
+%%
+
+Key to making progress is to find common languages and bridge levels of understanding and scientific inquiry.
+
+As briefly touched upon, computational psychiatry and endophenotype research can act as conduits for mechanistic insight into depression.
+Linking such studies to neuroimaging has great potential.
+However, we do acknowledge this as a vastly complex approach, and one that requires collaboration between respective experts.
+
+Another bridge is neurochemistry, a relatively overlooked point of view.
+Several studies have begun to investigate the relationship between \gls{tvfc} and depression-relevant neuromodulators~\parencite{Shine2019}.
+Out of all the (probably) hundreds of neurotransmitters, only several seem to be implicated in depression: noradrenaline~\parencite[also known as norepinephrine; a neurotransmitter found in pleasure pathways; see][]{Shine2018}, \gls{da}~\parencite{Shafiei2019}, and serotonin~\parencite{Klaassens2017}.
+Each neurotransmitter (and an imbalance thereof) has been associated with distinct depression phenotypes and symptoms.
+As such, \gls{fc} studies may act as a bridge between neurochemistry and behavior.
+
+%%
+\subsubsection{Improved labels}
+%%
+
+One commonly reported challenge in the study of depression is its heterogeneity of symptoms.
+In fact, many have suggested that depression is more of an umbrella term for various diseases.
+We consider this one of the major shortcomings of this work.
+Using imperfect diagnostic labels limits any analysis (including simple comparisons of populations in terms of neural and cognitive and processes) and practical utility.
+The \gls{dsm} diagnostic labels were meant as a rough clinical indication, not as a carefully designed label to find biomarkers with~\parencite{Fried2022b}.
+Future work would build on top of depression subtype definitions~\parencite{Tokuda2018}.
+
+Some early studies have already looked at this.
+For example, \textcite{Chekroud2017} found three clusters of depressed patients, each with different responses to treatment.
+In fact, \textcite{Drysdale2017} performed a similar clustering approach on \gls{rs-fmri} data, identifying four clusters based on \gls{tms} therapy response.
+
+An interesting venue for collecting phenotypic data is through online testing.
+This could be done through online testing tools such as Amazon Mechanical Turk, or through smartphone and wearable data~\parencite[see e.g.][]{Shapiro2013, Brown2014b}.
+The latter is referred to as `digital phenotyping' and is more ecologically valid.
+
+%%
+\subsubsection{Specificity and applications}
+%%
+
+As we have discussed briefly already, this study, like many others, relies on broad depression phenotypes and thus contains large disorder heterogeneity.
+Moreover, broad brain networks are typically studied.
+These study characteristics may lead to a lack in specificity.
+Such specificity may be important in certain circumstances.
+For example, a clinician would rather know a precise treatment target, instead of broadly know that the \gls{dmn} is affected.
+One big drawback of more fine-grained studies~\parencite[e.g.][]{Klein-Flamp2022} is that \gls{fmri} signals become more noisy when we look at smaller brain region parcellations.
+Another drawback of specificity in disorder characterization is that specific (sub)factor models of depression (e.g. collected with ad-hoc questionnaires) can typically only be collected for a much smaller number of participants than established measures as we investigate in this work.
+Hence we are stuck in a trade-off situation.
+
+%%
+\subsubsection{The importance of theory}
+%%
+
+This thesis has focused heavily on data-driven approaches to understanding depression.
+These approaches are relatively agnostic about data and its nature.
+A risk of an over-focus on data collection and prediction is the neglect of theory development.
+Furthermore, it can also ignore any prior scientific insights and analyze the data `from scratch'.
+
+This lack of strong theory in depression research fits into the broader `theory crisis' in psychology.
+The existence of this crisis was proposed as an additional, inherent cause of the `reproducibility crisis'~\parencite{Oberauer2019, Eronen2021}.
+
+Most importantly, these theory-driven and data-driven approaches are complementary~\parencite{Huys2016}.
+Insights from theoretic models can be added as inductive biases to machine learning models.
+And computationl modeling can be used to falsify or assign credit to various theoretic models.
