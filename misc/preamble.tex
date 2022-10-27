@@ -1,0 +1,91 @@
+% Returns the width of the current document in pts.
+% This can be useful when generating figures, so aspect ratios are preserved.
+% \showthe\textwidth
+% Currently 360.0pt, independent from margin, but this could change still!
+
+% The inputenc package is ignored with utf8 based engines.
+% \usepackage[utf8]{inputenc}
+
+\input{misc/references}
+
+%%%%%%%%%
+% BOXES %
+%%%%%%%%%
+
+% For adding e.g. Box 1.
+\usepackage{tcolorbox}
+\newtcolorbox[auto counter]{mybox}[2][]{
+  float,
+  fontupper=\footnotesize,
+  fontlower=\footnotesize,
+  title={Box~\thetcbcounter: #2},
+  #1
+}
+
+% https://en.wikibooks.org/wiki/LaTeX/Colors
+% e.g. define a color, then add colback=my-blue
+% \definecolor{my-blue}{cmyk}{0.80, 0.13, 0.14, 0.04, 1.00}
+
+%%%%%%%%%%%
+% GENERAL %
+%%%%%%%%%%%
+
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{amsmath}
+\usepackage{amsthm}
+%%
+\usepackage[toc,page]{appendix}
+%%
+\usepackage{booktabs}       % professional-quality tables
+\usepackage[font=small,labelfont=it]{caption}  % small is 11pt when normalsize is 12pt
+%%
+\usepackage{cleveref}       % must be loaded after amsmath
+%%
+% \usepackage{mathptmx}       % Times New Roman
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+%%
+\usepackage[
+    left=30mm,
+    right=30mm,
+    top=35mm,
+    bottom=30mm
+]{geometry}
+\usepackage{graphicx}
+\usepackage{lettrine}       % for dropped capital letters (2 lines high)
+\usepackage{mathtools}
+%%
+\usepackage{microtype}      % microtypography (improves visual appearance)
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{setspace}       % define line spacing in paragraph
+%%
+\usepackage[labelfont=bf,textfont=normalfont]{subcaption}     % allows for subplots
+%%
+\usepackage{lipsum}         % Dummytext
+\usepackage{xargs}          % Use more than one optional parameter in a new commands
+\usepackage{url}            % simple URL typesetting
+
+%%%%%%%%%%%%%%%%%%%%%
+% HEADERS & FOOTERS %
+%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{fancyhdr}             % Includes header on each page
+\setlength{\headheight}{14.5pt}   % Required to avoid overfull vbox warnings (13.6pt for 11pt, 14.5 for 12pt)
+\fancyhead{}
+\fancyfoot{}
+
+% \fancyhead[RE]{Chapter \thechapter}
+% \fancyhead[RO]{\rightmark}
+
+% \fancyhead[LE]{\thepage}  % uncomment for two-sided version
+% \fancyhead[RO]{\thepage}  % uncomment for two-sided version
+
+\fancyhead[R]{\thepage}   % uncomment for one-sided version (draft)
+
+% \fancyfoot[LE,RO]{\thepage}
+
+\input{misc/todo}
+
+\usepackage{lineno}
+% \doublespacing
+\onehalfspacing
+% \linespread{1.25}  % this is equal to 1.5 linespacing in Microsoft Word
