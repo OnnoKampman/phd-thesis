@@ -1,37 +1,41 @@
-\chapter{Introduction}
-\label{ch:introduction}
+\chapter{Introduction}\label{ch:introduction}
 %%%%%
 
 \info[inline]{Paragraph: Direct summary of what this thesis is about.}
-In this thesis we introduce novel approaches for robust estimation of \gls{tvfc} from \gls{fmri} neuroimaging data.
+This thesis introduces novel approaches for robust estimation of \gls{tvfc} from \gls{fmri} neuroimaging data.
 \Gls{tvfc} is a construct that studies the time-varying nature of interaction between brain regions.
-We compare and evaluate estimation approaches to existing ones through a proposed benchmarking framework.
+Estimation approaches are compared and evaluated to existing ones through a proposed benchmarking framework.
 %
 Afterwards, we use the best performing method to investigate how brain dynamics differ between depressed and healthy (control) subjects.
 We argue that the construct of \gls{tvfc} is particularly valuable in the study of \gls{mdd}, as this condition can be considered a functional or \emph{connectivity} disorder.
+That is, depression is believed to be associated by dysfunction in connectivity patterns between brain regions, instead of dysfunction in a single region.
 %
-The rest of this introductory chapter will be used to \emph{frame} our work within the larger study of the brain, as well as to discuss relevant concepts related to \gls{fc}, motivate why robust estimation thereof is so important, and discuss the current state of knowledge on how this construct relates to depression and related mood disorders.
+The rest of this introductory chapter will be used to \emph{frame} our work within the larger study of the brain.
+It also serves to discuss relevant concepts related to \gls{fc}, motivates why robust estimation thereof is so important, and discusses the current state of knowledge on how this construct relates to depression and related mood disorders.
 
 \info[inline]{Paragraph: Start from the top; describe broad landscape of neuroscientific research, and why studying the human brain can be overwhelming and requires a certain viewpoint.}
-Faced with the overwhelming prospect of studying the brain, we argue that it is unavoidable to limit the scope of any such investigation.
-We should pick a certain angle to approach the brain with, informed by the scientific question(s) at hand.
+Faced with the overwhelming prospect of studying the brain, it is unavoidable to limit the scope of any such investigation.
+We should pick a certain angle to approach the brain with, informed by the scientific question(s) at hand.\footnote{In fact, without constraining our hypothesis space, the number of conclusions to be made from data is infinitely flexible~\parencite[see also][]{Gershman2021}.}
 In doing so, we make implicit (and sometimes explicit) assumptions.
-Each perspective comes with advantages and disadvantages, and imposes a limit on what we can and cannot learn.
+Each perspective has its advantages and disadvantages, and imposes a limit on what we can and cannot learn.
 To start our journey, we provide a brief overview here of the entire neuroscientific landscape.
-Throughout the remainder of this chapter we will then gradually narrow down our focus to provide the context for the experimental chapters (\cref{ch:benchmarking,ch:ukb}), and describe the particular lens through which we study the brain.
-In \cref{ch:discussion} we will zoom out again and reflect on the limitations of our particular view of the brain and its inherent assumptions.
+Throughout the remainder of this chapter we then gradually narrow down our focus to provide the context for the experimental \cref{ch:benchmarking,ch:ukb}, and describe the particular lens through which we study the brain.
+In \cref{ch:discussion} we will zoom out again and reflect on the limitations of this view of the brain and its inherent assumptions.
 
-Studying brains is hard due to the highly interdisciplinary nature of it.
-The various levels of analysis involved have meant that no single scientist is able to study the full brain and all of its characteristics, properties, and interactions.\footnote{\textcite{Marr1982} famously talked about three levels of analysis: computational, algorithmic, and implementational. In fact, \textcite{Marr1976} already discussed similar ideas. More recently \textcite{Poggio2012} followed up and proposed another two levels; learning and evolution.}
-Starting from the building blocks, some researchers study ion channels and chemical interactions within individual neurons, some look at small circuits of neurons, some look at whole-brain structures, some investigate emergent brain waves, and some try to model human brain function with animal or computational models and speculate how these relate to human brain function (sometimes referred to as comparative cognition).
-Neuroscientists have considered for a long time that the brain is modular in its organization, and many would specialize in a particular brain \gls{roi} to study its function and relationship to other regions~\parencite{Prinz2006}.
-Even though the view of the brain as a collection of entirely distinct modules has been abandoned, this tradition is ongoing to some degree, and is often still (approximately) valid~\parencite{Genon2018}.
-Nowadays many argue for a more sophisticated view of \emph{hierarchy} in such modularity as well.
+The study of the brain is hard due to its highly interdisciplinary nature.
+The various levels of analysis involved have meant that no single scientist is able to study the entire brain and all its characteristics, properties, and interactions.\footnote{\textcite{Marr1982} famously talked about three levels of analysis: computational, algorithmic, and implementational. In fact, \textcite{Marr1976} already discussed similar ideas. More recently \textcite{Poggio2012} followed up and proposed another two levels; learning and evolution.}
+%
+Starting from the fundamental building blocks, some researchers study ion channels and chemical interactions within individual neurons and glial cells.
+Some look at small circuits of neurons, some look at whole-brain structures, some investigate emergent brain waves, and some try to model human brain function with animal or computational models and speculate how these relate to human brain function (sometimes referred to as comparative cognition).
+Neuroscientists have long considered that the brain is modular in its organization~\parencite{Prinz2006}.
+Many would therefore specialize in a particular brain \gls{roi} to study its function and relationship to other regions.
+Even though the view of the brain as a collection of entirely distinct modules has been abandoned, this tradition persists to some degree, and is often still (approximately) valid~\parencite{Genon2018}.
+Moreover, contemporary neuroscientists have argued for a more sophisticated view of \emph{hierarchy} in such modularity.
 %
 The division between psychology and neuroscience has blurred and merged in recent years.
 Investigators looking solely at behavior have started to be called neuroscientists as well~\parencite{Niv2021}.
 %
-Different time scales and life stages allow for various types of analysis as well.
+Aside from spatial characteristics, different time scales and life stages allow for various types of analysis.
 Whereas developmental neuroscientists study how the brain develops during pregnancy and childhood, others study the opposite side of the spectrum: how the brain slowly degenerates toward the end of someone's life.
 %
 Then there are scientists that have proposed neuroscientific ``theories of everything'', in hopeful analogy to the field of physics, trying to link up and synthesize all approaches into a unified account of brain function.
@@ -47,50 +51,53 @@ To make matters even more complicated, neuroscientists (and psychologists at lar
 Scientific insights about the mind and mental disease are often misunderstood or misrepresented.
 Ideology tends to get in the way more so than in other scientific fields, as this topic is close to home and often relates to people's most personal experiences.
 %
-Obviously, all of the mentioned scientific approaches and angles are valuable and complementary.
-We live in a great time to study the brain, as improved tools and large data sets are becoming available at unprecedented scale, and advances in computing power and modeling open up new venues of inquiry~\parencite{Griffiths2015, Bzdok2017, Rutledge2019, Guest2021}.
+Obviously, all the mentioned scientific approaches and angles are valuable and even complementary.
+On a positive note, we live in an exciting time to study the brain.
+Improved tools and large data sets are becoming available at unprecedented scale, and advances in computing power and modeling facilitate new venues of inquiry~\parencite{Griffiths2015, Bzdok2017, Rutledge2019, Guest2021}.
 %
-At the same time, the uncertain, overwhelming, and high-pressure environment that psychologists and neuroscientists operate within has led to questionnable research practices~\parencite{John2012} and many findings not replicating.
-This `reproducibility crisis' started gaining traction about a decade ago, and as a field we are still working through its ramifications.
+At the same time, the uncertain, overwhelming, and high-pressure environment that psychologists and neuroscientists operate within has led to questionable research practices~\parencite{John2012} and many findings not replicating.
+This `reproducibility crisis' started gaining traction about a decade ago, and the field is still working through its ramifications.
 
 \info[inline]{Paragraph: Explain our point-of-view of the human brain.}
-Our particular point-of-view of the human brain in this work is the following.
-We abstract away implementational level details, and consider the human brain as a complex, dynamic system organ that is divided into distinct yet interacting regions.\footnote{Brain regions (or `nodes') can be defined in several ways, which we will address later.}
-This means we will not go into depth on any neurobiological signatures of behavior and disorders.
+The particular point-of-view of the human brain in this work is the following.
+We abstract away implementational level details, and consider the human brain as a complex, dynamic system organ that is divided into distinct yet interacting regions.\footnote{Brain regions and components (or `nodes', borrowing from graph theoretic jargon) can be defined in several ways, which will be addressed later.}
+We will not go into depth on any neurobiological signatures of behavior and disorders.
 %
-Our characterization is based on a historical trend.
+This characterization is based on a historical trend.
 Early modern neuroscientists discovered that the brain can be \emph{segregated} into distinct cortical (and subcortical) regions with distinct functions.
 Naturally, it followed that neuroscientists became interested in how these regions connect and communicate with one another.
 This is often referred to as the `functional' architecture of the brain, in contrast with the better understood \emph{structural} or \emph{anatomical} brain architecture.
 Higher-order cognition and complex behavior is made possible by the spatiotemporal integration, re-organization, and segregation of brain regions~\parencite{Deco2011}.
-Over the years a plethora of studies has painted a picture of the brain as a complex network of anatomical and functional segregation and integration that adapts and re-organizes itself to address a given task.
-Brain nodes also exhibit complex system structures, such as modular and hierarchical topology~\parencite{Meunier2009, Deco2015}.
+Over the years a plethora of studies has painted a picture of the brain as a complex, distributed, and adaptive network of anatomical and functional segregation and integration that re-organizes itself at different time scales to process information and address a given task.
+Brain constituent parts (nodes and regions) also exhibit complex system structures, such as modular and hierarchical topology~\parencite{Meunier2009, Deco2015}.
+Human brains have been found to especially rely on higher degrees of synergistic interactions compared to nonhuman primates, highlighting its importance to complex cognition~\parencite{Luppi2022}.
 %
-Anatomical organization and connectivity in the brain has been studied in depth, by a range of imaging methods, including \gls{mri}, which uses powerful magnetic fields and radio waves to produce high resolution images of the inside of the body, and \gls{dti}, which images axons in white matter tracts.
+Anatomical organization and connectivity in the brain has been studied by a range of imaging methods, including \gls{mri}, which uses powerful magnetic fields and radio waves to produce high resolution images of the inside of the body, and \gls{dti}, which images axons in white matter tracts.
 Functional interactions, often referred to as `connectivity' too, can be characterized using neuroimaging methods such as \gls{fmri}~\parencite{Soares2016}, \gls{pet}, which requires an injection of positron emitting isotopes, \gls{nirs}, \gls{eeg}, and \gls{meg}~\parencite{Rossini2019}.
 Crucially, such connectivity is usually not directly observed, and needs to be estimated.
 
 \info[inline]{Paragraph: Discuss confusing terminology of `connectivity'.}
 The term `connectivity' here may be confusing, as there need not be any direct anatomical connection between two regions for them to be functionally coupled.
-Whereas \emph{connectomes} originally refered to maps of physical connections, and have been constructed for e.g.~fruitflies but not humans (yet), `functional' connectomes refer to functional interactions (which can be defined in many ways).
+Whereas \emph{connectomes} originally referred to maps of physical connections, and have been constructed for e.g.~fruit flies but not humans (yet), `functional' connectomes refer to functional interactions (which can be defined in many ways).
 In the general sense, the term `connectome' has come to refer to any kind of wiring diagram of a brain~\parencite{Sporns2005}.
 
 \info[inline]{Paragraph: Introduce the study of brain disorders as a subset of neuroscience.}
 Many (if not \emph{most}) neuroscientists are motivated to study the brain to understand brain abnormalities and disorders, in the hope that better understanding will lead to better treatment.
-And most research funding goes to those diseases that are most common and whose disease burden on society is largest, such as \gls{mdd}, \gls{ad}, Parkinson's.
+And most research funding goes to those diseases that are most common and whose disease burden on society is largest, such as \gls{mdd}, \gls{ad}, and \gls{pd}.
 As such, many neuroscientists directly study how neural systems are disrupted in psychiatric and neurological disease.
+This requires a sufficiently large collection of healthy brains and disrupted ones.
 %
-In this thesis we focus on \gls{mdd}.
+This thesis is focused on \gls{mdd}.
 This condition is often linked to changes in higher-level and complex affective and cognitive processing, instead of single brain region malfunction or biological pathology.
 Therefore, it is especially suited to be studied through the lens of \gls{fc} and the dynamic nature thereof.
 By studying how neural systems such as \glspl{fn} are affected by psychiatric illness, we gain a better understanding of these diseases.
-However, while we aim to \emph{understand} \gls{mdd} as a disrupted neural system, we do not necessarily propose that \emph{treatment} should solely focus on the brain and/or pharmacological interventions.
+However, while the aim here is to \emph{understand} \gls{mdd} as a disrupted neural system, we do not necessarily propose that \emph{treatment} should solely focus on the brain and/or pharmacological interventions.
 
 \info[inline]{Paragraph: Outline remainder of Introduction chapter.}
-In this thesis, we study how we can (or \emph{should}) estimate such \gls{fc} as it evolves over time.
-As we will see, this is a non-trivial problem, and careless estimation procedures can greatly distort downstream scientific findings.
-In the remainder of this introductory chapter we shall discuss the key concepts and constructs studied.
+This thesis studies how we can (or \emph{should}) estimate such \gls{fc} as it evolves over time.
+As we will see, this is a non-trivial problem, and careless estimation procedures can distort downstream scientific findings.
+In the remainder of this introductory chapter the key concepts and constructs studied will be discussed.
 We also expand on why estimating \gls{tvfc} is a hard problem, and how to address this.
 Furthermore, we briefly touch upon the link between \gls{fc} and neurological and psychiatric disorders.
 We primarily focus on depression, as it is the condition studied in \cref{ch:ukb}, but note that studies on related or adjacent disorders may also be relevant.
-At the end of this chapter we provide an outline of the entire thesis.
+At the end of this chapter an outline of the entire thesis is provided.
