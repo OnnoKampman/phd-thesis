@@ -4,79 +4,82 @@
 
 \info[inline]{Paragraph: Define concept of functional connectivity.}
 Functional connectivity refers to the functional interplay, \emph{interaction}, \emph{coupling}, \emph{synchrony}, or \emph{co-activation} between brain regions (e.g.~voxels, parcels, and/or \gls{ica} components).
-Its study has quickly become a cornerstone and key focus of modern neuroimaging research.
-Such connectivity depends on statistical dependencies between activity or \emph{activation} in brain regions, which can be measured by various neuroimaging modalities, most commonly \gls{fmri}, \gls{eeg}~\parencite[e.g.][]{Tagliazucchi2012, Chang2013}, and \gls{meg}~\parencite[e.g.][]{Baker2014, Vidaurre2018}.\footnote{As we will see, modeling dependencies between random variables is an important problem in machine learning and statistics as well.}
+Its study, mapping out the intrinsic organization of the brain, has quickly become a cornerstone and key focus of modern neuroimaging research.
+Such connectivity depends on statistical dependencies between activity or \emph{activation} in brain regions, which can be measured by various neuroimaging modalities, most commonly \gls{fmri}, \gls{eeg}~\parencite[e.g.][]{Tagliazucchi2012, Chang2013}, and \gls{meg}~\parencite[e.g.][]{Baker2014, Vidaurre2018}.\footnote{As discussed later, modeling dependencies between random variables is also an important problem in machine learning and statistics.}
 Sometimes multiple concurrent modalities are used, such as \gls{fmri} and \gls{eeg} (but it is not possible to combine \gls{fmri} with \gls{meg}).
 %
-Structural and \gls{fc} analyses are complementary in building a holistic understanding of the brain, as they capture complementary (and disparate) information~\parencite{Lang2012}.
-Importantly, \gls{fc} analyses do not makes any statements about causality~\parencite{Mehler2018}, in contrast with \emph{effective} connectivity~\parencite{Friston2011, Smith2012b, Park2018, Zeidman2019, Zarghami2020}.\footnote{In neuroscience, causality can confusingly refer to different concepts~\parencite[see][]{Barack2022}.}
+Neuroimaging methods can be divided into those that capture \emph{structural} and those capture \emph{functional} signals.
+The former aims to map out the location and molecular properties of brain tissue.
+The latter aims to capture more dynamic signals, related to the activity of brain tissue.
+Structural and functional (including \gls{fc}) analyses are complementary in building a holistic understanding of the brain, as they capture complementary (and disparate) information~\parencite{Lang2012}.
+Importantly, \gls{fc} analyses do not make any statements about causality~\parencite{Mehler2018}, in contrast with \emph{effective} connectivity~\parencite{Friston2011, Smith2012b, Park2018, Zeidman2019, Zarghami2020}.\footnote{In neuroscience, causality can confusingly refer to different concepts~\parencite[see][]{Barack2022}.}
 %
-In this thesis, we limit our focus to \gls{fmri} brain scans.
-This modality has proven to be a valuable method for studying \gls{fc}, due to its relatively high spatial resolution and its widespread availability in clinics around the world (these scanners are often used to study normal brain function by psychologists).
+This thesis is limited to \gls{fmri} brain scans.
+This modality has proven to be a valuable method for studying \gls{fc}, due to its high spatial resolution and its widespread availability in clinics around the world (these scanners are often used to study normal brain function by psychologists).
 
 \info[inline]{Paragraph: Introduce fMRI and BOLD signal and its limitations.}
 \gls{fmri} is a non-invasive and safe neuroimaging scanning method that infers brain activity based on measured changes in blood flow, pioneered in the 1990s by Seiji Ogawa and Kenneth Kwong and colleagues~\parencite[see][for a historical perspective]{Raichle1998}.\footnote{Even though it is one of the newest methods available, the idea that blood flow is related to neural activity dates back to the 19th century.}
 %
 Neurons that use more oxygen will cause surrounding blood vessels to dilate, causing a local increase in blood flow.
-This is necessary because these cells have no internal reserves of required glucose and oxygen.
+This is necessary because such cells have no internal reserves of required glucose and oxygen.
 \gls{fmri} measures the relative oxygenation of blood flow, where brain regions that are more active will see a spike in activity as glucose is converted into electrical energy required for both action potentials and managing continuous membrane potentials.
 \gls{mri} uses a property of atoms, where hydrogen protons in water align with each other when placed in a strong magnetic field (typically~1.5,~3,~or~7~Tesla) in its direction.
-A radiofrequency pulse then knocks protons off this alignment, and the subsequent re-aligning has characteristics that can be used to determine what tissue or blood composition the proton is in.
+A radio frequency pulse then knocks protons off this alignment, and the subsequent re-aligning has characteristics that can be used to determine what tissue or blood composition the proton is in.
 This signal depends on the surroundings of the hydrogen nuclei, thus allowing for differentiation between grey matter, white matter, and \gls{csf}.
 %
-Increased neuronal activity leads to higher demand for oxygen, which is carried by haemoglobin in red blood cells.
-This haemoglobin has different magnetic properties when oxygenated or not (diamagnetic vs.~paramagnetic), which has a (small) impact on the signal we measure.
+Increased neuronal activity leads to higher demand for oxygen, which is carried by hemoglobin in red blood cells.
+This hemoglobin has different magnetic properties when oxygenated or not (diamagnetic vs.~paramagnetic), which has a (small) impact on the measured signal.
 This is what \gls{fmri} picks up on, and this signal is known as the \gls{bold} signal.
 %
 It is important to stay mindful of the fact that it is not fully understood yet what we are actually measuring~\parencite{Logothetis2004, Cole2010}.
-In fact, the use of \gls{fmri} and \gls{fc} research are sometimes considered controversial~\parencite{Mehler2018}.
-If we want insights from \gls{fmri} scans to be useful in practice, it is important to get robust and reproducible results.
+In fact, the use of \gls{fmri} and \gls{fc} research in particular are sometimes considered controversial~\parencite{Mehler2018}.
+If insights from \gls{fmri} scans should translate to practice, it is important to get robust and reproducible results.
 In general, \gls{fmri} data has come under scrutiny regarding the reproducibility of results.
 A lot has been written about the topic in recent years~\parencite[see e.g.][]{Kriegeskorte2009, Gilmore2017, Poldrack2017, Botvinik-Nezer2020, Lindquist2020, Elliott2021, Aquino2022}.
 These efforts can be considered as part of a larger reproducibility movement in psychology and other scientific fields.
-A lot of progress has been made in this regard in recent years.
+On the other hand, a lot of progress has been made in this regard in recent years.
 Many tools have become available to help researchers to organize and publish their work in a more transparent fashion~\parencite{Marcus2011, Kumar2022, Niso2022}.
-Generally, it is important to know what we can and cannot do with the data~\parencite{Logothetis2008}.
-We will return to this topic in \cref{ch:discussion} as well.
+Generally, it is important to know what we can and cannot do with this class of data~\parencite{Logothetis2008}, see also \cref{ch:discussion}.
 %
 One of the key factors is that the blood flow dynamics are not fully understood yet.
-For example, while naively one would assume blood oxygenation levels to drop when surrounding neurons become active, this is only part of it.
-In response to a decrease in oxygenation (the initial `dip'), the haemodynamic response in fact \emph{increases} blood flow, \emph{overcompensating} for the increased demand of oxygen.
+For example, while naively one would assume blood oxygenation levels to drop when surrounding neurons become active, this is only part of the full story.
+In response to a decrease in oxygenation (the initial `dip'), the hemodynamic response in fact \emph{increases} blood flow, \emph{overcompensating} for the increased demand of oxygen.
 This complex function of neural activity, blood flow, and oxygenation is called the \gls{hrf}.
+It is not fully understood yet, and has been shown to vary across brain regions~\parencite{Handwerker2004}.
 %
 Lastly, \gls{fmri} experiments can broadly be divided into those with a certain external stimulus paradigm or set of instructions and those that are unconstrained.
 These are referred to as \gls{tb-fmri} and \gls{rs-fmri}.
-%
-This \gls{bold} signal (a.k.a.~response or observation) constitutes the node time series we will study in this thesis (see e.g.~\cref{fig:rockland-time-series-mean-over-subjects,fig:ukb-example-time-series,fig:ukb-fn-example-time-series}).
-More concretely, an \gls{fmri} scan essentially returns a video of \emph{voxels} (3D pixels).
-The human brain contains hundreds of thousands of voxels (depending on voxel dimensions).
-Each voxel is characterized by an activity time series, but can be very noisy.
-It is common to characterize the activity of \glspl{roi} instead of working with raw voxels~\parencite{Korhonen2017}, by either averaging or taking the first eigenvariate of all voxels enclosed in it (using some parcellation atlas).
-Throughout this thesis, we shall denote these node time series as $\mathbf{y}_n \in \mathbb{R}^D$ for $n = 1, 2, \ldots , N$, where $D$ is the number of node time series (i.e.~brain regions) and $N$ is the number of observations across time.
 
-Preprocessing pipelines, which take raw \gls{fmri} data and output node time series of interest, greatly impact study results and conclusions~\parencite{Caballero-Gaudes2017}.
-It is important to remember that preprocessing steps heavily influence subsequently extracted \gls{fc}~\parencite{Aquino2022}.
-An example of an impactful preprocessing step is \gls{gsr}, which can improve spatial localisation of networks, but can introduce artificial anticorrelations into the data~\parencite{Murphy2009}.
+The \gls{bold} signal (a.k.a.~response or observation) constitutes the node time series (i.e.~brain region characteristic time series) studied in this thesis (see e.g.~\cref{fig:rockland-time-series-mean-over-subjects,fig:ukb-example-time-series,fig:ukb-fn-example-time-series}).
+More concretely, an \gls{fmri} scan essentially returns a video of \emph{voxels} (3D pixels).
+The entire human brain typically encapsules hundreds of thousands of voxels (depending on voxel dimensions).
+Each voxel is characterized by an activity time series, but can be very noisy.
+It is therefore common to characterize the activity of \glspl{roi} instead of working with raw voxels~\parencite{Korhonen2017}, by either averaging or taking the first eigenvariate of all voxels enclosed in it (using some parcellation atlas).
+Throughout this thesis, these node time series shall be denoted as $\mathbf{y}_n \in \mathbb{R}^D$ for $n = 1, 2, \ldots , N$, where $D$ is the number of node time series (i.e.~brain regions) and $N$ is the number of observations across time.
+
+Preprocessing pipelines, which take raw \gls{fmri} data and output node time series of interest, impact study results and conclusions~\parencite{Caballero-Gaudes2017}.
+As such, preprocessing steps also heavily influence subsequently extracted \gls{fc}~\parencite{Aquino2022}.
+An example of an impactful preprocessing step is \gls{gsr}, which can improve spatial localization of networks, but can introduce artificial anticorrelations into the data~\parencite{Murphy2009}.
 
 \info[inline]{Paragraph: Describe fMRI functional connectivity.}
-In the context of \gls{fmri}, `connectivity' is typically characterized as the Pearson correlation coefficient between brain region \gls{bold} measurement component time series~\parencite{Zalesky2012}.
-Note that this is a time-domain, non-directed quantitative measure of connectivity that assumes a linear relationship between node time series.
-There are other types of connectivity, including covariance, (directed) coherence, partial coherence, mutual information~\parencite[see e.g.][chapter 2]{Cover2005}, Granger causality, transfer entropy, and many frequency-domain measures~\parencite[see][for reviews]{Wang2014, VanDiessen2015, Bastos2016, Foti2019}.
+In the context of \gls{fmri}, `connectivity' is typically (i.e.~traditionally) characterized as the Pearson correlation coefficient between brain region \gls{bold} measurement component time series~\parencite{Zalesky2012}.
+This is a time-domain, non-directed quantitative measure of connectivity that assumes a linear relationship between node time series.
+There are other types of connectivity, including covariance, (directed) coherence, partial correlation, partial coherence, mutual information~\parencite[see e.g.][chapter 2]{Cover2005}, Granger causality, transfer entropy, and many frequency-domain measures~\parencite[see][for reviews]{Wang2014, VanDiessen2015, Bastos2016, Foti2019}.
 Some of these are directed whereas others are undirected.
 Choosing a connectivity measure constitutes a researcher degree of freedom~\parencite{Gelman2013} and each measure will extract different information from the raw signals.
 %
-Covariance (and correlation) is perhaps the simplest measure of dependency.
-This may explain its popularity.
-Throughout this thesis we refer to \gls{fc} as this connectivity measure based on \gls{fmri} data.
-It is important to realize that such connectivity (i.e.~covariance) is an \emph{unobserved} property, and must be \emph{estimated} in the absence of a ground truth.
+Covariance (and correlation) is perhaps the simplest measure of dependency, which may explain its popularity.
+Throughout this thesis \gls{fc} refers to this connectivity measure based on \gls{fmri} data.
+Such connectivity (i.e.~covariance) is an \emph{unobserved} property.
+It must be \emph{estimated} in the absence of a ground truth.
 
 \info[inline]{Paragraph: Discuss network neuroscience and its relationship to functional connectivity.}
-Work on \gls{fc} has greatly benefited from insights from graph theory and dynamical systems theory.\footnote{A dynamical system refers to any system of components (in our case brain regions) that interact and change across time according to some `dynamic' or `rule'. In state-space models, for example, system states are represented by a vector and evolve through a matrix multiplication.}
-Brain \glspl{roi} are then represented as a node in a graph and connectivity strength as (weighted) edges~\parencite{Ryyppo2018}.
-We will discuss this perspective in more detail later, in the context of using this viewpoint as a way to extract features from data.
+Work on \gls{fc} and connectomics has benefited from insights from graph theory and dynamical systems theory~\parencite{Bassett2017, Betzel2022}.\footnote{A dynamical system refers to any system of components (brain regions in this case) that interact and change across time according to some `dynamic' or `rule'. In state-space models, for example, system states are represented by a vector and evolve through a matrix multiplication.}
+Brain \glspl{roi} are then represented as a node in a graph and connectivity strength as (weighted) edges~\parencite[i.e.~node-pairs, see also][]{Ryyppo2018}.
+This perspective will be discussed in more detail later, in the context of using it to extract features from data.
 
 \info[inline]{Paragraph: Summarize key scientific insights from functional connectivity.}
-Despite these caveats, \gls{fc} has taught us a great deal about the spatiotemporal organization of the cortex at macro-scale.
+Despite the caveats discussed, \gls{fc} has taught us a great deal about the spatiotemporal organization of the cortex at macro-scale.
 It can be viewed as an expression of network behavior required for high level complex cognitive function.
 %
 Many interindividual differences have been found~\parencite{Liegeois2019}.
