@@ -1,6 +1,5 @@
 \clearpage
-\section{The Wishart process}
-\label{sec:wishart-process}
+\section{The Wishart process}\label{sec:wishart-process}
 %%%%%
 
 \info[inline]{Paragraph: Introduce Wishart process and its history and application.}
@@ -16,8 +15,7 @@ The promise of \glspl{wp} is presented by \textcite{Wilson2010, Heaukulani2019} 
 As we enter the domain of Bayesian machine learning~\parencite{Ghahramani2015}, familiarity with concepts from excellent textbooks such as \textcite{MacKay2002, Bishop2006, Hastie2009, Murphy2012, Murphy2023} will prove helpful.
 
 %%
-\subsection{The Wishart distribution}
-\label{subsec:wishart-distribution}
+\subsection{The Wishart distribution}\label{subsec:wishart-distribution}
 %%
 
 \info[inline]{Paragraph: Introduce Wishart distribution.}
@@ -55,7 +53,7 @@ That is, $\mathbf{y}_n = [y_{n,1}, \dots, y_{n,D}]$.
 In \gls{fmri} analyses, $N$ refers to the number of time steps or scan \emph{volumes}, and $D$ refers to the number of node time series (e.g.~number of brain regions for which a characteristic \gls{bold} signal time series is determined).
 
 We denote \textbf{input locations} as $X$ := ($x_n$, $1 \leq n \leq N$) in $\mathbb{R}$.
-For \gls{fmri} analyses, the (univariate, 1-dimensional)~$x_n$ here is the time at which measurement $\mathbf{y}_n$ is taken (observed).\footnote{Our model construction does not \emph{require} the input locations to be univariate. One could, for example, add other (side) information of interest such as the decaying magnet strength during a scan, head motion~\parencite[often considered one of the most significant confounding factors, see e.g.][]{Laumann2017}, a design matrix for \gls{tb-fmri}, arousal (e.g. as measured by pupil diameter or eyelid closure), and/or physiological signals such as heart rate. Whether this is beneficial will require further validation studies.}
+For \gls{fmri} analyses, the (univariate, 1-dimensional)~$x_n$ here is the time at which measurement $\mathbf{y}_n$ is taken (observed).\footnote{Our model construction does not \emph{require} the input locations to be univariate. One could, for example, add other (side) information of interest such as the decaying magnet strength during a scan, head motion~\parencite[often considered one of the most significant confounding factors, see e.g.][]{Laumann2017}, a design matrix for \gls{tb-fmri}, arousal (e.g.~as measured by pupil diameter or eyelid closure), and/or physiological signals such as heart rate. Whether this is beneficial will require further validation studies.}
 In our model definition the spacing between values of $x_n$ may be irregular and does not need to be constant.
 Even though we expect \gls{fmri} data to be organized in a grid-like fashion of regular time intervals of a single \gls{tr}, this model flexibility could still be useful.
 For example, it allows for naturally leaving out a measurement due to an artifact.
@@ -108,7 +106,7 @@ The scale matrix covariance terms can be considered mean covariances across the 
 We train matrix $\mathbf{A}$ as part of the inference routine.
 Intuitively, for a static covariance estimate, our \gls{wp} could simply learn these $\mathbf{A}$ covariance terms and `switch off' the \glspl{gp}.
 
-Writing it out, our zero mean, multivariate Gaussian likelihood is given by
+Writing it out, our zero-mean, multivariate Gaussian likelihood is given by
 \begin{equation}
   p(\mathbf{y}_n|\mathbf{\Sigma}_n) = \frac{1}{(2\pi)^{\frac{D}{2}} |\mathbf{\Sigma}_n|^{\frac{1}{2}}} e^{-\frac{1}{2} \mathbf{y}_n \mathbf{\Sigma}_n^{-1} \mathbf{y}_n}.
 \end{equation}
@@ -132,7 +130,7 @@ That is,
 We know that $Y_n$ only depends on $\mathbf{F}_n$, so $p(Y|F) = \prod_{n=1}^N p(\mathbf{y}_n|\mathbf{A},\mathbf{F}_n)$.
 Since all entries of $\mathbf{F}_n$ are~i.i.d., we can write
 \begin{equation}
-  p(Y,F) = p(Y|F)p(F) = \prod_{n=1}^N \left[ p(\mathbf{y}_n|\mathbf{A},\mathbf{F}_n)) \prod_{d=1}^D \prod_{k=1}^\nu f_{d,k}(X_n) \right].
+  p(Y,F) = p(Y|F)p(F) = \prod_{n=1}^N \left[ p(\mathbf{y}_n|\mathbf{A},\mathbf{F}_n) \prod_{d=1}^D \prod_{k=1}^\nu f_{d,k}(X_n) \right].
 \end{equation}
 
 Recall that we want correlation in $Y$.
@@ -152,7 +150,7 @@ We therefore resort to \textbf{approximate inference} routines.
 
 \Gls{vi} is a technique that approximates a probability density through \emph{optimization}~\parencite{Jordan1999, Hoffman2015, Blei2017}.
 It is usually faster and more scalable than other inference methods, such as \gls{mcmc} sampling~\parencite[as used in e.g.][]{Fox2011}, especially with larger data sets.
-In fact, the recent advances that made this style of inference possible explains the `why now' of introducing this model to the task of \gls{tvfc} estimation.
+In fact, the recent advances that made this style of inference possible explain the `why now' of introducing this model to the task of \gls{tvfc} estimation.
 
 With \gls{vi}, we posit a family of distributions~$q(F)$ over the latent variables and then find the member of that family which is close to the target distribution (the true posterior)~$p(F|Y)$.
 Closeness here is measured by \gls{kl-divergence}.
@@ -194,7 +192,7 @@ Our \gls{elbo} is then given by
 \end{equation}
 
 We iteratively maximize this as our objective function, using gradient descent.
-In order to be able to compute (approximate) gradients we use the `reparametrization trick' as discussed in \textcite{Salimans2013, Kingma2014}.
+In order to be able to compute (approximate) gradients we use the `reparameterization trick' as discussed in \textcite{Salimans2013, Kingma2014}.
 This boils down to taking samples (Monte Carlo estimates) of our objective function and computing gradients based on these.
 
 %%
@@ -214,8 +212,7 @@ Diagonal values are initialized as 0.01 and are trained with the rest of the bef
 This modification may be interpreted as introducing white (or \emph{observational}) noise to the model.
 
 %%
-\subsection{Sparse variational Wishart processes}
-\label{subsec:svwp}
+\subsection{Sparse variational Wishart processes}\label{subsec:svwp}
 %%
 
 The beauty of basing our \gls{wp} construction on underlying \glspl{gp}, is that we can take advantage of the rapid development and improvement of these models~\parencite[echoing sentiments from][]{Foti2019}.
@@ -238,18 +235,17 @@ Our \gls{svwp} model is identical to the \gls{vwp}, except that its underlying \
 
 \begin{figure}[t]
   \centering
-  \subcaptionbox{VWP \label{fig:vwp-computational-complexity}}{
+  \subcaptionbox{VWP\label{fig:vwp-computational-complexity}}{
     \includegraphics[width=0.47\textwidth]{fig/studies/wp_computational_cost/VWP}
   }
-  \subcaptionbox{SVWP \label{fig:svwp-computational-complexity}}{
+  \subcaptionbox{SVWP\label{fig:svwp-computational-complexity}}{
     \includegraphics[width=0.47\textwidth]{fig/studies/wp_computational_cost/SVWP}
   }
   \caption{
-    WP computational complexity as a function of $N$ and $D$.
-    Shown is time required (in seconds) to complete 4 epochs.
+    WP model training computational complexity as a function of number of time steps ($N$) and number of components ($D$).
+    Shown is time required (in seconds) to complete~4 epochs.
     Run on a 3 GHz Intel Core i5 CPU.
-  }
-  \label{fig:wp-computational-cost}
+  }\label{fig:wp-computational-cost}
 \end{figure}
 
 
@@ -263,7 +259,7 @@ Throughout all benchmarks and experiments in this thesis, we use a (stationary, 
   \label{eq:matern}
   k(\textbf{x}, \textbf{x}') = \sigma^2 (1 + \sqrt{5} r + \frac53 r^2) \exp(-\sqrt{5}r),
 \end{equation}
-with $r = \frac{||\textbf{x} - \textbf{x}'||}{l}$, and where $l$ and $\sigma$ are the kernel length scales and variance parameters, respectively, which are trained.
+with $r = \frac{||\textbf{x} - \textbf{x}'||}{l}$, and where $l$ and $\sigma$ are the kernel lengthscales and variance parameters, respectively, which are trained.
 Their initial values are set to~0.3 and~1.0, respectively.
 These parameters are part of the total set of model parameters~$\theta$.
 This kernel is a twice differentiable covariance.
@@ -272,13 +268,13 @@ We note that kernel choice imposes assumptions (i.e.~inductive bias) on the beha
 For example, all Matérn kernels assume data stationarity.
 Kernel functions can be considered as a specification of similarity between observations.
 Our kernel considers further away observations less similar.
-But a periodic kernel, for example, could consider a further away points \emph{more} similar if it is in phase with another point.
+But a periodic kernel, for example, could consider a further away point \emph{more} similar if it is in phase with another point.
 Or, as with the Gibbs kernel, kernel parameters could themselves be a function of input features $\mathbf{x}$ (e.g.~time).
 In fact, this is one of the exciting aspects of the \gls{wp}.
 We can characterize time series through these kernels.
 Smoothness of correlation structure can be expressed by such kernel functions for example~\parencite{Fyshe2012, Fox2015, Foti2019}.
 Kernels can be combined too; sums and products of kernels are also valid kernels.
-As such more expressive kernels can be designed~\parencite{Gonen2011}.
+As such more expressive kernels can be designed~\parencite{Gonen2011} and domain knowledge incorporated.
 Kernel choice requires trial-and-error, although some efforts have been made to automate this process~\parencite[see e.g.][]{Steinruecken2019}.
 
 
@@ -287,8 +283,7 @@ Kernel choice requires trial-and-error, although some efforts have been made to 
   \includegraphics[width=\textwidth]{fig/studies/kernels}
   \caption{
     Draws from common Gaussian process kernels on interval $\left[ {0,1} \right]$.
-  }
-  \label{fig:kernel-draws}
+  }\label{fig:kernel-draws}
 \end{figure}
 
 
@@ -299,8 +294,8 @@ In general, it is best to keep $\nu$ small, as computational cost also scales wi
 We run both the \gls{vwp} and \gls{svwp} models in most experiments, although only the former for cases with $N \leq 200$ and only the latter for cases with $N \geq 400$.
 The number of inducing points is set to $M = 200$, irrespective of time series lengths~$N$.
 
-Standing on the shoulders of giants, the model is implemented using the open-source Python library \texttt{GPflow}~\parencite[][version 2.5.2]{Matthews2017, Wilk2020}.
-This \gls{gp} toolbox in turn is built on top of Google's \texttt{Tensorflow}~\parencite[][version 2.9.2]{Tensorflow2015}.
+Standing on the shoulders of giants, the model is implemented using the open-source Python library \texttt{GPflow}~\parencite[][version 2.6.4]{Matthews2017, Wilk2020}.
+This \gls{gp} toolbox in turn is built on top of Google's \texttt{Tensorflow}~\parencite[][version 2.11.0]{Tensorflow2015}.
 These packages take care of all underlying automatic differentiation.
 This means that the amount of code to write is minimal and consists mainly of implementing a (customized) likelihood function.
 For these reasons, this black-box implementation~\parencite{Ranganath2014} is simple and fast compared to proposed inference routines based on \gls{mcmc}.
