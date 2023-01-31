@@ -50,12 +50,12 @@ It is not fully understood yet, and has been shown to vary across brain regions~
 Lastly, \gls{fmri} experiments can broadly be divided into those with a certain external stimulus paradigm or set of instructions and those that are unconstrained.
 These are referred to as \gls{tb-fmri} and \gls{rs-fmri}.
 
-The \gls{bold} signal (a.k.a.~response or observation) constitutes the node time series (i.e.~brain region characteristic time series) studied in this thesis (see e.g.~\cref{fig:rockland-time-series-mean-over-subjects,fig:ukb-example-time-series,fig:ukb-fn-example-time-series}).
+The \gls{bold} signal (a.k.a.~response or observation) constitutes the brain region characteristic time series studied in this thesis (see e.g.~\cref{fig:rockland-time-series-mean-over-subjects,fig:ukb-example-time-series,fig:ukb-fn-example-time-series}).
 More concretely, an \gls{fmri} scan essentially returns a video of \emph{voxels} (3D pixels).
 The entire human brain typically encapsules hundreds of thousands of voxels (depending on voxel dimensions).
 Each voxel is characterized by an activity time series, but can be very noisy.
 It is therefore common to characterize the activity of \glspl{roi} instead of working with raw voxels~\parencite{Korhonen2017}, by either averaging or taking the first eigenvariate of all voxels enclosed in it (using some parcellation atlas).
-Throughout this thesis, these node time series shall be denoted as $\mathbf{y}_n \in \mathbb{R}^D$ for $n = 1, 2, \ldots , N$, where $D$ is the number of node time series (i.e.~brain regions) and $N$ is the number of observations across time.
+Throughout this thesis, these time series shall be denoted as $\mathbf{y}_n \in \mathbb{R}^D$ for $n = 1, 2, \ldots , N$, where $D$ is the number of time series (i.e.~brain regions) and $N$ is the number of observations across time.
 
 Preprocessing pipelines, which take raw \gls{fmri} data and output node time series of interest, impact study results and conclusions~\parencite{Caballero-Gaudes2017}.
 As such, preprocessing steps also heavily influence subsequently extracted \gls{fc}~\parencite{Aquino2022}.
@@ -63,7 +63,7 @@ An example of an impactful preprocessing step is \gls{gsr}, which can improve sp
 
 \info[inline]{Paragraph: Describe fMRI functional connectivity.}
 In the context of \gls{fmri}, `connectivity' is typically (i.e.~traditionally) characterized as the Pearson correlation coefficient between brain region \gls{bold} measurement component time series~\parencite{Zalesky2012}.
-This is a time-domain, non-directed quantitative measure of connectivity that assumes a linear relationship between node time series.
+This is a time-domain, non-directed quantitative measure of connectivity that assumes a linear relationship between brain region time series.
 There are other types of connectivity, including covariance, (directed) coherence, partial correlation, partial coherence, mutual information~\parencite[see e.g.][chapter 2]{Cover2005}, Granger causality, transfer entropy, and many frequency-domain measures~\parencite[see][for reviews]{Wang2014, VanDiessen2015, Bastos2016, Foti2019}.
 Some of these are directed whereas others are undirected.
 Choosing a connectivity measure constitutes a researcher degree of freedom~\parencite{Gelman2013} and each measure will extract different information from the raw signals.
@@ -75,8 +75,9 @@ It must be \emph{estimated} in the absence of a ground truth.
 
 \info[inline]{Paragraph: Discuss network neuroscience and its relationship to functional connectivity.}
 Work on \gls{fc} and connectomics has benefited from insights from graph theory and dynamical systems theory~\parencite{Bassett2017, Betzel2022}.\footnote{A dynamical system refers to any system of components (brain regions in this case) that interact and change across time according to some `dynamic' or `rule'. In state-space models, for example, system states are represented by a vector and evolve through a matrix multiplication.}
-Brain \glspl{roi} are then represented as a node in a graph and connectivity strength as (weighted) edges~\parencite[i.e.~node-pairs, see also][]{Ryyppo2018}.
+Brain \glspl{roi} are then represented as a \textbf{node} in a graph and connectivity strength as (weighted) \textbf{edges}~\parencite[i.e.~node-pairs, see also][]{Ryyppo2018}.
 This perspective will be discussed in more detail later, in the context of using it to extract features from data.
+Moreover, the term `node' will be used throughout this thesis to refer to any brain region, and `edge' will refer to any connection between two such regions.
 
 \info[inline]{Paragraph: Summarize key scientific insights from functional connectivity.}
 Despite the caveats discussed, \gls{fc} has taught us a great deal about the spatiotemporal organization of the cortex at macro-scale.
