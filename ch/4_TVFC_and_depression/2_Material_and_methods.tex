@@ -1,10 +1,9 @@
 \clearpage
-\section{Material and methods}
-\label{sec:ukb-methodology}
+\section{Material and methods}\label{sec:ukb-methodology}
 %%%%%
 
 In this section we describe how we \emph{analyze} the data and cohorts and described in the previous section.
-We mainly apply techniques and frameworks discussed in the previous chapters.
+We apply techniques and frameworks discussed in the previous chapters.
 
 %%
 \subsection{TVFC estimation method}
@@ -33,8 +32,8 @@ Overall, the \gls{svwp} approach performs best, solidifying our decision to use 
   \includegraphics[width=\textwidth]{fig/ukbiobank/imputation_study/ROI/LEOO_test_log_likelihoods_raincloud}
   \caption{
     UK Biobank depression study imputation benchmark test log likelihoods.
-  }
-  \label{fig:ukb-imputation-benchmark}
+    The SVWP approach performs best.
+  }\label{fig:ukb-imputation-benchmark}
 \end{figure}
 
 
@@ -67,7 +66,7 @@ Unfortunately, not everyone reports these.
 \subsection{Brain state analysis}
 %%
 
-We also investigate cohort \gls{tvfc} characteristics and contrasts through the construct of brain states (see \cref{subsec:brain-states}).
+We also investigate cohort \gls{tvfc} characteristics and contrasts through the construct of brain states (see \cref{subsec:brain-states} for explicit definition).
 These are extracted separately for each of the four analysis types (i.e.~cohort stratifications).
 All nine \glspl{roi} are included.
 %
@@ -80,8 +79,9 @@ However, the absence of a clear `elbow point' may indicate that there is not as 
   \includegraphics[width=0.8\textwidth]{fig/ukbiobank/brain_states/inertias_SVWP_joint}
   \caption{
     UK Biobank brain state analysis inertia elbow plot - SVWP-J estimates.
-  }
-  \label{fig:ukb-results-brain-states-elbow-plot}
+    Used for determining optimal number of clusters.
+    Lines overlap heavily for all four cohort stratifications.
+  }\label{fig:ukb-results-brain-states-elbow-plot}
 \end{figure}
 
 
@@ -92,11 +92,11 @@ However, the absence of a clear `elbow point' may indicate that there is not as 
 One key insight from the benchmarking efforts is that it not only allows us to pick the optimal \gls{tvfc} estimation method.
 It also paints a broader picture and a profile of predictive power.
 Such maps between edge connectivity and predictive power of subject measures, for example, can be useful when interpreting results.
-This is especially relevant is an interdisciplinary field as this.
-This is exactly the philosophy that led to the recent publication of open-source Python package \texttt{neuromaps}~\parencite{Markello2022}.
+This is especially relevant in an interdisciplinary field like this.
+This is exactly the philosophy that led to the recent publication of the open-source Python package \texttt{neuromaps}~\parencite{Markello2022}.
 
 This mindset constitutes a very pure data science view of the brain and neuroscience as a field~\parencite[see also][]{Yarkoni2017}.
-Machine learning as a field has fully embraced this mindset.\footnote{The fields of NLP and acoustic modeling have slowly shifted away from mechanistic language models to purely statistical approaches. In 1988, speech recognition pioneer Frederick Jelinek famously said something along the lines of ``Every time I fire a linguist, the performance of the speech recognizer goes up'' (exact wording is lost in time).}
+Machine learning as a field has fully embraced this mindset.\footnote{The fields of \gls{nlp} and acoustic modeling have slowly shifted away from mechanistic language models to purely statistical approaches. In 1988, speech recognition pioneer Frederick Jelinek famously said something along the lines of ``Every time I fire a linguist, the performance of the speech recognizer goes up'' (exact wording is lost in time).}
 It may not be a silver bullet, and does not necessarily lead to mechanistic understanding and strong theory~\parencite[see e.g.][]{Jonas2017}.
 However, it is certainly a promising research direction that may help bridge brain dynamics and brain function, a key bottleneck often raised in the field~\parencite{Kopell2014}.
 Moreover, some psychiatrists have called for prioritizing predictive power and clinical utility in the short term over deeper understanding~\parencite{Paulus2015, Winter2022}.
