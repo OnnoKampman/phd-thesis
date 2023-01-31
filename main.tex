@@ -11,7 +11,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{misc/headings}               % uncomment for fancy layout
 \input{misc/preamble}
-\input{misc/thesis-info}
 \input{misc/glossaries}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand\optionalindent{}        % uncomment for fancy layout
@@ -21,32 +20,30 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{misc/title_page}
-% \input{misc/dedication}
 \thispagestyle{empty}
 \input{misc/declaration}
 \clearpage
 \thispagestyle{empty}
 \input{misc/acknowledgements}
-% \input{misc/authorization}
 \input{misc/abstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \tableofcontents
 %%
 \clearpage
+% \addtocontents{lof}{\protect\addcontentsline{toc}{chapter}{List of Figures}}
 \addcontentsline{toc}{chapter}{List of Figures}
 \listoffigures
 %%
 \clearpage
-\addcontentsline{toc}{chapter}{List of Tables}
-\listoftables
+\thispagestyle{empty}
+\listoftables\addcontentsline{toc}{chapter}{List of Tables}
 %%
 \clearpage
+\thispagestyle{empty}
 \addcontentsline{toc}{chapter}{Acronyms}
 % \printglossary[type=\acronymtype,title=List of Abbreviations]
 \printnoidxglossaries
-%%
-% \input{misc/notations}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand\optionalindent{\tabto{1.2cm}}     % uncomment for fancy layout
@@ -99,15 +96,12 @@
 \input{appendix/03_extra_benchmarking_results}
 \input{appendix/hcp_extra_results}
 \input{appendix/04_ukb_with_other_methods}
-% \input{appendix/ukb_graph_analysis}
-% \input{appendix/four_levels_of_computational_psychiatry}
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-\nolinenumbers
+% \nolinenumbers
 \renewcommand\optionalindent{}              % uncomment for fancy layout?
 \renewcommand{\bibname}{References}         % changes the default name `Bibliography` -> `References'
-\addcontentsline{toc}{chapter}{References}
-\printbibliography
+\addcontentsline{toc}{chapter}{References}\printbibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
