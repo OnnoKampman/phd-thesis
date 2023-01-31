@@ -6,18 +6,16 @@ In this section we discuss promising and exciting directions for future work.
 Some of these will address the limitations as discussed throughout this thesis.
 
 %%
-\subsection{Model extensions}
-\label{subsec:model-extensions}
+\subsection{Model extensions}\label{subsec:model-extensions}
 %%
 
 Here we describe several venues of future work to improve the \gls{wp} for the task of \gls{tvfc} estimation.
 
 %%
-\subsubsection{Decreasing Wishart process computational cost}
-\label{subsubsec:decreasing-wp-computational-cost}
+\subsubsection{Decreasing Wishart process computational cost}\label{subsubsec:decreasing-wp-computational-cost}
 %%
 
-One area of concern for the practicality of the \gls{wp} is its relatively high computational cost (see \cref{subsec:svwp}).
+One area of concern for the practicality of the \gls{wp} is its high computational cost (see \cref{subsec:svwp}).
 We propose several directions for future work to address this.
 
 Firstly, recent innovations in variational sparse \glspl{gp} that remove the need for inducing points all-together can be ported directly to \gls{wp} models~\parencite[see][]{Saatchi2011, Adam2020, Wilkinson2021}.
@@ -31,7 +29,7 @@ Furthermore, advances in \gls{fmri} may reduce the \gls{tr} of scans.
 
 Secondly, the low rank (or \emph{factored}) implementation as discussed in \textcite{Heaukulani2019} can help in situations when $D$ (number of time series) is large.
 \textcite{Heaukulani2019} proposed a model variant~\parencite[in turn built upon work by][]{Fox2015} that may be especially relevant for the field of neuroimaging.
-It suggests to assign each node in a weighted manner to $K \ll D$ clusters, and only learn correlation structure between these clusters.
+It suggests assigning each node in a weighted manner to $K \ll D$ clusters, and only learn correlation structure between these clusters.
 Hereby we reduce $\mathbf{F}_n$ in \cref{eq:sigma-definition} from a $D \times \nu$ to a $K \times \nu$ sized matrix.
 This way, apart from reducing the number of model parameters, it can be seen as a dimensionality reduction step.
 %
@@ -46,18 +44,18 @@ Finally, we emphasize that since our \gls{wp} is based on \texttt{Tensorflow} an
 This can greatly improve computation times, especially as such hardware is becoming increasingly available at a lower cost.
 This stands in contrast with using sampling methods to infer model parameters.
 %
-It may be worthwile to try such sampling methods as inference routine, replacing our \gls{vi} routine.
+It may be worthwhile to try such sampling methods as inference routine, replacing our \gls{vi} routine.
 Especially promising may be the application of elliptical slice sampling~\parencite{Murray2010}.
 In this paradigm we may not need the mean-field assumption anymore.
 
 %%
-\subsubsection{Revisiting the zero mean assumption}
+\subsubsection{Revisiting the zero-mean assumption}
 %%
 
 Recall that in \cref{sec:wishart-process} we assumed mean function $\mathbf{\mu}_n$ to be zero(s).
 In fact, this assumption is fair if we subtract the empirical mean from data.
 %
-However, it is possible that models that include and estimate the mean function can yield better covariance estimates.
+However, it is possible that models that include an estimate of the mean function can yield better covariance estimates.
 This is a point made by \textcite{Lan2017} too.
 A natural candidate would be Gaussian process regression networks (GPRN)~\parencite{Wilson2012}.
 These models may also be necessary to model autocorrelation in data better.
@@ -69,7 +67,7 @@ But given our benchmarking framework, it is worth a try to implement such models
 \subsubsection{Multi-subject fMRI}
 %%
 
-Typical \gls{fmri} data sets include relatively small time series data sets for a number of subjects (typically 10-20 for small studies or thousands for large biobanks).
+Typical \gls{fmri} data sets are comprised of relatively small time series data sets for a number of subjects (typically 10--20 for small studies or thousands for large biobanks).
 In larger studies, data is usually collected across multiple sites and scanners.
 
 A remaining challenge is to model this intersubject variability~\parencite{Allen2012}.
@@ -80,12 +78,11 @@ Several efforts have already been made in this direction.
 For example, \textcite{Ebrahimi2020} proposed a probabilistic model that considers all subject data jointly.
 
 %%
-\subsection{Benchmark framework extensions}
-\label{subsec:benchmark-framework-extensions}
+\subsection{Benchmark framework extensions}\label{subsec:benchmark-framework-extensions}
 %%
 
 Although we have looked at quite a \emph{qualitatively} exhaustive range of benchmarks, there are still opportunities to add more benchmarks to the framework to improve the robustness of conclusions and acceptance by the community.
-On the other hand, in general it is not about maximizing the number of data sets included, but running the lowest number of experiments to validate a certain methodological decisions.
+On the other hand, in general it is not about maximizing the number of data sets included but about running the lowest number of experiments required to validate certain methodological decisions.
 
 We argue that adding benchmark data sets for the \emph{same} prediction task increases robustness, whereas adding benchmarks with completely \emph{new} prediction tasks has an extra function.
 %
@@ -105,14 +102,13 @@ Many additional data collection efforts are on the way.
 Particularly exciting is the ABCD study, which is recruiting young adolescents and tracking them for a decade~\parencite{Karcher2021}.
 
 %%
-\subsubsection{Adding more prediction tasks to the benchmarking framework}
-\label{subsec:spurious-brain-states}
+\subsubsection{Adding more prediction tasks to the benchmarking framework}\label{subsec:spurious-brain-states}
 %%
 
 Many prediction tasks can be added to the benchmarking.
-Some of these would require new protocol designs and collection of new data.
+Some of these would require new protocol designs and the collection of new data.
 
-One key open question remains whether it makes sense to posit that \gls{fc} does not vary smoothly across time, but jumps between discrete states.
+One key open question remains whether it makes sense to posit that \gls{fc} does not vary smoothly across time but jumps between discrete states.
 Future work should study whether this is a fair assumption.
 A carefully designed prediction task could in fact help to decide if brain states are artifacts of estimation method choice, or valid constructs that accurately model underlying brain dynamics.
 
@@ -163,49 +159,48 @@ Furthermore, we give hands-on advice to anyone studying \gls{tvfc}.
 
 The benefits of using a more sophisticated model come at the cost of (computational) complexity.
 Such complexity adds to the technical debt of a system~\parencite{Sculley2015} and the benefits must be carefully weighed.
-The \gls{sw} approach, for instance, is very cheap, even for large cohort data sets.
+The \gls{sw} approach, for instance, is cheap, even for large cohort data sets.
 When analyzing a large cohort data set, the \gls{wp} model may take days or weeks to model all covariance structures.
 This may well be worth it, and this could be alleviated by good software engineering practices such as including such estimation in acquisition pipelines to be run immediately after data collection.
 %
 As discussed in \cref{subsubsec:decreasing-wp-computational-cost}, there are possibilities to reduce computational complexity of the \gls{wp}.
 
 Moreover, it is crucial that advances in modeling get picked up in the community.
-The availability of clean software with good documentation is essential for such uptake.
+The availability of clean software with good documentation is essential for such an uptake.
 We have aimed to make implementation of the \gls{wp} in Python as straightforward as possible.
 All software will be made available upon publication.
 
 %%
-\subsubsection{Robustness to researcher degrees of freedom}
-\label{subsec:robustness}
+\subsubsection{Robustness to researcher degrees of freedom}\label{subsec:robustness}
 %%
 
-In light of the ongoing reproducibility crisis, academic disciplines can also learn best practices from each other~\textcite{Bell2021}.
+Considering the ongoing reproducibility crisis, academic disciplines can also learn best practices from each other~\parencite{Bell2021}.
 A common criticism of studies in psychology and neuroscience is that researchers have the freedom to make many seemingly arbitrary choices.
 We have briefly touched upon the impact of such `researcher degrees of freedom'~\parencite{Gelman2013} throughout this thesis.
 These choices can happen at any stage, from data collection to neuroimaging data preprocessing to analysis and significance determination.
-Often such choices are made unconcsciously.
+Often such choices are made unconsciously.
 
-We can take a step back and look at different types of researcher choices.
+We can take a step back and look at distinct types of researcher choices.
 %
 The first set are trivial ones that do not need any justification.
 It does not make sense to mix human and mice brains in a study, for example.
-The second are those where strong theoretical guarantees exist, or where a strong argument can be made on the basis of mental reasoning.
+The second are those where strong theoretical guarantees exist, or where a compelling argument can be made on the basis of mental reasoning.
 %
 Then there are those we can benchmark.
 An excellent example is \textcite{Li2019a}, where it is shown that if you want to use \gls{fc} to characterize subject measures, it is best to apply \gls{gsr} in data preprocessing pipelines.
-As such, in Bayesian jargon, benchmarking can be considered marginalizating out a single researcher choice.
-Alternatively, or complementary, benchmarking or mapping exercises can also provide a rich profile to allow researcher to make more informed decisions.
+As such, in Bayesian jargon, benchmarking can be considered as marginalizing out a single researcher choice.
+Alternatively, or complementary, benchmarking or mapping exercises can also provide a rich profile to allow researchers to make more informed decisions.
 For example, in an extensive study, \textcite{Wang2014} proposed a framework to compare different connectivity measures.
 %
-However, no matter how rigorous we motivate our choices, some will always be left to make for the foreseeable future.
+However, no matter how rigorously we motivate our choices, some will always be left to make for the foreseeable future.
 For example, let us consider the study in \cref{ch:ukb}.
 Which data set do we study?
 How do we define depression?
 Do we use atlas A or B for parcellation~\parencite[see also][]{Dadashkarimi2021}?
 Do we consider time-domain or frequency-domain coupling as an indication of connectivity strength between two brain regions?
 
-One way to increase robustness of our conclusions is to \emph{formalize} these choice using a multiverse analysis framework~\parencite{Steegen2016}.
-This views each decision `universe' in parallel, and aims to run the analysis in each universe and then examine the full multiverse of results.
+One way to increase robustness of our conclusions is to \emph{formalize} these choices using a multiverse analysis framework~\parencite{Steegen2016}.
+This views each decision `universe' in parallel and aims to run the analysis in each universe and then examine the full multiverse of results.
 If a scientific conclusion holds in most universes, it can be considered more robust.
 Of course, this approach is often infeasible or unrealistic.
 In cases where obtaining experimental results is expensive, methods using active learning can help.
@@ -223,8 +218,7 @@ It is also recommended to implement a \gls{sfc} estimate for comparison.
 If the decision is made to use \gls{sw} approaches, we strongly recommend cross-validating the window length.
 
 %%
-\subsection{Outlook on TVFC in depression research}
-\label{subsec:outlook-depression}
+\subsection{Outlook on TVFC in depression research}\label{subsec:outlook-depression}
 %%
 
 Understanding depression requires different perspectives.
@@ -248,7 +242,7 @@ This would indicate whether our results are robust across demographics and data 
 Key to making progress is to find common languages and bridge levels of understanding and scientific inquiry.
 
 As briefly touched upon, computational psychiatry and endophenotype research can act as conduits for mechanistic insight into depression.
-Linking such studies to neuroimaging has great potential.
+Linking such studies to neuroimaging has exciting potential.
 However, we do acknowledge this as a vastly complex approach, and one that requires collaboration between respective experts.
 
 Another bridge is neurochemistry, a relatively overlooked point of view.
@@ -272,7 +266,7 @@ Some early studies have already looked at this.
 For example, \textcite{Chekroud2017} found three clusters of depressed patients, each with different responses to treatment.
 In fact, \textcite{Drysdale2017} performed a similar clustering approach on \gls{rs-fmri} data, identifying four clusters based on \gls{tms} therapy response.
 
-An interesting venue for collecting phenotypic data is through online testing.
+An interesting venue for collecting phenotypic data is online testing.
 This could be done through online testing tools such as Amazon Mechanical Turk, or through smartphone and wearable data~\parencite[see e.g.][]{Shapiro2013, Brown2014b}.
 The latter is referred to as `digital phenotyping' and is more ecologically valid.
 
@@ -284,10 +278,10 @@ As we have discussed briefly already, this study, like many others, relies on br
 Moreover, broad brain networks are typically studied.
 These study characteristics may lead to a lack in specificity.
 Such specificity may be important in certain circumstances.
-For example, a clinician would rather know a precise treatment target, instead of broadly know that the \gls{dmn} is affected.
-One big drawback of more fine-grained studies~\parencite[e.g.][]{Klein-Flamp2022} is that \gls{fmri} signals become more noisy when we look at smaller brain region parcellations.
-Another drawback of specificity in disorder characterization is that specific (sub)factor models of depression (e.g. collected with ad-hoc questionnaires) can typically only be collected for a much smaller number of participants than established measures as we investigate in this work.
-Hence we are stuck in a trade-off situation.
+For example, a clinician would rather know a precise treatment target, instead of broadly knowing that the \gls{dmn} is affected.
+One big drawback of more fine-grained studies~\parencite[e.g.][]{Klein-Flamp2022} is that \gls{fmri} signals become noisier when we look at smaller brain region parcellations.
+Another drawback of specificity in disorder characterization is that specific (sub)factor models of depression (e.g.~collected with ad-hoc questionnaires) can typically only be collected for a much smaller number of participants than established measures as we investigate in this work.
+Hence, we are stuck in a trade-off situation.
 
 %%
 \subsubsection{The importance of theory}
@@ -303,4 +297,4 @@ The existence of this crisis was proposed as an additional, inherent cause of th
 
 Most importantly, these theory-driven and data-driven approaches are complementary~\parencite{Huys2016}.
 Insights from theoretic models can be added as inductive biases to machine learning models.
-And computationl modeling can be used to falsify or assign credit to various theoretic models.
+And computational modeling can be used to falsify or assign credit to various theoretic models.
