@@ -1,18 +1,17 @@
 \clearpage
-\section{Cross-validated sliding-windows}
-\label{sec:cross-validated-sw}
+\section{Cross-validated sliding-windows}\label{sec:cross-validated-sw}
 %%%%%
 
 \info[inline]{Paragraph: Discuss other proposals for determining the optimal window length.}
 Attempts have been made to improve \gls{sw} estimates by automatically extracting the optimal window length for a given scan from the data itself or to circumvent this issue~\parencite[see e.g.][]{Wang2014, Xu2015, Yaesoubi2018}.
-In fact, prior work has established that knowing the optimal window length $w$ a priori can make \gls{sw} a very effective method in the estimation of \gls{tvfc}~\parencite{Zalesky2015}.
+In fact, prior work has established that knowing the optimal window length $w$ a priori can make \gls{sw} a remarkably effective method in the estimation of \gls{tvfc}~\parencite{Zalesky2015}.
 These authors therefore argued that the window length should be set based on a rule of thumb after analyzing the \gls{bold} signal.
 As such these can be considered \emph{data-driven} estimation methods as well.
 
 \info[inline]{Paragraph: Introduce our way of cross-validating the optimal window length.}
 Here we propose another data-driven way of determining the optimal window length: by using cross-validation.
 Cross-validation is a simple yet effective technique to evaluate the generalizability performance of models~\parencite[see e.g.][section 8.2.4]{Deisenroth2019}.
-In machine learning model development it is often used to determine model hyperparameters.
+In machine learning model development, it is often used to determine model hyperparameters.
 %
 In our approach, which we call the \gls{sw-cv} method, evaluation data points are taken from the middle of node time series.
 For each of these data points individually, the likelihood of observing it under a zero-mean multivariate Gaussian for the full range of reasonable window lengths applied on all surrounding data points is taken (\emph{not} including the evaluation observation).
@@ -31,16 +30,17 @@ On the other hand, for a fast-changing covariance structure this likelihood is l
 
 \begin{figure}[t]
   \centering
-  \subcaptionbox{Static structure \label{fig:sw-cv-demo-static-structure}}{
+  \subcaptionbox{Static structure\label{fig:sw-cv-demo-static-structure}}{
     \includegraphics[width=0.47\textwidth]{fig/studies/cross_validating_sliding_windows/sw_cv_results_df_null}
   }
-  \subcaptionbox{Fast-changing structure \label{fig:sw-cv-demo-fast-changing-structure}}{
+  \subcaptionbox{Fast-changing structure\label{fig:sw-cv-demo-fast-changing-structure}}{
     \includegraphics[width=0.47\textwidth]{fig/studies/cross_validating_sliding_windows/sw_cv_results_df_periodic_3}
   }
   \caption{
-    Cross-validated sliding-windows demonstration showing how optimal window length adapts to underlying covariance structure.
-  }
-  \label{fig:sw-cv-demo}
+    Cross-validated sliding-windows demonstration showing how the optimal window length adapts to the underlying covariance structure.
+    Heatmap colormaps indicate test location log likelihoods.
+    Line plots show the mean test log likelihood over all test locations.
+  }\label{fig:sw-cv-demo}
 \end{figure}
 
 
@@ -51,7 +51,7 @@ These are rounded up to the nearest odd number of \glspl{tr} to ensure symmetry.
 %
 The minimum window length ensures that we do not filter out signal in (expected) relevant frequency bands.
 There is no actual constraint on maximum proposal window length limit.
-If the signal is fundamentally static we would expect the window length to trend to infinity.
+If the signal is fundamentally static, we would expect the window length to trend to infinity.
 However, doing so reduces the number of available evaluation points, so we are left with a trade-off.
 %
 After the optimal window length is determined, \gls{tvfc} estimates are generated in the same way as the regular \gls{sw} approach as discussed in \cref{subsec:sliding-windows-fc}.
