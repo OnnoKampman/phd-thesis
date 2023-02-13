@@ -4,8 +4,8 @@
   a4paper,
   12pt,                             % should be 11pt or 12pt
   dvipsnames,
-  twoside,                          % uncomment for final version: different left and right side pages
-  openright                         % uncomment for final version: start new chapters on right hand side page
+  twoside,                          % uncomment for final version (both electronic and print): different left and right side pages
+  openright                         % uncomment for final version (both electronic and print): start new chapters on right hand side page
 ]{report}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -31,13 +31,11 @@
 \tableofcontents
 %%
 \clearpage
-% \addtocontents{lof}{\protect\addcontentsline{toc}{chapter}{List of Figures}}
-\addcontentsline{toc}{chapter}{List of Figures}
 \listoffigures
 %%
 \clearpage
 \thispagestyle{empty}
-\listoftables\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
 %%
 \clearpage
 \thispagestyle{empty}
@@ -49,8 +47,7 @@
 \renewcommand\optionalindent{\tabto{1.2cm}}     % uncomment for fancy layout
 \newpage
 \pagenumbering{arabic}
-\pagestyle{fancy}                               % uncomment for final version: add fancy headers and footers
-% \linenumbers
+\pagestyle{fancy}                               % uncomment for final version (both electronic and print): add fancy headers and footers
 %%
 \input{ch/1_Introduction/0_Introduction}
 \input{ch/1_Introduction/1_Functional_connectivity}
@@ -99,7 +96,6 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-% \nolinenumbers
 \renewcommand\optionalindent{}              % uncomment for fancy layout?
 \renewcommand{\bibname}{References}         % changes the default name `Bibliography` -> `References'
 \addcontentsline{toc}{chapter}{References}\printbibliography

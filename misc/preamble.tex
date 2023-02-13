@@ -12,7 +12,6 @@
 % BOXES %
 %%%%%%%%%
 
-% For adding e.g. Box 1.
 \usepackage{tcolorbox}
 \newtcolorbox[auto counter]{mybox}[2][]{
   float,
@@ -35,6 +34,7 @@
 \usepackage{amsthm}
 %%
 \usepackage[toc,page]{appendix}
+\usepackage[nottoc]{tocbibind}
 %%
 \usepackage{booktabs}       % professional-quality tables
 \usepackage[font=small,labelfont=it]{caption}  % small is 11pt when normalsize is 12pt
@@ -73,15 +73,19 @@
 \fancyhead{}
 \fancyfoot{}
 
+% \fancyhead[LE]{\thepage}  % uncomment for final (printed) two-sided version
+% \fancyhead[RO]{\thepage}  % uncomment for final (printed) two-sided version
+\fancyhead[R]{\thepage}   % uncomment for one-sided draft and final (electronic) two-sided version
 % \fancyhead[RE]{Chapter \thechapter}
 % \fancyhead[RO]{\rightmark}
 
-% \fancyhead[LE]{\thepage}  % uncomment for two-sided version
-% \fancyhead[RO]{\thepage}  % uncomment for two-sided version
-
-\fancyhead[R]{\thepage}   % uncomment for one-sided version (draft)
-
 % \fancyfoot[LE,RO]{\thepage}
+
+% https://www.overleaf.com/learn/latex/How_to_Write_a_Thesis_in_LaTeX_(Part_2)%3A_Page_Layout
+
+%%%%%%%%%
+% OTHER %
+%%%%%%%%%
 
 \input{misc/todo}
 
@@ -89,3 +93,6 @@
 % \doublespacing
 \onehalfspacing
 % \linespread{1.25}  % this is equal to 1.5 linespacing in Microsoft Word
+
+\author{Onno Pepijn Kampman}
+\date{September 2022}
