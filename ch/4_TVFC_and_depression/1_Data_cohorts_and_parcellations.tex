@@ -1,88 +1,98 @@
 \clearpage
-\section{Data, cohorts, and parcellations}
-\label{sec:ukb-data}
+\section{Data, cohorts, and parcellations}\label{sec:ukb-data}
 %%%%%
 
 \info[inline]{Paragraph: Broad introduction of data and phenotyping.}
-Our data and cohorts are taken from the UK Biobank, a large population study data bank.
-We perform a four-by-two analysis, studying four depression phenotypes that define four sets of cohorts and two levels of brain abstractions.
+All data and cohorts are taken from the UK Biobank, a large population study data bank.
+A four-by-two analysis is performed, studying four depression phenotypes (that define four sets of cohorts) and two levels of brain abstractions.
 These four phenotypes are: (inpatient) diagnosed lifetime occurrence of \gls{mdd}, self-reported depression lifetime occurrence, self-reported depressive state (at the time of the brain scan), and depression genetic risk as measured by \gls{prs}.
-The two abstractions (parcellations) are as a collection of individual (relevant) brain \glspl{roi} and as a superposition of (relevant) \glspl{fn}.
-Carefully slicing cohorts in various ways may yield insights beyond a single study.
+The two abstractions (i.e.~parcellations) are as a collection of individual (relevant) brain \glspl{roi} and as a superposition of (relevant) \glspl{fn}.
+Carefully slicing cohorts in several ways may yield insights beyond a single study.
 
 %%
 \subsection{Data overview}
 %%
 
 \info[inline]{Paragraph: Introduce UK Biobank.}
-UK Biobank is a large, actively growing, and publicly available data biobank of 502,486 unique individuals located across the United Kingdom, recruited voluntarily from the general populace~\parencite{Collins2012, Allen2014b}.
+The UK Biobank is a large, actively growing, and publicly available data biobank of 502,486 unique individuals located across the United Kingdom, recruited voluntarily from the general populace~\parencite{Collins2012, Allen2014b}.
 Despite some `healthy volunteer' biases that affect how representative this data is of the entire populace~\parencite[see][]{Fry2017}, it is one of the largest of such kind in the world.
-Originally the data was particularly focused on genetics and lifestyle analyses, so most of the mental health information was collected at a later stage or synced through \glspl{ehr}.
-Questions regarding depressive symptoms (administered on touch-screens) were only added to the initial assessment protocol for the final two recruitment years (for 172,751 participants in total).
+%
+Originally the data was particularly focused on genetics and lifestyle analyses.
+Most of the mental health information was collected at a later stage or synchronized through \glspl{ehr}.
+Questions regarding depressive symptoms (administered on touchscreens) were only added to the initial assessment protocol for the final two recruitment years (for 172,751 participants in total).
+More generally, given the sheer size and long collection duration, not all data fields are available for all participants.
+%
 In an early descriptive epidemiological study, \textcite{Smith2013c} found \emph{probable} prevalence rates of 6.4\% for single lifetime episode of major depression, 12.2\% for recurrent major depression (moderate), and 7.2\% for recurrent major depression (severe).
-They also note that this is in line with other large population studies, thus underscoring the validity and representativeness of this data set (for depression studies at least).
+They noted that this is in line with other large population studies, thus underscoring the validity and representativeness of this data set (for depression studies at least).
 The richness in data included in this biobank presents an unprecedented opportunity to understand the interaction of mood disorders such as \gls{mdd} with genetic, lifestyle, and environmental risk factors and influences.
-All data used in this work has been fetched on the 1st of March, 2021.
+All data used in this work has been fetched on the 1st of March 2021.
 
 \info[inline]{Paragraph: Provide overview of rs-fMRI data.}
-We limit this study to \gls{rs-fmri} data.
-Our data fetch contains 44,083 participants with \gls{rs-fmri} data available (out of a total of 502,486 unique UK Biobank individuals).\footnote{At the time of writing, plans are on the way to get to 100,000 scanned participants~\parencite{Littlejohns2020}. As we are working with a live, active data set, we plan to re-run all analyses when more data becomes available.}
+This study is limited to \gls{rs-fmri} data.
+The data fetch contains 44,083 participants with \gls{rs-fmri} data available (out of a total of 502,486 unique UK Biobank individuals).\footnote{At the time of writing, plans are on the way to get to 100,000 scanned participants~\parencite{Littlejohns2020}. As we are working with a live, active data set, we plan to re-run all analyses when more data becomes available.}
 Data collection was standardized across scanning facilities.
 All source images were acquired with a voxel resolution of $2.4 \times 2.4 \times 2.4$ mm and a \gls{te} of 39 ms, for a duration of 6 minutes and a \gls{tr} of 0.735 seconds, resulting in $N = 490$ volumes per scan (for the majority of participants).
-Participants with fewer volumes than this were discarded, and for those with more volumes than this we truncated the time series to this length.
+Participants with fewer volumes than this were discarded.
+For those with more volumes than this the time series were truncated to this length.
+Data preprocessing was done by Richard Bethlehem and team at the Department of Psychiatry.
 
 \info[inline]{Paragraph: Describe data collection timeline.}
 UK Biobank participants were recruited and attended an initial assessment visit between 2006 and 2010.
 All participants were aged between 40 and 69 at the time of recruitment (note how this contrasts the young adult participants from the \gls{hcp} data as studied in \cref{ch:benchmarking}).
 The initial baseline assessment (codified as Instance 0) included basic health data collection through a touchscreen questionnaire as well as a verbal interview~\parencite{Bycroft2018}.
+%
 Some of these participants were invited several years later to repeat this assessment (codified as Instance 1).
 These visits happened in 2012 and 2013.
-A subset of all original participants was then invited for a second follow-up visit, which included an \gls{rs-fmri} scan.
+%
+A subset of all original participants was then invited for a second follow-up visit (codified as Instance 2), which included an \gls{rs-fmri} scan.
 These visits started in 2014 and are still ongoing.
-Some participants were asked to do a repeat imaging visit as well (starting in 2019 and still ongoing as well).
-In this study we only use the scans from the first imaging visit (codified as Instance 2), resulting in a single \gls{rs-fmri} scan per participant in our data set.
-A follow-up \gls{mhq} was sent out to participants as well to expand the potential of the UK Biobank data with mental health~\parencite{Davis2020, Glanville2021}.
+%
+Some participants were asked to do a repeat imaging visit (starting in 2019 and still ongoing).
+%
+This study only uses the scans from the first imaging visit (Instance 2), resulting in a single \gls{rs-fmri} scan per participant in our data set.
+A follow-up \gls{mhq} was sent out to participants to expand the potential of the UK Biobank data with mental health~\parencite{Davis2020, Glanville2021}.
 Participant responses from this online \gls{mhq} were collected in the second half of 2016.
 
 \info[inline]{Paragraph: Introduce ICD-10 diagnoses from electronic health records.}
-Inpatient hospital \glspl{ehr}, including \gls{icd}~\parencite{WHO1992} diagnoses, have been linked to the biobank as well.\footnote{Throughout this thesis only the 10th revision of these codes is used.}
-We note that this data was only available for 17,442 out of the 21,675 participants with available \gls{rs-fmri} and that met the other general prerequisites described below.
+Inpatient hospital \glspl{ehr}, including \gls{icd}~\parencite{WHO1992} diagnoses, have been linked to the biobank.\footnote{Throughout this thesis only the 10th revision of these codes is used.}
+However, this data was only available for 17,442 out of the 21,675 participants with available \gls{rs-fmri} and that met the other general prerequisites described below.
 
 %%
-\subsection{Cohort stratification}
-\label{subsec:cohort-stratification}
+\subsection{Cohort stratification}\label{subsec:cohort-stratification}
 %%
 
 \info[inline]{Paragraph: Provide overview of cohort stratification.}
 Here we describe how we define depression and how we construct our cohorts (i.e.~groups with a shared defining characteristic of interest) for each of the four depression phenotypes.
 
 \info[inline]{Paragraph: Describe general participant filters.}
-Before going into specific depression phenotype definitions, we ran several general filters across all participants.
-Firstly, we only select participants between 40 and 64 years old (at the time when the scan was taken), to avoid including co-morbidities to do with old age.
-This reduced the number of (broadly) eligible participants to include from 44,083 to 21,877.
-Secondly, we follow \textcite{Howard2020} and filter out any participants that had been diagnosed with schizophrenia, a personality disorder, and/or bipolar disorder.
-These diagnoses were taken from \gls{icd} data fields as well as Data-Field 20544.
-This further reduced the number of eligible participants to 21,675.
+Before going into specific depression phenotype definitions, several general filters were run across all participants.
+%
+Firstly, we only select participants between~40 and~64 years old (at the time when the scan was taken), to avoid including co-morbidities and changes in brain structure and function to do with old age.\footnote{There is a trade-off between sample size and sample homogeneity in this case.}
+This reduced the number of (broadly) eligible participants to include from~44,083 to~21,877.
+Secondly, following \textcite{Howard2020}, any participant that had been diagnosed with schizophrenia, a personality disorder, and/or bipolar disorder was filtered out.
+These diagnoses were taken from \gls{icd} data fields as well as Data-Field~20544.
+This further reduced the number of eligible participants to~21,675.
 Another factor to consider are cardiovascular disorders~\parencite{Whooley2013}, such as hypertension.
 \Gls{bold} signals are based on blood flow, so such conditions may bias our findings.
-We do not use this information in our cohort stratification.
-General clinical and demographic characterics of all such eligible participants are shown in \cref{tab:ukbiobank-cohorts}.
+However, this information is not used in our cohort stratification.
+General clinical and demographic characteristics of all such broadly eligible participants are shown in \cref{tab:ukbiobank-cohorts}.
 
 \info[inline]{Paragraph: Describe importance of careful stratification.}
 After applying these general filters, the next step toward our final data sets is to select and divide participants into cohorts to be contrasted in our analysis.
 As we shall see, this is a non-trivial task that requires several assumptions and heavily influences the scope of conclusions we can make about the relationship between depression and the brain.
 As discussed in \cref{sec:fc-depression}, depression is a clinically heterogeneous condition, and multiple definitions and subtypes exist~\parencite[see also][]{Fried2022}.
-Common symptoms include negative bias, adhedonia, impaired social cognition, and reduced motivation and behavioral responses.
+Common symptoms include negative bias, anhedonia, impaired social cognition, and reduced motivation and behavioral responses.
 Furthermore, it can be considered on a continuous scale of intensity, instead of just a binary classification.
 We argue that looking at a wider range of phenotypes paints a fuller picture.
-Based on the available data, we look at four depression phenotypes: diagnosed lifetime occurrence, self-reported lifetime occurrence,
-self-reported depressive episode/state while the participant was in the scanner, and \glspl{prs}.
+Based on the available data, we look at four depression phenotypes: diagnosed lifetime occurrence, self-reported lifetime occurrence, self-reported depressive episode/state while the participant was in the scanner, and \glspl{prs}.
 All general cohort characteristics are summarized in \cref{tab:ukbiobank-cohorts}.
-Neuroticism, a personality trait strongly correlated with mood disorders, scores were derived from a list of questions (on the touchscreen at the assessment centre).
+%
+Scores for neuroticism, a personality trait strongly correlated with mood disorders~\parencite{Goldstein2014}, have been derived from a list of questions (on the touchscreen at the assessment center).\footnote{Personality traits are generally considered to be stable across adulthood.}
 These scores were missing for about 1 out of 7 participants.
-Depressed cohorts generally score much higher on neuroticism.
-They have higher BMI as well, and are more educationally and materially deprived (although the spread in scores is large).
-This is not the case for the \gls{prs} cohorts, which may be interpreted as genetics not playing a dominant role in these outcomes.
+Our depressed cohorts score much higher on average on neuroticism ($p < .001$).
+They also have a higher \gls{bmi} and are more educationally and materially deprived (although the spread in scores is large).
+This is not the case for the \gls{prs} cohorts.
+Genetics may not play a dominant role in these outcomes.
 
 \input{tab/ukb_cohorts}
 
@@ -91,13 +101,15 @@ This is not the case for the \gls{prs} cohorts, which may be interpreted as gene
 %%
 
 \info[inline]{Paragraph: Describe diagnosed lifetime occurrence phenotype.}
-For this first lifetime occurrence (a.k.a.~lifetime \emph{history} or \emph{instance}) phenotype we select two cohorts from all eligible participants: an \gls{mdd} cohort and a \gls{hc} cohort.
+For this first lifetime occurrence (a.k.a.~\emph{history} or \emph{instance}) phenotype two cohorts are selected from all eligible participants: an \gls{mdd} cohort and a \gls{hc} cohort.
 This cohort is based on medical diagnoses of \gls{mdd}, which can be found in Data-Field 41270.
-We select participants that have at any point in their lives been diagnosed with \gls{icd} codes F320-F323, F328-F329 (single depressive episodes), F330-F334, F338, and/or F339 (recurrent depressive episodes).
+We select participants that have at any point in their lives been diagnosed with \gls{icd} codes F320--F323, F328--F329 (single depressive episodes), F330--F334, F338, and/or F339 (recurrent depressive episodes).
 As such we do not distinguish between single or recurrent episodes (and thus depression severity).
 The control cohort is defined as having no such past diagnosis as well as not self-reporting any depression (both during visits and in the follow-up \gls{mhq}).
-The male/female ratios of these cohorts show a large discrepancy.\footnote{Higher reported depression incidence for women was to be expected~\parencite{Albert2015, Bogren2018}. The prevalence of depression decreases after the age of 65, however, and becomes similar across sex~\parencite{Bebbington2003}. This is likely influenced by female prevelance of depression peaking around hormononal changes (puberty, prior to menstruation, following pregnancy, and at perimenopause).}
-Therefore, the two cohorts are matched not only in size, but also in sex ratio.
+Moreover, participants that were taking antidepressants were filtered out from the \gls{hc} cohort.
+%
+The male/female ratios of these cohorts show a large discrepancy.\footnote{Higher reported depression incidence for women was to be expected~\parencite{Albert2015, Bogren2018}. The prevalence of depression decreases after the age of 65, however, and becomes similar across sex~\parencite{Bebbington2003}. This is likely influenced by female prevalence of depression peaking around hormonal changes (puberty, prior to menstruation, following pregnancy, and perimenopause).}
+Therefore, the control cohorts are subsampled to match the depressed cohort not only in size, but also in sex ratio.
 
 %%
 \subsubsection{Self-reported lifetime occurrence (depressive trait analysis)}
@@ -107,38 +119,40 @@ Therefore, the two cohorts are matched not only in size, but also in sex ratio.
 For this second lifetime occurrence phenotype we again select two cohorts from all eligible participants: a depressed cohort (we avoid the term \gls{mdd} here due to a lack of professional diagnosis) and a \gls{hc} cohort.
 We broadly follow \textcite{Howard2020} for this analysis and use the self-reported lifetime instance depression phenotype definition based on the \gls{cidi-sf} \parencite{Kessler1998} as described and defined by \textcite{Davis2020}.\footnote{The scoring criteria from \textcite{Davis2020} are equivalent to the \gls{dsm} criteria for \gls{mdd}. See \cref{sec:fc-depression} for more details.}
 This inventory was part of the follow-up \gls{mhq} sent out to participants.
-We again note that this phenotype indicates a \emph{lifetime} instance measure of depression, and does not distinguish between a single or multiple past depressive episodes.
+We again note that this phenotype indicates a \emph{lifetime} instance measure of depression.
+It does not distinguish between a single or multiple past depressive episodes.
 After selecting eligible participants (those that completed this questionnaire), we were left with only 14,843 participants.\footnote{This highlights a core problem with self-reported phenotypes; they introduce selection bias.}
 
 \info[inline]{Paragraph: Discuss inherent data limitations.}
-Note that the relevant online follow-up questionnaires were sent out to participants with valid email addresses and completed in 2016, whereas the scans were taken any time between 2014 and 2018.
+The relevant online follow-up questionnaires were sent out to participants with valid email addresses and completed in 2016, whereas the scans were taken any time between 2014 and 2018.
 This means that some participants filled it out before the scan, whereas others did so afterwards.
-Consequently, some people may have gotten depressed for the first time after filling out the questionnaire, but before or during their scan.
+Consequently, some individuals may have gotten depressed for the first time after filling out the questionnaire, but before or during their scan.
 Moreover, for those who reported ever having been depressed, some may have been so while in the scanner, whereas for others it was a long time ago.
-Unfortunately we have no surefire way of separating out these groups.
-Here it is also important to note that we end up perhaps studying depression-like \emph{traits} (i.e.~individual susceptibility over longer periods of time as evidenced by history) instead of mental \emph{states} (i.e.~currently affected and experiencing depressive episode) of participants during the scan.
+Unfortunately, we have no surefire way of separating out these groups.
+Here it is also important to note that we end up perhaps studying depression-like \emph{traits} (i.e.~individual susceptibility over longer periods of time as evidenced by history) instead of mental \emph{states} (i.e.~currently affected and experiencing a depressive episode) of participants during the scan.
 
 \info[inline]{Paragraph: Describe CIDI-SF phenotype definition.}
-The \gls{cidi-sf} definition of a lifetime instance of depression requires at least one positive answer in the two \emph{core} symptoms in Data-Fields 20441 and 20446 (see \cref{tab:CIDI-SF-Data-Fields}).
-Additionally, it requires at least four out of six \emph{non-core} symptoms (some or a lot of impairment) from Data-Fields 20435, 20437, 20449, 20450, 20532, and/or 20536.
+The \gls{cidi-sf} definition of a lifetime instance of depression requires at least one positive answer in the two \emph{core} symptoms in Data-Fields~20441 and~20446 (see \cref{tab:CIDI-SF-Data-Fields}).
+Additionally, it requires at least four out of six \emph{non-core} symptoms (some or a lot of impairment) from Data-Fields~20435, 20437, 20449, 20450, 20532, and/or~20536.
 These non-core symptoms are based on follow-up questions that were only asked if participants indicated they had at least one core symptom.
 
 \input{tab/ukb_cidi_sf}
 
 \info[inline]{Paragraph: Describe our (stricter) phenotype definition.}
-Our goal is to have a strong contrast between our two cohorts.
+Our goal is to have a stark contrast between our two cohorts.
 Therefore, our definition is even stricter than the one used by \textcite{Howard2020}.
 We require participants for the depressed cohort to report \emph{both} core symptoms.
 Furthermore, we require them to have \emph{all} six non-core symptoms.
 We also use the second phenotype discussed in \textcite{Howard2020} to further narrow down our depressed cohort.
 This \emph{help-seeking} phenotype is based on whether a participant has ever sought help from a \gls{gpx} or a psychiatrist (Data-Fields 2090 and 2100, respectively) for nerves, anxiety, tension, or depression.
-This was asked at each of the--up to four--participant visits to the assessment center.
-To make our depression phenotype more strict, we also required depressed cohort participants to have visited a \gls{gpx} (but a psychiatrist visit was optional due to its rarity).
+This was asked at each of the up to four participant visits to the assessment center.
+To make our depression phenotype stricter, we also required depressed cohort participants to have visited a \gls{gpx}.
+A psychiatrist visit was optional due to its rarity.
 
 \info[inline]{Paragraph: Describe our control cohort phenotype definition.}
-\gls{hc} participants were selected on having neither core symptoms, as well as never having visited a \gls{gpx} nor psychiatrist for the above-mentioned reasons.
-Following \textcite{Glanville2021}, any participant that endorsed any condition in Data-Field 20544 is also excluded from the \gls{hc} cohort.
-Moreover, participants that were on anti-depressants during any of the assessment centre visits were excluded.
+\gls{hc} participants were selected to have neither core symptoms, as well as never having visited a \gls{gpx} nor a psychiatrist for the above-mentioned reasons.
+Following \textcite{Glanville2021}, any participant that endorsed any condition in Data-Field~20544 is also excluded from the \gls{hc} cohort.
+Moreover, participants that were on anti-depressants during any of the assessment center visits were excluded.
 
 \info[inline]{Paragraph: Describe final cohorts and sex ratio matching.}
 In the end, we obtained 979 depressed participants and 4,944 \gls{hc} participants with these criteria.
@@ -153,10 +167,10 @@ For a full overview of these cohort characteristics, see \cref{tab:ukbiobank-coh
 %%
 
 \info[inline]{Paragraph: Describe self-reported depressive state phenotype.}
-For the depressive state we use self-reported depressed states at the time of the \gls{rs-fmri} scan.
+For the depressive state analysis, we use self-reported depressed states at the time of the \gls{rs-fmri} scan.
 This is found in Data-Field 20002.
 This phenotype differs from the previous two in the sense that we know participants reported being depressed while in the scanner.
-As such the addition of this phenotype allows us to investigate the difference between depressive episodes or lifetime history (e.g.~through its lasting impact or general susceptibility differences).
+As such the addition of this phenotype allows us to investigate the difference between (current) depressive episodes or lifetime history (e.g.~through its lasting impact or general susceptibility differences).
 The respective \gls{hc} cohort was defined as not reporting said depressive state.
 %
 Sex ratios were again matched across cohorts.
@@ -172,7 +186,7 @@ These \gls{gwas} scores were generated by Varun Warrier at the Department of Psy
 The main underlying algorithm used was \texttt{PRSice2}~\parencite{Choi2019}.\footnote{Code: \url{https://choishingwan.github.io/PRSice}}
 Importantly, these scores were generated using a data set independent from the UK Biobank.
 These \gls{prs} are only available for a subset of our participants.
-We divide these into three equally-sized groups: high, medium, and low risk (3,775 subjects per cohort).
+We divide these into three equally sized groups: high, medium, and low risk (3,775 subjects per cohort).
 
 \info[inline]{Paragraph: Describe caveats of using the polygenic risk scores phenotype.}
 Subjects with high \glspl{prs} may well have never experienced any depressive episode, and vice versa.
@@ -181,11 +195,11 @@ We know that depression risk is heritable to some degree, but depressive episode
 As before, changing our depression phenotype inherently changes our study focus and scope of subsequent conclusions.
 
 \info[inline]{Paragraph: Discuss overlap between cohorts.}
-As such, how much correspondence is there between this genetics-based phenotype and the three beforementioned (diagnosed and self-reported, based on actual life experiences and symptoms) depression phenotype definitions?
+As such, how much correspondence is there between this genetics-based phenotype and the three aforementioned (diagnosed and self-reported, based on actual life experiences and symptoms) depression phenotype definitions?
 We verify (and validate) our cohorts by plotting the \glspl{prs} per cohort for both diagnosed and self-reported phenotypes (see \cref{fig:ukb-lifetime-occurrence-pgs}).
-As expected, participants of the other three depression phenotypes generally have higher mean depression \glspl{prs} than \glspl{hc} (two-sample $t$-test: Cohen $d = 0.28$, $t(1059) = 4.56$, $p < .001$; Cohen $d = 0.35$, $t(1421) = 6.52$, $p < .001$; and Cohen $d = 0.26$, $t(2468) = 6.49$, $p < .001$, respectively).
-\textcite{Glanville2021} also finds that there is a correlation between the \gls{cidi-sf} (self-reported lifetime occurrence) measure and \gls{prs}.
-Moreover, we are in agreement with \textcite{Cai2020}, who found that the \gls{cidi-sf} depression phenotype had the \emph{strongest} genetic contribution.
+As expected, participants of the other three depression phenotypes have higher mean depression \glspl{prs} than \glspl{hc} (two-sample $t$-test: Cohen $d = 0.28$, $t(1059) = 4.56$, $p < .001$; Cohen $d = 0.35$, $t(1421) = 6.52$, $p < .001$; and Cohen $d = 0.26$, $t(2468) = 6.49$, $p < .001$, respectively).
+\textcite{Glanville2021} also found that there is a correlation between the \gls{cidi-sf} (i.e.~self-reported lifetime occurrence) measure and \gls{prs}.
+Moreover, we are in agreement with \textcite{Cai2020}, who found that this \gls{cidi-sf} depression phenotype has the \emph{strongest} genetic contribution.
 
 
 \begin{figure}[t]
@@ -193,9 +207,8 @@ Moreover, we are in agreement with \textcite{Cai2020}, who found that the \gls{c
   \includegraphics[width=\textwidth]{fig/ukbiobank/PRS_all_analyses_per_cohort_joint}
   \caption{
     UK Biobank depression study distribution of polygenic risk scores for three depression phenotype cohorts.
-    Scores are higher for the depressed cohorts compared to the HC cohorts.
-  }
-  \label{fig:ukb-lifetime-occurrence-pgs}
+    Scores are significantly higher for the depressed cohorts compared to the HC cohorts.
+  }\label{fig:ukb-lifetime-occurrence-pgs}
 \end{figure}
 
 
@@ -206,14 +219,15 @@ Moreover, we are in agreement with \textcite{Cai2020}, who found that the \gls{c
 \info[inline]{Paragraph: Frame brain region of interest selection.}
 After selecting our cohorts, we need to define and decide on how to characterize brain nodes.
 We have opted to study a selection of depression-relevant, anatomically defined brain \glspl{roi}.\improvement{Motivate more why we only look at a selection of brain regions}
-We will base this selection on the current understanding of the neurobiology and neurological basis of depression, as well as pick brain regions that have been the subject of other \gls{fc} studies that looked at the \emph{interaction} between individual brain regions.
+We will base this selection on the current understanding of the neurobiology and neurological basis of depression.
+Moreover, we pick brain regions that have been the subject of other \gls{fc} studies that looked at the \emph{interaction} between individual brain regions.
 The latter will also allow us to validate and contrast our findings within the existing body of work, both \gls{sfc} and \gls{tvfc}.
 
 \info[inline]{Paragraph: Describe brain regions generally involved with depression.}
 As reviewed in \cref{sec:fc-depression}, depression is known to primarily affect brain regions involved with mood and reward processing~\parencite{Pandya2012}.
 Here we continue this review and motivate in more detail why we study the regions we do.
 %
-An influential concept in neuroanatomy is that the human brain is in fact made up out of three brains.
+An influential concept in neuroanatomy is that the human brain is in fact made up of three brains.
 The concept of this \emph{triune} brain was introduced by \textcite{Maclean1985}.
 It posits from an evolutionary perspective that the human brain consists of a primal (`reptilian'; including basal ganglia and brain stem structures that help with the `plumbing' and regulatory side of bodily homeostasis), limbic (`mammalian' or `emotional'; involved with critical emotional skills required for social animals), and neomammalian (`rational'; responsible for higher and more complex cognitive function and regulation of emotions) brain.\footnote{The terms `reptilian' and `mammalian' should, of course, not be taken literally. Reptiles were never ancestors to mammals; our evolutionary lines diverged over 300 million years ago~\parencite{Striedter2019}.}
 The primal and limbic systems are more ancient than the (evolutionarily speaking) newer neocortex, and their physiology and anatomy is therefore categorically different as well.
@@ -221,65 +235,67 @@ For example, limbic areas such as the \gls{hpc} are typically comprised of three
 Theories of depression often pertain to such functional descriptions, often suggesting aberrant and dysregulated emotional, limbic, and reward processing~\parencite{Akiskal1973}.
 It makes intuitive sense that depression would affect the regions and circuits involved with these functions, as opposed to the visual cortex, for example (although even such regions may very well be affected).
 Continuing this tradition, modern computational psychiatry approaches seeking more mechanistic explanations have imposed \gls{rl} concepts such as `utility', `reward', and `value' onto the brain and suggested implementational theories of mood disorders in the human brain~\parencite{Huys2013, Chen2015, Eldar2016, Juechems2019, Bennett2020, Bennett2021}.\footnote{\textbf{Computational psychiatry} broadly refers to computational, model-based approaches to understanding psychiatric illness~\parencite{Montague2012, Adams2016, Radulescu2019, Huys2021}.}
-A large proportion of the brain is, in fact, involved in processing value functions.
+A substantial proportion of the brain is, in fact, involved in processing value functions.
 However, key brain regions that have been proposed to be involved in such studies often include the basal ganglia and frontal areas such as the (medial) \gls{ofc}, \gls{vmpfc}, \gls{mpfc}, and (dorsal) \gls{acc}~\parencite{Lee2012}.
+%
 Yet another source of inspiration comes from applications of the free-energy principle to depression~\parencite{Chekroud2015}.
 The idea here is that if the brain does indeed build a generative model of the world, then this will include beliefs about both the external (e.g. intuitive physics) and internal world (e.g. beliefs about agency and helplessness).
 Depressive beliefs can then be viewed as those negatively biasing predictions.
 Despite these advances, however, it is still unclear what brain regions and networks are exactly involved, and how they may be affected.
 
 \info[inline]{Paragraph: Describe brain regions generally involved with depression (continued).}
-Generally, the \gls{pfc} (shown in \cref{fig:roi-mpfc}) has been found to be most consistently impaired with \gls{mdd}~\parencite{George1994, Pizzagalli2021}.
+The \gls{pfc} has been found to be most consistently impaired with \gls{mdd}~\parencite{George1994, Pizzagalli2021}.
 Many subregions of the \gls{pfc} have been individually studied and implicated.
 Generally, the \gls{pfc} can be divided into a lateral and a ventromedial part.
-Moreover, brain regions related to emotional (e.g. limbic system constituents) and reward processing are robustly found to be impacted.
-Therefore, the particular brain \glspl{roi} involved with depression that are included in this work are the \gls{amg}~\parencite{Dannlowski2009, Kong2013, Connolly2017, Zhang2020}, \gls{hpc}, \gls{pha}, \gls{ai}~\parencite{Avery2014, Kandilarova2018}, \gls{ofc}~\parencite{Rolls2020}, \gls{pcc}, \gls{dlpfc}, and \gls{acc}~\parencite{Drevets2008} and \gls{mpfc}~\parencite{Pizzagalli2021}.
+Moreover, brain regions related to emotional (e.g.~limbic system constituents) and reward processing are robustly found to be impacted.
+Therefore, the brain \glspl{roi} involved with depression that are included in this work are the \gls{amg}~\parencite{Dannlowski2009, Kong2013, Connolly2017, Zhang2020}, \gls{hpc}, \gls{pha}, \gls{ai}~\parencite{Avery2014, Kandilarova2018}, \gls{ofc}~\parencite{Rolls2020}, \gls{pcc}, \gls{dlpfc}, and \gls{acc}~\parencite{Drevets2008} and \gls{mpfc}~\parencite{Pizzagalli2021}.
 We will briefly describe what we know about these brain regions before we move on.
 
 The \gls{amg} is an almond-shaped, complex subcortical brain region that is part of the limbic system and is critical in regulating motivation and responses to both rewarding and aversive stimuli~\parencite{Nestler2002}.
 It was first described by Karl Friedrich Burdach in 1822~\parencite{Burdach1826}.
-It is located in the midbrain, next to the \gls{hpc}, and is connected to many other brain regions.
+It lies in the midbrain, next to the \gls{hpc}, and is connected to many other brain regions.
 As a brain structure it is made up of about 13 nuclei.\footnote{In neuroanatomy, a \textbf{nucleus} refers to any cluster of neurons, where such neurons have similar functions and connections to other nuclei.}
 The \gls{amg} is especially involved in processing of emotions and memories related to fear, threats, aggression, and pain~\parencite{Thompson2017b}.
-It also assigns value and emotional meaning to particular memories and decisions.
+It also assigns value and emotional meaning to memories and decisions.
 This makes it a prime contestant for relevant brain regions.
 It is theorized that the \gls{amg} is dysregulated and hyperactive in patients with \gls{mdd}.
 Similarly, the \gls{amg} has been found to be hyperactive in \gls{ptsd} patients, where emotional experiences from memories do not fade over time and keep their original (traumatic) impact.
 It has been found that the \gls{amg} has decreased connectivity with a range of other brain regions with \gls{mdd}~\parencite{Tang2013, Ramasubbu2014}.
 Even though the \gls{amg} is known to have three functionally distinct subdivisions, we consider it as one whole brain region here.
 The \gls{amg} is a relatively small brain region.
-\textcite{Brabec2010} found the average \gls{amg} in their sample to be 1,240-1,630~$mm^3$ in size per hemisphere (depending on measurement method, with no significant interhemisphere or intersex differences).
+\textcite{Brabec2010} found the average \gls{amg} in their sample to be 1,240--1,630~$mm^3$ in size per hemisphere (depending on measurement method, with no significant interhemisphere or intersex differences).
 The volume of the \gls{amg} has been shown to shrink with recurrent major depression~\parencite{Sheline1998}.
 
 
 \begin{figure}[t]
   \centering
-  \subcaptionbox{Amygdala (AMG) \label{fig:roi-amg}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/Amygdala/ho_joint}}
+  \subcaptionbox{Amygdala (AMG)\label{fig:roi-amg}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/Amygdala/ho_joint}}
   \hspace{0.08\textwidth}
-  \subcaptionbox{Hippocampus (HPC) \label{fig:roi-hpc}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/Hippocampus/ho_joint}}
-  \subcaptionbox{Parahippocampal area (PHA) \label{fig:roi-pha}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/PHA}}
+  \subcaptionbox{Hippocampus (HPC)\label{fig:roi-hpc}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/Hippocampus/ho_joint}}
+  \subcaptionbox{Parahippocampal area (PHA)\label{fig:roi-pha}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/PHA}}
   \hspace{0.08\textwidth}
-  \subcaptionbox{Anterior insula (AI) \label{fig:roi-insula}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/AI}}
-  \subcaptionbox{Orbitofrontal cortex (OFC) \label{fig:roi-ofc}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/OFC}}
+  \subcaptionbox{Anterior insula (AI)\label{fig:roi-insula}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/AI}}
+  \subcaptionbox{Orbitofrontal cortex (OFC)\label{fig:roi-ofc}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/OFC}}
   \hspace{0.08\textwidth}
-  \subcaptionbox{Posterior cingulate cortex (PCC) \label{fig:roi-pcc}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/PCC}}
-  \subcaptionbox{Dorsolateral PFC (dlPFC) \label{fig:roi-dlpfc}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/dlPFC}}
+  \subcaptionbox{Posterior cingulate cortex (PCC)\label{fig:roi-pcc}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/PCC}}
+  \subcaptionbox{Dorsolateral PFC (dlPFC)\label{fig:roi-dlpfc}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/dlPFC}}
   \hspace{0.08\textwidth}
-  \subcaptionbox{Anterior cingulate cortex (ACC) \label{fig:roi-acc}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/ACC}}
-  \subcaptionbox{Medial PFC (mPFC) \label{fig:roi-mpfc}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/mPFC}}
+  \subcaptionbox{Anterior cingulate cortex (ACC)\label{fig:roi-acc}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/ACC}}
+  \subcaptionbox{Medial PFC (mPFC)\label{fig:roi-mpfc}}{\includegraphics[width=0.37\textwidth]{fig/brain_regions/mPFC}}
+  % \hspace{0.08\textwidth}
+  % \subcaptionbox{V1 \label{fig:roi-v1}}{\includegraphics[width=0.38\textwidth]{fig/hcp/RSN_components/RSN_01}}
   \caption{
     Brain ROIs for UK Biobank depression study.
     AMG and HPC are extracted from Harvard-Oxford atlas.
     Other regions are extracted from HCP-MMP1.0 parcellation.
-  }
-  \label{fig:ukb-brain-regions}
+  }\label{fig:ukb-brain-regions}
 \end{figure}
 
 
 The \gls{hpc} is another subcortical region, located deep in the temporal lobe, and is also part of the limbic system.
 It has long been known to be involved with learning, memory, and replay of memories (consolidation).
 More recently it has also been implied with emotional behavior and spatial navigation.
-The \gls{hpc} is a relatively vulnerable brain region, and is one of the earlier and most severly affected brain areas with neurodegenerative disorders such as \gls{ad}.
+The \gls{hpc} is a vulnerable brain region, and is one of the earlier and most severely affected brain areas with neurodegenerative disorders such as \gls{ad}.
 Hippocampal volumes differ across hemispheres.
 \textcite{McHugh2007} found human hippocampal volumes of 3,480~$\pm$~430~$mm^3$ and 3,680~$\pm$~420~$mm^3$ for left and right \gls{hpc}, respectively.
 Macaque primate as well as human studies have found decreased hippocampal volume with depression~\parencite{Campbell2004, Malykhin2010, Brown2014, Schmaal2016}.
@@ -292,7 +308,7 @@ Ramon y Cajal was the one who provided the first and most detailed overview of t
 \textcite{Aminoff2013} proposed that the \gls{pha} processes \emph{contextual associations}.
 It becomes more active in \gls{fmri} studies when individuals are shown images of `places' and `situations'~\parencite{Epstein1998}.
 \textcite{Megevand2014} showed that stimulation of this region triggered hallucinations of such visuals.
-More recent work showed that is also processes \emph{social} context.
+More recent work showed that it also processes \emph{social} context.
 
 The insula, (also known as insular cortex) is part of the \gls{sn} and the limbic system~\parencite{Uddin2017}.
 It is known to be involved with modulation of emotional processing.
@@ -315,7 +331,7 @@ Overall, its function is still mysterious and may be highly heterogeneous~\paren
 
 The \gls{dlpfc} is part of the lateral \gls{pfc} and is differentiated functionally rather than anatomically.
 The \gls{dlpfc} is affected with \gls{mdd} as well, showing lower metabolism~\parencite{Pandya2012}.
-This region is mostly linked to executive function (e.g. planning, reasoning, cognitive flexibility~\parencite{Dajani2015}, and working memory).
+This region is mostly linked to executive function (e.g.~planning, reasoning, cognitive flexibility~\parencite{Dajani2015}, and working memory).
 It also plays a role in mood regulation.
 
 The \gls{acc} is involved with salience and attention, as well as management of pain and emotions.
@@ -328,13 +344,13 @@ It is believed to be involved in introspection (the \gls{mpfc} has one of the hi
 The \gls{mpfc} is another central node in the \gls{dmn} and has been linked to self-referential thought~\parencite{Gusnard2001}.
 
 In our study, only the \gls{bold} time series from these nine brain regions are considered.
-All brain regions of interest (as they are actually implemented in this study) are illustrated in \cref{fig:ukb-brain-regions}.
+All brain regions of interest (as they are implemented in this study) are illustrated in \cref{fig:ukb-brain-regions}.
 Interactive three-dimensional brain region plots (in Jupyter Notebooks) are provided upon publication.
 
 \info[inline]{Paragraph: Describe brain region parcellation.}
 We use the \gls{hcp} Multi-Modal Parcellation (MMP) 1.0 brain region parcellation~\parencite{Glasser2016}.
 This atlas contains 180 regions per hemisphere.
-We merge all brain regions across both hemispheres, assuming lateralization does not play a major role.
+We merge all brain regions across both hemispheres, assuming lateralization does not play a significant role.
 Each of the brain regions of interest consists of a collection of subregions from this atlas.
 We take a weighted (by number of voxels per subregion) average to obtain our final time series.
 Note that parcellation choices are often controversial, see also \textcite{Arslan2018, Bryce2021} for a comparison of parcellation methods.
@@ -342,7 +358,7 @@ Subregion specifics (including full names and volumes) are shown in \cref{tab:uk
 
 \input{tab/ukb_roi}
 
-An example of extracted node time series for a single subject in shown in \cref{fig:ukb-example-time-series}.
+An example of extracted node time series for a single subject is shown in \cref{fig:ukb-example-time-series}.
 
 
 \begin{figure}[t]
@@ -350,8 +366,7 @@ An example of extracted node time series for a single subject in shown in \cref{
   \includegraphics[width=\textwidth]{fig/ukbiobank/node_timeseries/diagnosed_lifetime_occurrence/depressed/time_series_regions_of_interest}
   \caption{
     UK Biobank depression study example time series for all brain regions studied for a single (diagnosed lifetime occurrence, depressed cohort) participant.
-  }
-  \label{fig:ukb-example-time-series}
+  }\label{fig:ukb-example-time-series}
 \end{figure}
 
 
@@ -361,11 +376,11 @@ An example of extracted node time series for a single subject in shown in \cref{
 
 \info[inline]{Paragraph: Describe brain region edges of interest decision.}
 To limit the scope of our study and to minimize risks related to \gls{mht}, we only look at certain brain region connections (edges).
-Similarly to deciding which brain \glspl{roi} to include, from previous findings we also know of several \emph{edges} that are relevant and/or altered with depression.
+As with deciding which brain \glspl{roi} to include, from previous findings we also know of several \emph{edges} that are relevant and/or altered with depression.
 Especially those previously studied through the lens of \gls{fc} are considered relevant.
 The rest of this section reviews such prior work.
 
-However, we have to be careful with comparing our results to these prior findings.
+However, we must be careful with comparing our results to these prior findings.
 The atlases used and brain region definition will be (slightly) different in each experimental setup.
 Connectivity measures or interaction indicators vary as well.
 Depression phenotypes are typically different across studies.
@@ -384,10 +399,10 @@ Many \gls{amg} to prefrontal areas connectivity disturbances have been reported.
 In contrast, \textcite{Dannlowski2009} showed a \emph{decrease} in \gls{fc} between the \gls{amg} and prefrontal areas with \gls{mdd}.
 Similarly, \textcite{Kong2013} found decreased \gls{sfc} between the \gls{amg} and left rostral \gls{pfc} with \gls{mdd}.
 \textcite{Connolly2017} found reduced \gls{sfc} between the \gls{amg} and both \gls{dlpfc} as well as \gls{vmpfc}.
-\textcite{Willinger2022} further showed that prefrontal-\gls{amg} connectivity is affected in adolescents with \gls{mdd}, which they relate to aberrant emotional processing.
-\textcite{Burghy2012} found the connection strength of \gls{amg}-\gls{mpfc} to be decreased in those with significant \gls{els}, which (as discussed in \cref{subsec:depression}) is a major confounding factor of developing \gls{mdd}.
-\textcite{Rolls2020} finds aberrant connectivity between the \gls{amg} and medial \gls{ofc}.
-\textcite{Tang2018} also finds the \gls{amg} to be involved and its connection to \gls{ofc} changed.
+\textcite{Willinger2022} further showed that prefrontal--\gls{amg} connectivity is affected in adolescents with \gls{mdd}, which they relate to aberrant emotional processing.
+\textcite{Burghy2012} found the connection strength of \gls{amg}--\gls{mpfc} to be decreased in those with significant \gls{els}, which (as discussed in \cref{subsec:depression}) is a major confounding factor in developing \gls{mdd}.
+\textcite{Rolls2020} found aberrant connectivity between the \gls{amg} and medial \gls{ofc}.
+\textcite{Tang2018} also found the \gls{amg} to be involved and its connection to \gls{ofc} changed.
 
 Connectivity between \gls{amg} and other regions has also been studied.
 In a seed-based analysis, \textcite{Ramasubbu2014} find decreased \gls{sfc} between the \gls{amg} and many other brain regions, including vlPFC, insula, caudate, precuneus, STG, and occipital regions and \gls{cbm}.
@@ -397,7 +412,7 @@ They claim that this reduced connectivity could relate to the dysregulated, hype
 They also found increased connectivity between the \gls{dmpfc} and \gls{acc}/paracingulate gyrus and with the frontal pole.
 
 Network connectivity changes have also been reported.
-The connectivity strength of \gls{pcc}-\gls{mpfc} (key nodes of the \gls{dmn}) was found by \textcite{Philip2013} to be decreased in individuals with \gls{els}.
+The connectivity strength of \gls{pcc}--\gls{mpfc} (key nodes of the \gls{dmn}) was found by \textcite{Philip2013} to be decreased in individuals with \gls{els}.
 
 %%
 \subsubsection{Time-varying functional connectivity edges affected in depression}
@@ -419,9 +434,9 @@ They linked this finding to correlation with rumination, a core symptom of depre
 Especially the precuneus was found to be implied.
 They also demonstrated how important it is to take the temporal dynamics of \gls{fc} into account.
 
-\textcite{Dini2021} used \gls{sw} and then $k$-means clustering to find 3 brain states.
+\textcite{Dini2021} used \gls{sw} and then $k$-means clustering to find three brain states.
 They calculated the occupancy rate (OCR), the time that each subject spends in each state.
-What they found was that depressed subjects spend less time in a state where connectivity between \gls{cen} and \gls{dmn} was relatively higher than in other states.
+What they found was that depressed subjects spend less time in a state where connectivity between \gls{cen} and \gls{dmn} was higher than in other states.
 \Gls{ect} was seen to increase the amount of time subjects spend in that same state.
 
 \textcite{Ho2021} found lower within-network connectivity (which they refer to as network coherence) in ventral \gls{dmn}, lower within-network connectivity in anterior \gls{dmn} and insula-SN and higher between-network connectivity between \gls{cen} and \gls{dmn}.
@@ -438,55 +453,42 @@ Based on these findings, we study the following 13 edges.
 We study the edges between the \gls{amg} and four frontal regions: \gls{ofc}, \gls{dlpfc}, \gls{acc}, and \gls{mpfc}.
 Two \gls{hpc} edges are studied: those with the \gls{ai} and the \gls{ofc}.
 Two \gls{pha} edges are included: those with the \gls{acc} and the \gls{mpfc}.
-The edges between the \gls{ai} and the \gls{acc} as well as the \gls{mpfc} are included.
+The edges between the \gls{ai} and the \gls{acc} as well as the \gls{mpfc} are included.  % Kaiser2015
 The former of these connections represents \gls{sn} within-network connectivity.
 A single \gls{pcc} edge is studied; the one with the \gls{mpfc}.  % Wise2017
 This edge represents the \gls{dmn} within-network connectivity.
 Finally, we include two more \gls{dlpfc} edges: those with the \gls{acc} and the \gls{mpfc}. % Kaiser2015
 
 %%
-\subsection{Functional network analysis}
+\subsection{Functional network analysis}\label{subsec:ukb-fn-analysis}
 %%
 
 \info[inline]{Paragraph: Introduce functional networks analysis.}
 In our second analysis type, we study brain \emph{networks} instead of individual brain \glspl{roi}.
-Depression has also been considered as a network disorder~\parencite{Mulders2015}.
-Instead of a single brain region not functioning properly, there is an aberration in the integration and segregation of brain regions.
-The main networks found to be involved and affected are the \gls{dmn}~\parencite{Berman2011, Demirtas2016, Wise2017, Yan2019, Zhao2019, Zhou2020}, \gls{cen}~\parencite{Zhao2019}, and \gls{sn}~\parencite{Manoliu2014}.
-
-The \gls{dmn} primarily consists of \gls{mpfc} and \gls{pcc}, as well as the (para)hippocampal areas, precuneus (cortex), and angular gyrus~\parencite{Andrews-Hanna2010}.
-It is often described as the neurological basis for `the self', and is attributed functions like self-referential thinking~\parencite{Sheline2009}, cognitive flexibility~\parencite{Vatansever2016}, mind-wandering, memory processing and rumination, theory of mind, emotion regulation, and as storage of autobiographical information.
-It it connected to the \gls{amg} and \gls{hpc}~\parencite{Andrews-Hanna2014}.
-
-The \gls{cen} primarily consists of the lateral \gls{pfc}, posterior parietal cortex (PPC), \gls{dlpfc} (especially middle frontal gyrus), \gls{dmpfc}, and posterior parietal regions~\parencite{Rogers2004}.
-It is associated with cognitive processes and functions, like working memory and attention.
-
-The \gls{sn} primarily consists of the \gls{ai} and (dorsal) \gls{acc}, with some adding the \gls{amg}, frontoinsular cortex, temporal poles, and striatum~\parencite{Seeley2007, Menon2010, Beck2016}.
-The \gls{sn} is a key network in cognitive flexibility~\parencite{Dajani2015}.
-
-They are visualized in \cref{fig:ukb-brain-functional-networks}.
-The regions and respective sub-regions these networks are made up of are shown in \cref{tab:ukbiobank-functional-networks}.
+As reviewed in \cref{subsec:fc-depression}, depression has also been considered as a network disorder.
+%
+The three networks considered (and described in more detail in \cref{subsec:fc-depression}) in this study are visualized in \cref{fig:ukb-brain-functional-networks}.
+The regions and respective sub-regions of these networks are shown in \cref{tab:ukbiobank-functional-networks}.
 Which sub-regions (nodes) constitute each specific \gls{fn} is based on \textcite{Fan2016, Uddin2019, Oane2020}.\footnote{There are diverging views on this topic, and we have made an effort to balance out these views.}
-Note that IFJa and IFJp could also be considered to be part of the middle frontal gyrus instead of the inferior frontal gyrus.
+Note that IFJa and IFJp could also be part of the middle frontal gyrus instead of the inferior frontal gyrus.
 However, we want to make sure there is no overlap between these networks.
 
 
 \begin{figure}[t]
   \centering
-  \subcaptionbox{Central executive network (CEN) \label{fig:fn-cen}}{\includegraphics[width=0.50\textwidth]{fig/functional_networks/CEN}}
-  \subcaptionbox{Default mode network (DMN) \label{fig:fn-dmn}}{\includegraphics[width=0.50\textwidth]{fig/functional_networks/DMN}}
-  \subcaptionbox{Salience network (SN) \label{fig:fn-sn}}{\includegraphics[width=0.50\textwidth]{fig/functional_networks/SN}}
+  \subcaptionbox{Central executive network (CEN)\label{fig:fn-cen}}{\includegraphics[width=0.50\textwidth]{fig/functional_networks/CEN}}
+  \subcaptionbox{Default mode network (DMN)\label{fig:fn-dmn}}{\includegraphics[width=0.50\textwidth]{fig/functional_networks/DMN}}
+  \subcaptionbox{Salience network (SN)\label{fig:fn-sn}}{\includegraphics[width=0.50\textwidth]{fig/functional_networks/SN}}
   \caption{
     UK Biobank depression study brain functional networks studied.
     Network subregions are extracted from HCP-MMP1.0 parcellation.
-  }
-  \label{fig:ukb-brain-functional-networks}
+  }\label{fig:ukb-brain-functional-networks}
 \end{figure}
 
 
 \input{tab/ukb_fn}
 
-An example of extracted node time series for a single subject in shown in \cref{fig:ukb-fn-example-time-series}.
+An example of extracted node time series for a single subject is shown in \cref{fig:ukb-fn-example-time-series}.
 
 
 \begin{figure}[ht]
@@ -494,8 +496,7 @@ An example of extracted node time series for a single subject in shown in \cref{
   \includegraphics[width=0.8\textwidth]{fig/ukbiobank/node_timeseries/diagnosed_lifetime_occurrence/depressed/time_series_functional_networks_of_interest}
   \caption{
     UK Biobank depression study example time series for all three functional networks studied for a single (diagnosed lifetime occurrence, depressed cohort) participant.
-  }
-  \label{fig:ukb-fn-example-time-series}
+  }\label{fig:ukb-fn-example-time-series}
 \end{figure}
 
 

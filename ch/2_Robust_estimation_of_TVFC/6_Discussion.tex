@@ -1,14 +1,12 @@
 \clearpage
-\section{Discussion}
-\label{sec:methods-discussion}
+\section{Discussion}\label{sec:methods-discussion}
 %%%%%
 
 \info[inline]{Paragraph: Discuss relevant topics before starting the benchmarking chapter.}
 Here we briefly discuss any remaining issues and considerations regarding methods development.
 
 %%
-\subsection{Model-based and data-driven methods}
-\label{subsec:model-based-data-driven-methods}
+\subsection{Model-based and data-driven methods}\label{subsec:model-based-data-driven-methods}
 %%
 
 \info[inline]{Paragraph: Discuss benefits of model-based approaches.}
@@ -28,7 +26,7 @@ Here we discuss several more considerations regarding model-based and data-drive
 %%
 
 The \gls{wp} model may lead to improved performance, flexibility, and interpretability.
-Additionally, we can sample our covariance matrix at any point in time, and get uncertainty in our estimates (unlike the other methods discussed).
+Additionally, we can sample our covariance matrix at any point in time and get uncertainty in our estimates (unlike the other methods discussed).
 The importance of uncertainty in covariance estimates has been discussed by~\textcite{Kudela2017}.
 Under a fully probabilistic model, it is also easier to do hypothesis tests whether there is any \gls{tvfc} present at all.
 
@@ -39,7 +37,7 @@ Under a fully probabilistic model, it is also easier to do hypothesis tests whet
 The \gls{wp} approach allows a practitioner to drop out certain data points.
 This can be useful for neuroimaging data, as measurement artifacts can elegantly be left out.
 All artifacts and limitations of \gls{fmri} data are directly relevant to any \gls{tvfc} analysis as well~\parencite{Nalci2019}.
-For example, outliers due to head motion can have a large impact on the signal~\parencite{Power2014, Power2015}.
+For example, outliers due to head motion can have a significant impact on the signal~\parencite{Power2014, Power2015}.
 Current popular methods do not allow for this, and would typically need to interpolate the missing values.
 %
 Although it seems that we still need all $D$ points to be present for $Y_n$, this can be mitigated.
@@ -53,8 +51,7 @@ For example, since we can operate on asynchronous data, slice timing correction 
 This highlights the benefits of viewing preprocessing and analysis as a joint, interweaved process instead of two separate steps.
 
 %%
-\subsection{Higher dimensions: Pairwise or joint modeling?}
-\label{subsec:higher-dimensions}
+\subsection{Higher dimensions: Pairwise or joint modeling?}\label{subsec:higher-dimensions}
 %%
 
 \info[inline]{Paragraph: Discuss the issue of pairwise or joint modeling.}
@@ -65,7 +62,7 @@ This may be due to \gls{mgarch} models having a reputation for not scaling well 
 %
 What is the difference between these two options?
 And how does this relate to multiple hypothesis testing?
-First of all, \gls{sw} approaches are always pairwise.
+First, \gls{sw} approaches are always pairwise.
 However, the window length and other global parameters operate on all edges.
 As a fair comparison to this standard approach, training the \gls{wp} and \gls{dcc} models in multivariate (joint) fashion is the fairest comparison.
 Even if we determine the window length from the data using \gls{sw-cv}, we have to choose whether to use the same window length for all edges, or a different one for each edge.
@@ -81,15 +78,15 @@ This means that if we plan to only train pairwise models, we need only compare m
   \centering
   \includegraphics[width=\textwidth]{fig/sim/d3s/N0400_T0003/no_noise/periodic_1_correlations}
   \caption{
-    Demonstration and motivation for training models in pairwise fashion when edges are characterized by radically different covariance structures.
-  }
-  \label{fig:pairwise-vs-joint}
+    Demonstration and motivation for training DCC models in pairwise fashion when edges are characterized by radically different covariance structures.
+    Pairwise training allows model parameters to adapt to the unique underlying generative characteristics of the time series (dynamic in the first edge and static in the other two edges in this case).
+  }\label{fig:pairwise-vs-joint}
 \end{figure}
 
 
 \info[inline]{Paragraph: Discuss our approach to this issue.}
-In a theoretical approach, in general, a model should expect to always find some pair that seems correlated when presented with a large number of pairs.
-A multivariate model would not extract spurious structure if it only sees one odd case out of many, or at least would need even more evidence.
+In a theoretic approach, in general, a model should expect to always find some pair that seems correlated when presented with a large number of pairs.
+A multivariate model will not extract spurious structure if it only sees one odd case out of many, or at least would need even more evidence.
 However, the pairwise approach would not have this inherent protection against reporting false positives.
 Of course, such issues could be resolved through careful post-estimation multiple comparison correction.
 %
@@ -98,7 +95,7 @@ In fact, this is one of the strengths of properly designed benchmarks: it reduce
 For example, \cref{fig:pairwise-vs-joint} shows \gls{tvfc} estimates for a toy example of $D = 3$ simulated time series, where the first two nodes exhibit a periodic covariance structure and the other edges are uncorrelated.
 The pairwise \gls{dcc} model predicts better than the jointly trained \gls{dcc} model, arguably because the covariance structure characteristics are radically different for the different edges.
 This seems to motivate the benefit of training \gls{dcc} in a pairwise fashion.
-However, as we shall see later, in realistic scenarios these differences will not be as pronounced, and the two ways of training yield very similar estimates.
+However, as we shall see later, in realistic scenarios these differences will not be as pronounced, and the two ways of training yield similar estimates.
 %
 Throughout this thesis we train all models in joint fashion, except \gls{dcc} which will be trained in both manners.
 The `-J' suffix will indicate a multivariate jointly trained model, where `-BL' will refer to bivariate (pairwise) loop training.
@@ -129,7 +126,7 @@ While a carefully designed benchmark and performance metric should provide guida
 These include computational complexity, uncertainty modeling and estimation, robustness, ease of implementation, explainability, and flexibility in general.
 %
 These will be considered secondary (or \emph{auxiliary}) factors in our model comparison.
-For example, it seems reasonable to want to sacrifice on performance slightly if it would get you many other attractive characteristics in return.
+For example, it seems reasonable to want to sacrifice performance slightly if it would get you many other attractive characteristics in return.
 %
 We will return to this in \cref{ch:discussion}.
 
@@ -141,10 +138,10 @@ We will return to this in \cref{ch:discussion}.
 The families of benchmarks discussed in this chapter are not exhaustive.
 %
 Other benchmarks outside the scope of this thesis include predicting a concurrent modality.
-For example, by using a simultaneous \gls{fmri}-\gls{eeg} data set~\parencite{Laufs2003}.
+For example, by using a simultaneous \gls{fmri}--\gls{eeg} data set~\parencite{Laufs2003}.
 \textcite{Tagliazucchi2014} predicted sleep state from \gls{fmri} using such a concurrent data set.
 Other concurrent modalities are possible as well.
 For example, \textcite{Matsui2016} simultaneously monitored neuronal calcium signals and \gls{fmri}.
 %
-The problem with such data sets is often that they are hard to process and understand, and they may not make for practically useful benchmarking data sets at the moment.
+The problem with such data sets is often that they are hard to process and understand, and they may not make for useful benchmarking data sets at the moment.
 This leads to typically sample sizes too.

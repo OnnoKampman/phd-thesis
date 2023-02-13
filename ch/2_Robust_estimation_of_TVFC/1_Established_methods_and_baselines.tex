@@ -1,6 +1,5 @@
 \clearpage
-\section{Established methods and baselines}
-\label{sec:established-methods}
+\section{Established methods and baselines}\label{sec:established-methods}
 %%%%%
 \info[inline]{Section: Introduce key and established TVFC estimation methods.}
 
@@ -22,7 +21,7 @@ The mean of \gls{tvfc} estimates should be similar to the \gls{sfc} estimate.
 Furthermore, if a \gls{tvfc} estimation method cannot outperform the \gls{sfc} estimate on some task, this may either indicate that there is no (relevant) dynamic signal in the data set, or that the estimation method is flawed.
 
 \info[inline]{Paragraph: Describe our static functional connectivity estimation.}
-A standard covariance \gls{sfc} approach simply computes the covariance between nodes (i.e.~time series) across the entire brain scan duration as in \cref{eq:covariance}:
+A standard covariance \gls{sfc} approach simply computes the covariance between node time series (i.e.~regional activity) across the entire brain scan duration as in \cref{eq:covariance}:
 \begin{equation}
   \begin{aligned}
     \sigma_{ij} & = \mathbb{E}[(y_i - \mathbb{E}[y_i])(y_j - \mathbb{E}[y_j])] \\ & = \frac{1}{N} \sum_{n=1}^N (y_{i,n} - \bar y_i)(y_{j,n} - \bar y_j),
@@ -48,12 +47,11 @@ However, in this work we use the unbiased estimator instead:
 For larger values of $N$ this difference becomes negligible.
 
 %%
-\subsection{Sliding-windows functional connectivity}
-\label{subsec:sliding-windows-fc}
+\subsection{Sliding-windows functional connectivity}\label{subsec:sliding-windows-fc}
 %%
 
 \info[inline]{Paragraph: Introduce sliding-windows functional connectivity estimation.}
-Albeit criticism, \gls{tvfc} estimation methods based on \gls{sw}~\parencite{Chang2010, Sakoglu2010, Allen2014, Shakil2016, Preti2017} are still the most commonly used throughout the neuroscience literature~\parencite{Lurie2020}.
+Albeit criticism, \gls{tvfc} estimation methods based on \gls{sw}~\parencite{Chang2010, Sakoglu2010, Allen2014, Shakil2016, Preti2017} are still the most used throughout the neuroscience literature~\parencite{Lurie2020}.
 %
 This approach slides (or \emph{rolls}) a time window of a certain size (length)~$w$ and shape (e.g.~square, Gaussian) across the observations (typically with a step size of a single volume), and estimates the covariance or correlation as for the \gls{sfc} case in \cref{eq:sfc-estimation} for each step.
 As such it can be considered a (weighted) moving average.
@@ -69,19 +67,19 @@ Rules of thumb have been established regarding window length~$w$ and necessary d
 %
 The lack of consistency across studies in implementation of \gls{sw} is sub-optimal as it makes comparison across studies harder.
 Furthermore, stacking heuristics does not scale.
-Typically this situation is when we should start applying machine learning techniques~\parencite[][built this case beautifully]{Zinkevich2015}.
+Typically, this situation is when we should start applying machine learning techniques~\parencite[][built this case beautifully]{Zinkevich2015}.
 
 \info[inline]{Paragraph: Discuss problems with sliding-windows functional connectivity.}
 The main problem with this method is that without knowing the underlying process (i.e.~covariance structure from brain dynamics), it is hard to pick the right window length.
 %
-The \gls{sw} approach is also not a \emph{model-based}~\parencite{Foti2019} or \emph{data-driven} approach.\footnote{In neuroscientific context, `data-driven' refers to extracting insights directly from data in a relatively unbiased manner. It is often juxtaposed to `hypothesis-driven' or `theory-driven' approaches.}
+The \gls{sw} approach is also not a \emph{model-based}~\parencite{Foti2019} or \emph{data-driven} approach.\footnote{In neuroscientific context, `data-driven' refers to extracting insights directly from data in a relatively unbiased manner. It is often juxtaposed to `hypothesis-driven' or `theory-driven'.}
 Furthermore, the desired behavior at the start and end of the time series is not clear.
 See \textcite{Lindquist2014, Leonardi2015, Hindriks2016} for more important nuances and pitfalls of \gls{sw} methods.
 
 \info[inline]{Paragraph: Discuss our particular implementation.}
 In all experiments and benchmarks that follow in this thesis we implement a standard \gls{sw} approach to mimic a typical (often non-technical) investigator interested in using the construct of \gls{tvfc} to study the brain.
-Researchers are generally recommended to use a window length between 30 and 60 seconds~\parencite{Shirer2012}.
-Therefore, we implement both of these window lengths to test the limit cases.
+Researchers are recommended to use a window length between 30 and 60 seconds~\parencite{Shirer2012}.
+Both of these window lengths are implemented to test the limit cases.
 We implement the rectangular (non-tapered) window, with a step size of a single volume.
 We follow the rule of thumb proposed by \textcite{Leonardi2015} and high-pass filter the data to remove frequency components below $\frac{1}{w}$ before running the \gls{sw} algorithm.\footnote{\textcite{Smith2012} and \textcite{Hutchison2013} made similar suggestions.}
 Zeros are padded to the start and end of node time series to allow for computing the correlation coefficients around those locations.
@@ -105,12 +103,12 @@ In their early model comparison study, \textcite{Lindquist2014} showed that this
 It should not come as a surprise then that methods based on \gls{sw} are not used in finance.
 %
 A commonly cited reason for the use of \gls{mgarch} in modelling financial time series is that they contain a lot of noise, requiring the use of stochastic methods.
-We argue that neuroimaging time series share these data characteristics.
+Neuroimaging time series share these data characteristics.
 
 \info[inline]{Paragraph: Describe MGARCH algorithm.}
 Many versions and implementations of \gls{mgarch} models exist, as they describe a general \emph{family} of models~\parencite[see][for an extensive overview]{Silvennoinen2009}.
 %
-The general \gls{mgarch} framework considers a zero mean vector stochastic process $\mathbf{y}_n \in \mathbb{R}^D$ with time-varying covariance structure $\mathbf{\Sigma}_n$:
+The general \gls{mgarch} framework considers a zero-mean vector stochastic process $\mathbf{y}_n \in \mathbb{R}^D$ with time-varying covariance structure $\mathbf{\Sigma}_n$:
 \begin{equation}
   \mathbf{y}_n = \mathbf{\Sigma}_n^{\frac12} \mathbf{\eta}_n,
 \end{equation}
@@ -123,27 +121,26 @@ In this thesis, we only consider and report the \gls{dcc} model.
 With its introduction, \textcite{Engle2002} showed it to outperform other \gls{mgarch} variants.
 It is by far the most common variant used in \gls{rs-fmri} analyses, which allows for better comparison.
 Furthermore, \textcite{Heaukulani2019} found the \gls{dcc} variant to outperform the generalized orthogonal~(GO) \gls{garch} model, which is another popular \gls{mgarch} variant.
-We implemented this latter variant and found it consistently outperformed by \gls{dcc}.
-It is therefore omitted from this work.
+This latter variant was implemented at an early stage of this work but was consistently outperformed by \gls{dcc} and less robust in its implementation.
 
 \info[inline]{Paragraph: Describe DCC implementation.}
 More specifically, throughout this thesis, we implement DCC(1,1)-GARCH(1,1) using the open-source \texttt{R} (version 4.1.0) package \texttt{rmgarch}~\parencite{Galanos2022}.
-One of the benefits of this method is that it is well-understood and that convenient off-the-shelf implementations exist.
-\Gls{mgarch} has a number of free parameters, although these are often hard to interpret and scale with data dimension to the fourth power~\parencite{Silvennoinen2009}.
+One of the benefits of this method is that it is well understood and that convenient off-the-shelf implementations exist.
+\Gls{mgarch} has several free parameters, although these are often hard to interpret and scale with data dimension to the fourth power~\parencite{Silvennoinen2009}.
 \Gls{mgarch} models are known to scale poorly to higher dimensions, although workarounds have been proposed~\parencite[see e.g.][]{Nakajima2017}.
 Therefore, \textcite{Gourieroux2009} claimed that these models are typically limited to studying $D < 6$ components.
 
 %%
-\subsection{State-based models}
-\label{subsec:state-based-models}
+\subsection{State-based models}\label{subsec:state-based-models}
 %%
 
 For completeness, we briefly review state-based models.
 These models are sometimes referred to as \emph{switching} models.
 They assume a state-space structure of brain activity, consisting of recurring \gls{fc} patterns (see \cref{subsec:brain-states} for more details on this brain state construct).
+Brain region dependencies only change when switching brain states.
 If such an assumption is made, it makes sense to incorporate this in a model.
 
 The dominant model used for this is the \gls{hmm}~\parencite[see e.g.][]{Vidaurre2017, Ahrends2022}.
-It assumes the brain state stochastic process (often called a \emph{chain} in this context) to model is Markovian, meaning the probability of finding oneself in a given state in the sequence of all states only depends on the previous state.
+It assumes the brain state stochastic process (often called a \emph{chain} in this context) to model is Markovian, meaning the probability of finding oneself in each state in the sequence of all states only depends on the previous state.
 However, these states are modeled as `hidden' (i.e.~latent).
 The observable process $\mathbf{y}_n$, the \gls{bold} node time series, is then used to infer the underlying hidden brain state process.

@@ -1,22 +1,21 @@
 \clearpage
-\section{The benchmarking framework}
-\label{sec:benchmark-framework}
+\section{The benchmarking framework}\label{sec:benchmark-framework}
 %%%%%
 
 \info[inline]{Paragraph: Introduce main concept of benchmarking.}
-How do we compare methods in order to decide which one to use?
+How do we compare methods and decide which one to use?
 We propose to take inspiration from the field of machine learning, which has extensive experience with such problems.
 %
 When a single optimization target or `learning task' is missing, it is common practice to define a suite of \emph{benchmarks}.
 Each benchmark frames method selection as a prediction task and competition~\parencite{Breiman2001, Shmueli2010, Bzdok2018, Khosla2019, Poldrack2020, Tejavibulya2022}.
-Such benchmarks need to be uniquely domain-specific.
-A collection of benchmarks then paints a rich picture about which methods are more sensitive or specific, what the failure modes of each method are, and ultimately lead to practical guidelines on which method should be used in a given real-life situation.\footnote{In many machine learning sub-fields benchmarks are framed as clearly defined targets, such as as image classification accuracy. A more apt comparison may be natural language processing (NLP), where optimization targets are not straightforward, and a \emph{range} of desired targets are evaluated per model~\parencite[see e.g.][]{Bommasani2021}.}
+Such benchmarks need to be uniquely domain specific.
+A collection of benchmarks then paints a rich picture about which methods are more sensitive or specific, what the failure modes of each method are, and ultimately lead to practical guidelines on which method should be used in each real-life situation.\footnote{In many machine learning sub-fields benchmarks are framed as clearly defined targets, such as as image classification accuracy. A more apt comparison may be \gls{nlp}, where optimization targets are not straightforward, and a \emph{range} of desired targets are evaluated per model~\parencite[see e.g.][]{Bommasani2021}.}
 This is a live process, and insights and approaches are updated as time goes by.
 %
 In fact, this shift in focus toward \emph{predictive} methods is increasingly argued for in neuroscience, especially for translational work to clinic practice~\parencite{Yarkoni2017, Leenings2022, Voytek2022}.
 While the focus on benchmarks is relatively new in neuroimaging and psychology, it has existed in computer science and biomedical contexts for a long time,\footnote{In machine learning research, for example, the first large benchmark (ImageNet) was launched back in 2010~\parencite{Deng2009}. Image classification performance has dramatically increased since.} and we can learn a lot from their experiences~\parencite{Leenings2022}.
 %
-One such lessons is that benchmarks are not a silver bullet.
+One such lesson is that benchmarks are not a silver bullet.
 There are risks involved with a hyper-focus on benchmarks, such as often discussed in the case of machine learning research~\parencite{Wagstaff2012, Sculley2018}.
 This field has also been considered to have its fair share of a reproducibility crisis~\parencite[see also][]{Bell2021}.
 
@@ -31,8 +30,7 @@ Throughout this thesis we aim to strike a balance between using benchmarks (or v
 Despite the heterogeneity of benchmarks, most can be categorized into one of the following buckets.
 
 %%
-\subsection{Simulations benchmarks}
-\label{subsec:simulation-benchmarks}
+\subsection{Simulations benchmarks}\label{subsec:simulation-benchmarks}
 %%
 
 \info[inline]{Paragraph: Describe general idea behind simulation benchmarks.}
@@ -43,7 +41,7 @@ The prediction task is then to `reconstruct' this ground truth covariance struct
 Performance is measured as the difference between estimated \gls{tvfc} and ground truth values.
 Methods with lower \emph{reconstruction error} are then considered superior.
 %
-This benchmark is the most commonly seen in literature.
+This benchmark is the most common in literature.
 In fact, \textcite{Thompson2018} already proposed a common framework to benchmark \gls{tvfc} methods on simulated data.
 %
 Furthermore, we use the simulations as motivating examples of why it is important to benchmark estimation methods.
@@ -69,7 +67,7 @@ The first tests how similar the estimates from the different methods are.
 Strongly correlated predictions from methods may indicate that these methods capture similar aspects of the signal.
 The second tests for \emph{sensitivity} to changing covariance structure.
 The third tests for \emph{robustness} when the mean of the time series changes.
-The fourth tests how well the methods can pick up on sudden changes (see also \cref{subsec:sudden-changes}).
+The fourth tests how well the methods can detect sudden changes (see also \cref{subsec:sudden-changes}).
 Their simulations are constructed with autocorrelation effects, based on assumed structure in real \gls{fmri} data.
 Here we propose to achieve such structure by imposing real data on the simulated data.
 While we underwrite the philosophy behind this benchmarking framework, it still has its limitations.
@@ -88,11 +86,11 @@ It has been demonstrated that individual differences are embedded in such covari
 In fact, in a so-called `fingerprint' analysis, \textcite{Finn2015} showed that an individual's covariance structure or `connectome' is unique.
 
 \info[inline]{Paragraph: Describe idea behind subject measure prediction benchmarks.}
-Typically the estimated \gls{tvfc} (or features derived from it) are viewed as extracted \emph{biomarkers}.
+Typically, the estimated \gls{tvfc} (or features derived from it) are viewed as extracted \emph{biomarkers}.
 These are fed to a regressor or classifier to predict either non-clinical~\parencite[see e.g.][]{Taghia2017, Li2019a} or clinical~\parencite[see e.g.][]{Filippi2019, Du2021} subject measures and phenotypes.
 Methods which do better at these prediction tasks are then said to have preserved more useful information.
 %
-In similar data-driven spirit, \textcite{Li2019a} argued that the controversial data preprocessing step of \gls{gsr} \emph{should} be included, since it increases the predictive power of subsequently extracted networks.
+In a similar data-driven spirit, \textcite{Li2019a} argued that the controversial data preprocessing step of \gls{gsr} \emph{should} be included, since it increases the predictive power of subsequently extracted networks.
 
 \info[inline]{Paragraph: Introduce test-retest robustness studies and frame as benchmark.}
 Test-retest robustness studies~\parencite{Noble2019}, although usually not explicitly described as predictive tasks, can be viewed as looking at the predictive power of a first \gls{rs-fmri} scan to predict which subsequent scan belongs to the same subject~\parencite{Fiecas2013, Choe2017, Abrol2017, Zhang2018, Elliott2020}.
@@ -103,8 +101,10 @@ One major advantage of using \gls{rs-fmri} over simulations is that it constitut
 Most \gls{tvfc} studies have used \gls{rs-fmri} data.
 Therefore, results will generalize better to practical use cases.
 %
-A major advantage of using \gls{rs-fmri} over \gls{tb-fmri} is that the acquisition and preprocessing pipelines are easier to standardize and replicate (and thus more robust).
-This allows for large scale, multi-site data collection collaborations that provide large, publicly available data sets for more robust benchmarking~\parencite[see e.g.][]{VanEssen2012, Allen2014b}.
+A major advantage of using \gls{rs-fmri} over \gls{tb-fmri} is that the data acquisition and preprocessing pipeline designs can easily be standardized and replicated (and are thus more robust).
+Moreover, the data can be used for a variety of purposes, which makes it more attractive for large-scale, multi-site data collection collaborations.
+And indeed, such large data sets are readily available for more robust benchmarking~\parencite[see e.g.][]{VanEssen2012, Allen2014b}.
+%
 A disadvantage of using \gls{rs-fmri} data is that there is no controlled stimulus influencing brain activity.
 It is typically not known what subjects were thinking about during the scan~\parencite[see also][]{Finn2021}.
 
@@ -119,12 +119,14 @@ Such external stimuli and side information are again considered \emph{proxies} f
 \info[inline]{Paragraph: Describe advantages and disadvantages of this class of benchmarks.}
 These benchmarks are less common, due to the difficulty of collecting large amounts of standardized data.
 Furthermore, test-retest reliability has been found to be especially low in \gls{tb-fmri}~\parencite{Elliott2020}.
-However, a promising trend is to record subjects watching a movie, which combines benefits of \gls{rs-fmri} benchmarks in the sense that it is easy to reproduce and standardize, with those of \gls{tb-fmri} benchmarks because we have some controlled stimuli guidance at known times that influence what subjects are experiencing and processing~\parencite{Eickhoff2020, Finn2021}.
+A promising idea is to record subjects watching a movie, which combines benefits of \gls{rs-fmri} benchmarks in the sense that it is easy to reproduce and standardize, with those of \gls{tb-fmri} benchmarks because we have some controlled stimuli guidance at known times that influence what subjects are experiencing and processing~\parencite{Eickhoff2020, Finn2021}.
+However, movie watching may make the data less multi-purpose and favor visual processing studies.
+Furthermore, subjects may pay varying degrees of attention to the stimuli.
+Those that pay little attention may exhibit higher activity in visual areas but would otherwise be like participants in \gls{rs-fmri} setups.
 We argue that \gls{tb-fmri} are especially powerful for benchmarking specific method characteristics.
 
 %%
-\subsection{The imputation benchmark}
-\label{subsec:imputation-benchmark}
+\subsection{The imputation benchmark}\label{subsec:imputation-benchmark}
 %%
 
 \info[inline]{Paragraph: Describe general idea behind the imputation benchmark.}
@@ -148,7 +150,7 @@ In our experiments we split up data under a \gls{leoo} scheme (i.e.~an equally s
 %
 Determining test location estimates is non-trivial due to the difference in nature of the \gls{tvfc} estimation methods considered.
 Since the \gls{wp} is not tied to a certain lattice as its training input or test output, predicting at unobserved data points follows naturally.
-For all other approaches, we linearly interpolate all values of the covariance matrix element-wise between the two enclosing training locations.
+For all other approaches, we linearly interpolate all values of the covariance matrix elementwise between the two enclosing training locations.
 
 \info[inline]{Paragraph: Final thought on this benchmark.}
 We apply and study this benchmark on all data sets in this thesis, including the simulated data sets.
