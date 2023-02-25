@@ -331,3 +331,66 @@
     Means and standard deviations are shown across $T = 200$ trials.
   }\label{fig:results-sim-d3s-200-no-noise-all-correlation-matrix-RMSE}
 \end{figure}
+
+
+\clearpage
+\section{HCP: Extra subject measure predictions}\label{appendix:hcp-more-results}
+%%
+
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{fig/hcp/d15/subject_measure_prediction/social-emotional/morphometricity_all_TVFC_summary_measures}
+  \caption{
+    HCP benchmark subject social-emotional measures prediction morphometricity scores (with standard error).
+    Run on TVFC summary measures of mean (top), variance (middle), and rate-of-change (bottom row).
+    sFC is added for reference to the TVFC mean plot.
+  }\label{fig:results-subject-measures-prediction-social-emotional}
+\end{figure}
+
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{fig/hcp/d15/subject_measure_prediction/other/morphometricity_all_TVFC_summary_measures}
+  \caption{
+    HCP benchmark subject other measures prediction morphometricity scores (with standard error).
+    Run on TVFC summary measures of mean (top), variance (middle), and rate-of-change (bottom row).
+    sFC is added for reference to the TVFC mean plot.
+  }\label{fig:results-subject-measures-prediction-other}
+\end{figure}
+
+
+%%
+\clearpage
+\section{HCP: Brain states}\label{appendix:hcp-brain-states}
+%%
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth, trim={0.0cm 0cm 0.0cm 0cm}, clip]{fig/hcp/d15/brain_states/k03/brain_states_SVWP_joint}
+  \caption{
+    Brain states extracted from SVWP TVFC estimates on HCP data ($D = 15$ time series).
+    Brain states across the four scans look very similar.
+  }\label{fig:hcp-results-brain-states-svwp}
+\end{figure}
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth, trim={0.0cm 0cm 0.0cm 0cm}, clip]{fig/hcp/d15/brain_states/k03/brain_states_DCC_joint}
+  \caption{
+    Brain states extracted from DCC TVFC estimates on HCP data ($D = 15$ time series).
+    Brain states are low contrast in general, and the four scans look very similar.
+    This aligns with our intuition when looking at the DCC model predictions.
+  }\label{fig:hcp-results-brain-states-dcc}
+\end{figure}
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth, trim={0.0cm 0cm 0.0cm 0cm}, clip]{fig/hcp/d15/brain_states/k03/brain_states_SW_cross_validated}
+  \caption{
+    Brain states extracted from SW-CV TVFC estimates on HCP data ($D = 15$ time series).
+  }\label{fig:hcp-results-brain-states-sw-cv}
+\end{figure}
