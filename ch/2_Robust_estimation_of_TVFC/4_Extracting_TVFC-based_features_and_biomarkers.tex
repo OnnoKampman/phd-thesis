@@ -49,7 +49,7 @@ for the edge between nodes $1 \leq i \leq D$ and $1 \leq j \leq D$.
 This summary measure captures how smooth a time series is over time (i.e.~the smoothness of the estimated \gls{fc} time series in our case).
 It is more informative of \gls{fc} frequency amplitudes and is akin to \gls{fc} `variability' as described in \textcite{Allen2014}.
 To illustrate its relevance, this summary measure can distinguish two sine waves with identical mean and variance, yet oscillating at different frequencies (see e.g. \cref{fig:synthetic-covariance-structures}).
-As such it is complementary to the other two summary measures.
+As such, it is complementary to the other two summary measures.
 
 %%
 \subsection{Brain states and related metrics}\label{subsec:brain-states}
@@ -64,10 +64,10 @@ The existence of such a state-space structure in the brain has been shown to be 
 These states can be insightful on their own or can be used as extracted features.
 For example, \textcite{Rashid2016} showed that schizophrenia patients spend more time in low-contrast states.
 One exciting aspect of the construct of brain states is that they can be synthesized across species and imaging modalities (e.g.~with microstates in \gls{eeg}, see \textcite{Allen2014} for further discussion).
-As such they can serve as a common language to bridge multiple levels of neuroscientific research.
+As such, they can serve as a common language to bridge multiple levels of neuroscientific research.
 
 Brain states are typically extracted either by using $k$-means clustering on estimated \gls{tvfc}~\parencite[see e.g.][]{Allen2014, Abrol2016, Zhi2018, Hakimdavoodi2020} or using models (usually \glspl{hmm}, see \cref{subsec:state-based-models}) that have this states assumption baked into their definition~\parencite{Lurie2020}.
-In such latter cases we do not estimate the full \gls{tvfc} tensor.
+In such latter cases, we do not estimate the full \gls{tvfc} tensor.
 Thus, certain information is lost in the process.
 
 Here we extract brain states from estimated \gls{tvfc} using the original $k$-means algorithm described in \textcite{Lloyd1982}.
@@ -79,7 +79,7 @@ The optimal value of~$k$ is then chosen as the one where this curve has an `elbo
 %
 Perhaps surprisingly, most studies using brain states to summarize the brain's activity find a relatively small number of distinct states, for example three in \textcite{Choe2017, Dini2021} and 12 in \textcite{Vidaurre2017}.
 
-Even though the \gls{wp} is not constrained in estimating \gls{tvfc} in grid-like fashion, we do this for extracting brain states to allow for better comparison to other methods.
+Even though the \gls{wp} is not constrained in estimating \gls{tvfc} in a grid-like fashion, we do this for extracting brain states to allow for better comparison to other methods.
 However, we could estimate as many covariance matrices at as high of a temporal resolution as we like for this task.
 %
 Furthermore, some studies have relaxed the assumption that participants are assigned to a single state and learn a weight vector over all basis states instead for each time step~\parencite{Leonardi2014}.

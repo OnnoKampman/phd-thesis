@@ -20,7 +20,7 @@ Perhaps surprisingly, the covariance structures to be expected in real data are 
 The coupling of \gls{bold} time series is, in fact, still a black box to a large degree.
 In lieu of known covariance structure we test models against a battery of possible and reasonably exhaustive (synthetic) structures that may be encountered in an \gls{fmri} scan.
 The covariance structures studied are shown in \cref{fig:synthetic-covariance-structures};
-null covariance (node time series are uncorrelated during the entire scan)\improvement{Discuss importance of adding null model},
+null covariance (node time series are uncorrelated during the entire scan),
 a constant (i.e.~static) covariance of $\sigma_{ij} = 0.8$,
 periodic covariance structures (a slowly oscillating sine wave defined by one period, and a fast one with three periods) that model transient changes in coupling,
 a stepwise covariance that models two sudden (large) change points in covariance,
@@ -55,9 +55,9 @@ This covariance matrix depends on the synthetic covariance structure parameters 
 All time series are subsequently individually normalized to have mean zero and unit standard deviation.
 
 The number of time series ($D$) we expect to see in practice depends on the experimental design and research question at hand.
-In most applications more than two nodes or components are studied.
+In most applications, more than two nodes or components are studied.
 Some studies even consider voxel time series directly, in which case $D$ can be in the hundreds of thousands.
-Here, we test on pairwise (i.e.~\emph{bivariate}; $D = 2$) data, as well as on a trivariate ($D = 3$) data sets.
+Here, we test on pairwise (i.e.~\emph{bivariate}; $D = 2$) data, as well as on trivariate ($D = 3$) data sets.
 Ideally, we want to study \gls{tvfc} estimation performance per method \emph{as a function of} dimensionality.
 The trivariate case serves as an intermediate step toward scaling up to higher dimensions.
 All simulation experiments are repeated $T = 200$ times to ensure robustness while balancing computational cost.
@@ -108,7 +108,7 @@ Combining these ranges gives us a range of the number of data points $N$ we expe
 Therefore, we study the cases of $N \in \{120, 200, 400, 1200\}$ data points per time series.
 We report results for $N = 400$, because this is the closest to the values of $N$ in \cref{ch:ukb} and thus most representative.
 Results for other values of $N$ are retired to \cref{appendix:more-benchmarking-results}.
-It is important to be aware of the typical trade-off where scans with higher \glspl{tr} consist of fewer data points, although the increase in number of slices per scanning volume can result in higher spatial resolution and reduce autocorrelation effects and other sources of noise~\parencite{Amaro2006, Iranpour2015, Yoo2018, McDowell2019}.
+It is important to be aware of the typical trade-off where scans with higher \glspl{tr} consist of fewer data points, although the increase in the number of slices per scanning volume can result in higher spatial resolution and reduce autocorrelation effects and other sources of noise~\parencite{Amaro2006, Iranpour2015, Yoo2018, McDowell2019}.
 We also note that Bayesian methods typically perform better on smaller data sets.
 Even though we strive to find a robust method that can be used in any setting, we consider the option that some methods may work better with smaller but less noisy data sets and other methods may perform better with larger, noisy data sets.
 This style of analysis is reminiscent of the multiverse analysis~\parencite{Steegen2016}, as discussed in more detail in \cref{subsec:robustness}.
@@ -120,7 +120,7 @@ This style of analysis is reminiscent of the multiverse analysis~\parencite{Stee
 The human nervous system is subject to various sources of noise, such as Brownian motion in synapses and ion channels~\parencite{Faisal2008}.
 \gls{fmri} scanners are imperfect machines and introduce further sources of noise as well.
 These account for system noise and observational noise.
-Taken together this makes \gls{fmri} data (in)famously noisy~\parencite[see also][for analysis and biophysical simulations of impact of noise and delay]{Deco2009}.
+Taken together this makes \gls{fmri} data (in)famously noisy~\parencite[see also][for analysis and biophysical simulations of the impact of noise and delay]{Deco2009}.
 The noise is both spatially and temporally correlated.
 
 To make our benchmark more robust, all experiments are repeated on the data sets described above, but with added noise.
@@ -134,7 +134,6 @@ Empirically, we found that any lower \gls{snr} causes all \gls{tvfc} estimation 
 
 Two types of added noise are studied.
 The simplest case (white noise) can be considered like thermal noise in \gls{fmri} scanners.
-\unsure{Do we still want to report the white noise results?}
 Secondly, in the \emph{hybrid} simulations, we use an \gls{rs-fmri} data set to add noise to the synthetically generated activation data.
 We use data from the \gls{hcp} data set as described in more detail in \cref{subsec:data-hcp}.
 If we take time series from brain regions (or \gls{ica} components) from different subjects and add them to the synthetic signal, we can assume that no additional covariance structure is added.
@@ -274,13 +273,13 @@ We asked three neuroimaging researchers to visually inspect and manually assign 
 Each subject undergoes four scans in total, divided into two consecutive scans on two separate days.
 We will refer to these scans as 1A, 1B, 2A, and 2B.
 We only include subjects for which all of these four scans are available, resulting in 812 subjects in total.
-Scans were acquired with a \gls{tr} of 0.72 seconds and voxel size of 2~mm isotropic.
+Scans were acquired with a \gls{tr} of 0.72 seconds and a voxel size of 2~mm isotropic.
 Each scan contains $N = 1200$ images and is 15 minutes long.
 %
 Data was preprocessed by the \gls{hcp} team according to \textcite{Smith2013a} with a (minimal) preprocessing pipeline using \gls{fsl}~\parencite{Jenkinson2012} and FreeSurfer~\parencite{Fischl2012}.
 The pipeline is described in more detail in \textcite{Jenkinson2002, Glasser2013, Smith2013b}.
 Importantly, noise components have been filtered out during preprocessing using \gls{ica}+FIX~\parencite{Salimi2014, Griffanti2014}.
-This ensured that none of the components we use can be considered as a noise component.
+This ensured that none of the components we use can be considered a noise component.
 All time series were also demeaned, with variance normalized~\parencite{Beckmann2004}.
 All \gls{ica} components for each subject and for each scan were individually standardized to have zero mean and unit variance.
 For more data preprocessing details, we refer the reader to the \gls{hcp} release manual.
@@ -307,10 +306,10 @@ This model, based on \gls{lme} modeling, finds a linear relationship between est
 \textcite{Sabuncu2016} defined this global metric of morphometricity as the proportion of phenotypic variation that can be explained by macroscopic brain morphology (i.e.~inter-subject anatomical variation).
 The score has a value between 0 and 1, with 1 explaining all variance.
 Their original study looked at anatomical variation between subjects.
-Therefore, in their context this score is a measure of the anatomical signature of a certain trait.
+Therefore, in their context, this score is a measure of the anatomical signature of a certain trait.
 
 Scores are computed as follows.
-We posit for following model:
+We posit the following model:
 \begin{equation}
   \mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{a} + \mathbf{\epsilon},
   \label{eq:lme}
@@ -330,12 +329,12 @@ We can use this in our model comparison framework as follows: methods whose \gls
 
 \info[inline]{Paragraph: Define subject-by-subject similarity matrix.}
 How should we define the similarity $\mathbf{K}_a$ between subjects?
-In our analysis we re-purpose the morphometricity analysis and consider subject `similarity' as indicated by whole-brain estimated \gls{tvfc}.
+In our analysis, we re-purpose the morphometricity analysis and consider subject `similarity' as indicated by whole-brain estimated \gls{tvfc}.
 Instead of using the full $N \times D \times D$ estimated covariance structure, we use the $D \times D$ dimensional summary measures of it.
 The summary measures are the mean, variance, and rate-of-change of \gls{tvfc} estimates, as discussed in \cref{subsec:tvfc-summary-measures}.
 This can be viewed as a feature or biomarker extraction step.
 We take the lower triangular values as a vector of size $\frac{D(D-1)}{2}$, excluding the diagonal (self-connections) and duplicate values (since the matrices are symmetric).
-Following \textcite{Sabuncu2016}, distance between subjects is defined by a Gaussian kernel, that is $k(\textbf{x}, \textbf{x}') = \exp(-(x-x')^2)$.
+Following \textcite{Sabuncu2016}, the distance between subjects is defined by a Gaussian kernel, that is $k(\textbf{x}, \textbf{x}') = \exp(-(x-x')^2)$.
 
 \info[inline]{Paragraph: Describe our subject measures.}
 The variance component model relates \gls{tvfc} estimates to just a single phenotype or subject measure.
@@ -349,23 +348,23 @@ These subject measures were investigated in a related study as well~\parencite{K
 %
 Age and gender are included as nuisance variables in our model, that is $\mathbf{X}$ in \cref{eq:lme}.
 Some subject measures were missing from the raw data.
-We filled missing values with mean imputation.
+We filled in missing values with mean imputation.
 %
-Furthermore, the same analysis is run on social-emotional and a range of other subject measures (including personality).
-However, these are considered as less relevant, and their results have been moved to \cref{appendix:hcp-more-results}.
+The same analysis is run on social-emotional and a range of other subject measures (including personality).
+However, these are considered less relevant, and their results have been moved to \cref{appendix:hcp-more-results}.
 
 %%
 \subsubsection{Test-retest robustness benchmark}
 %%
 
-Apart from a performance metric that captures how well methods can estimate covariance structures, we can also compare method \emph{robustness} across scans from the same subject.
+Apart from a performance metric that captures how well methods can estimate covariance structures, we can compare method \emph{robustness} across scans from the same subject.
 Such robustness is another desired property of any \gls{tvfc} estimation method.
-The idea here is that a method that predicts consistent subject attributes across scans should be more robust and would have captured some aspect of individual differences.
+The idea here is that a method that predicts consistent subject attributes across scans is more robust and has captured some aspect of individual differences.
 
 Here we broadly follow \textcite{Choe2017} and their test-retest study for \gls{tvfc} estimates in \gls{rs-fmri} data.
 They studied the same data set, albeit an older and smaller version thereof.
 %
-Their idea was to test reliability of \gls{tvfc} summary measures derived from \gls{tvfc} methods.
+Their idea was to test the reliability of \gls{tvfc} summary measures derived from \gls{tvfc} methods.
 In their study they looked at \gls{sw}, tapered \gls{sw}, and \gls{dcc} (i.e.~\gls{mgarch}) methods.
 They evaluated these methods on two publicly available \gls{rs-fmri} data sets suitable for test-retest studies: the Multimodal MRI Reproducibility Resource (Kirby Data) and the \gls{hcp} Data.
 The results for both data sets were found to be very consistent.
@@ -457,7 +456,7 @@ We treat them as if we are unaware of the task paradigm.
 The Rockland data set consists of 286 subjects alternatingly either fixating in the dark or seeing a checkerboard visual pattern consecutively (20 seconds in duration of both stimuli and rest periods).
 We only consider subjects between the ages of 18 and 35.
 The checkerboard (moving) pattern is designed to continuously stimulate the visual cortex, while avoiding any adaptation effects (i.e.~reduced response after prolonged stimulation).
-As further motivation for using this design, \textcite{Di2015} has shown that \gls{fc} is not static across such visual stimuli, and that \gls{fc} between higher and lower visual regions is affected in a consistent manner with stimulus on- and offset.
+As further motivation for using this design, \textcite{Di2015} have shown that \gls{fc} is not static across such visual stimuli and that \gls{fc} between higher and lower visual regions is affected in a consistent manner with stimulus on- and offset.
 %
 Two data sets are available, one collected with a \gls{tr} of 1.4~seconds ($N = 98$) and one with a \gls{tr} of 0.645~seconds ($N = 240$).
 We only use the latter in these experiments.

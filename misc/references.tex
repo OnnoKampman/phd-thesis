@@ -3,20 +3,24 @@
     backend=biber,                % biber is the default, can use bibtex or bibtex8 as well
     backref=true,                 % whether to add citation page(s) to References
     bibstyle=authoryear,          % can set to 'draft' when writing
+    bibwarn=true,
     block=space,                  % none, space, par, nbpar (does not allow page breaks), or ragged
     citestyle=authoryear,         % citation style, e.g. Kampman (2022)
-    doi=true,                     % whether to print DOIs in References
+    doi=true,                     % whether to print DOIs in References, true for ELECTRONIC version, should be false for HARDBOUND version
     isbn=false,                   % whether to print International Standard Serial Number (ISSN) in References
     mincitenames=1,
     maxcitenames=3,
     minbibnames=2,
     maxbibnames=10,
     sorting=nyt,                  % 'count' for sorting in order of number of times cited
-    url=false,                    % whether to print URLs in References
-    bibwarn=true
+    url=false                     % whether to print URLs in References
 ]{biblatex}
 
 \addbibresource{references.bib}
+
+% TODO: how can we print a newline before the DOI?
+% \DeclareFieldFormat*{doi}{\printunit{\newline}#1}  % this works and prints the correct DOI, but without the proper formatting
+% \DeclareFieldFormat*{doi}{\printunit{\newline}}  % uncomment for HARDBOUND version, this works by replacing the DOI with a newline
 
 \renewcommand*{\nameyeardelim}{\addcomma\space}  % add comma between author and year
 
@@ -24,18 +28,16 @@
 
 % The hyperref package transforms citations into hyperlinks.
 \usepackage[
-    citecolor=blue,
+    citecolor=Gray,  % `Gray' for ELECTRONIC version, `Black' for HARDBOUND version
     colorlinks,
-    linkcolor=MidnightBlue,
+    linkcolor=MidnightBlue,  % `MidnightBlue' for ELECTRONIC version, `Black' for HARDBOUND version
     pdfborder={0 0 0},
     pdfauthor={Onno Pepijn Kampman},
-    pdfkeywords={functional connectivity, time-varying functional connectivity, Wishart process, depression},
-    pdfsubject={This thesis studies robust estimation of time-varying functional connectivity using Wishart processes, and its utility for understanding depression.},
+    pdfkeywords={functional connectivity, time-varying functional connectivity, machine learning, Wishart process, depression, PhD thesis, University of Cambridge},
+    pdfsubject={This thesis studies robust estimation of time-varying functional connectivity using Wishart processes and its utility for understanding depression.},
     pdftitle={Robust time-varying functional connectivity estimation and its relevance for depression},
-    urlcolor=blue
+    urlcolor=RoyalBlue    % `RoyalBlue' for ELECTRONIC version, `Black' for HARDBOUND version
 ]{hyperref}
-
-% \usepackage[printonlyused,withpage]{acronym}
 
 % REFERENCES
 %   https://mirrors.concertpass.com/tex-archive/macros/latex/contrib/biblatex/doc/biblatex.pdf

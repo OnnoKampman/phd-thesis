@@ -11,7 +11,7 @@ We apply techniques and frameworks discussed in the previous chapters.
 
 Based on our benchmarking work in the previous chapter, how should we now estimate \gls{tvfc}?
 The goal of the benchmarking framework was to pick the best method available.
-Based on \cref{ch:benchmarking}, at the time of writing the evidence points toward the \gls{wp} approach for being the best overall \gls{tvfc} estimation method.
+Based on \cref{ch:benchmarking}, at the time of writing the evidence points toward the \gls{wp} approach as being the best overall \gls{tvfc} estimation method.
 However, if new methods are developed that outperform the \gls{wp} model on these benchmarks, or if additional benchmarks paint a different picture, the experiments in this current chapter should be re-run and conclusions updated accordingly.
 More specifically, we pick \gls{svwp} for computational efficiency, as $N > 400$.
 
@@ -52,12 +52,12 @@ We compare cohorts in a straightforward manner by computing and comparing \gls{t
 To assess the significance of contrasts between cohorts, we apply methods from the Neyman-Pearson (i.e.~standard, orthodox) school of statistical hypothesis testing.\footnote{See \textcite{Dienes2008} for an excellent and complete overview of the various schools of thought.}
 %
 We run two-sample $t$-tests on the \gls{tvfc} summary measures across all subjects for the edges of interest.
-To correct for multiple comparisons, we run both the Bonferroni (which is often considered too conservative) as well as the Benjamini-Hochberg \gls{fdr} method~\parencite{Benjamini1995}, using $\alpha = 0.05$ as significance threshold (as is traditional).
+To correct for multiple comparisons, we run both the Bonferroni (which is often considered too conservative) as well as the Benjamini-Hochberg \gls{fdr} method~\parencite{Benjamini1995}, using $\alpha = 0.05$ as the significance threshold (as is traditional).
 All figures show significance indications after the latter correction.
 These \gls{mht} corrections are considered separately for each \gls{tvfc} summary measure, as they are considered independent from one another.
 %
 As we anticipate small effect sizes (see \cref{subsec:fc-depression}), we report Cohen's $d$ where appropriate~\parencite{Cohen1988, Lakens2013}.
-To get a ball-park interpretation of effect size, \textcite{Cohen1988} suggested `small' ($d = 0.2$), `medium' ($d = 0.5$), and `large' ($d = 0.8$) as effect size labels.
+To get a ballpark interpretation of effect size, \textcite{Cohen1988} suggested `small' ($d = 0.2$), `medium' ($d = 0.5$), and `large' ($d = 0.8$) as effect size labels.
 However, he already noted that these are rather arbitrary and should only be used if findings are so novel that they cannot be compared to prior findings.
 Relating effect sizes to previous findings is indeed its most useful application.
 Unfortunately, not everyone reports these.

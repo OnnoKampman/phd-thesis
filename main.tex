@@ -1,56 +1,53 @@
 \documentclass[
-  % draft,                            % comment for final version: uncomment to skip loading figures
-  % abstract,                         % generate only title page and abstract page for student registry submission
+  % draft,                                    % comment for final version (both ELECTRONIC and HARDBOUND): uncomment to skip loading figures
   a4paper,
-  12pt,                             % should be 11pt or 12pt
-  dvipsnames,
-  twoside,                          % uncomment for final version: different left and right side pages
-  openright                         % uncomment for final version: start new chapters on right hand side page
+  12pt,                                     % should be 11pt or 12pt
+  dvipsnames,                               % for extra color options
+  twoside,                                  % uncomment for final version (both ELECTRONIC and HARDBOUND): different left and right side pages
+  openright                                 % uncomment for final version (both ELECTRONIC and HARDBOUND): start new chapters on right hand side page
 ]{report}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{misc/headings}               % uncomment for fancy layout
+\input{misc/headings}                       % for fancy layout
 \input{misc/preamble}
 \input{misc/glossaries}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand\optionalindent{}        % uncomment for fancy layout
+\newcommand\optionalindent{}                % for fancy layout
 %%
 \begin{document}
 \pagenumbering{roman}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \includepdf{misc/deposit_and_copying_declaration.pdf}  % uncomment only for HARDBOUND version
+% \clearpage
 \input{misc/title_page}
 \thispagestyle{empty}
 \input{misc/declaration}
 \clearpage
 \thispagestyle{empty}
-\input{misc/acknowledgements}
 \input{misc/abstract}
+\input{misc/acknowledgements}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \tableofcontents
 %%
 \clearpage
-% \addtocontents{lof}{\protect\addcontentsline{toc}{chapter}{List of Figures}}
-\addcontentsline{toc}{chapter}{List of Figures}
 \listoffigures
 %%
 \clearpage
 \thispagestyle{empty}
-\listoftables\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
 %%
 \clearpage
 \thispagestyle{empty}
-\addcontentsline{toc}{chapter}{Acronyms}
 % \printglossary[type=\acronymtype,title=List of Abbreviations]
 \printnoidxglossaries
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-\renewcommand\optionalindent{\tabto{1.2cm}}     % uncomment for fancy layout
+\renewcommand\optionalindent{\tabto{1.2cm}}  % for fancy layout
 \newpage
 \pagenumbering{arabic}
-\pagestyle{fancy}                               % uncomment for final version: add fancy headers and footers
-% \linenumbers
+\pagestyle{fancy}                            % add fancy headers and footers
 %%
 \input{ch/1_Introduction/0_Introduction}
 \input{ch/1_Introduction/1_Functional_connectivity}
@@ -94,14 +91,12 @@
 \appendix
 %%
 \input{appendix/03_extra_benchmarking_results}
-\input{appendix/hcp_extra_results}
 \input{appendix/04_ukb_with_other_methods}
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-% \nolinenumbers
-\renewcommand\optionalindent{}              % uncomment for fancy layout?
-\renewcommand{\bibname}{References}         % changes the default name `Bibliography` -> `References'
-\addcontentsline{toc}{chapter}{References}\printbibliography
+\renewcommand\optionalindent{}               % for fancy layout
+\renewcommand{\bibname}{References}          % changes the default name `Bibliography` -> `References'
+\printbibliography[heading=bibintoc]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

@@ -8,7 +8,7 @@ Its study, mapping out the intrinsic organization of the brain, has quickly beco
 Such connectivity depends on statistical dependencies between activity or \emph{activation} in brain regions, which can be measured by various neuroimaging modalities, most commonly \gls{fmri}, \gls{eeg}~\parencite[e.g.][]{Tagliazucchi2012, Chang2013}, and \gls{meg}~\parencite[e.g.][]{Baker2014, Vidaurre2018}.\footnote{As discussed later, modeling dependencies between random variables is also an important problem in machine learning and statistics.}
 Sometimes multiple concurrent modalities are used, such as \gls{fmri} and \gls{eeg} (but it is not possible to combine \gls{fmri} with \gls{meg}).
 %
-Neuroimaging methods can be divided into those that capture \emph{structural} and those capture \emph{functional} signals.
+Neuroimaging methods can be divided into those that capture \emph{structural} and those that capture \emph{functional} signals.
 The former aims to map out the location and molecular properties of brain tissue.
 The latter aims to capture more dynamic signals, related to the activity of brain tissue.
 Structural and functional (including \gls{fc}) analyses are complementary in building a holistic understanding of the brain, as they capture complementary (and disparate) information~\parencite{Lang2012}.
@@ -59,7 +59,7 @@ Throughout this thesis, these time series shall be denoted as $\mathbf{y}_n \in 
 
 Preprocessing pipelines, which take raw \gls{fmri} data and output node time series of interest, impact study results and conclusions~\parencite{Caballero-Gaudes2017}.
 As such, preprocessing steps also heavily influence subsequently extracted \gls{fc}~\parencite{Aquino2022}.
-An example of an impactful preprocessing step is \gls{gsr}, which can improve spatial localization of networks, but can introduce artificial anticorrelations into the data~\parencite{Murphy2009}.
+An example of an impactful preprocessing step is \gls{gsr}, which can improve the spatial localization of networks, but can introduce artificial anticorrelations into the data~\parencite{Murphy2009}.
 
 \info[inline]{Paragraph: Describe fMRI functional connectivity.}
 In the context of \gls{fmri}, `connectivity' is typically (i.e.~traditionally) characterized as the Pearson correlation coefficient between brain region \gls{bold} measurement component time series~\parencite{Zalesky2012}.

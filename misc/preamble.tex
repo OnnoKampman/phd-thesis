@@ -1,7 +1,7 @@
 % Returns the width of the current document in pts.
 % This can be useful when generating figures, so aspect ratios are preserved.
 % \showthe\textwidth
-% Currently 360.0pt, independent from margin, but this could change still!
+% Currently 360.0pt, independent from margin.
 
 % The inputenc package is ignored with utf8 based engines.
 % \usepackage[utf8]{inputenc}
@@ -12,7 +12,6 @@
 % BOXES %
 %%%%%%%%%
 
-% For adding e.g. Box 1.
 \usepackage{tcolorbox}
 \newtcolorbox[auto counter]{mybox}[2][]{
   float,
@@ -22,28 +21,35 @@
   #1
 }
 
-% https://en.wikibooks.org/wiki/LaTeX/Colors
-% e.g. define a color, then add colback=my-blue
-% \definecolor{my-blue}{cmyk}{0.80, 0.13, 0.14, 0.04, 1.00}
+% REFERENCES
+%   https://en.wikibooks.org/wiki/LaTeX/Colors
+%   e.g. define a color, then add colback=my-blue
+%   \definecolor{my-blue}{cmyk}{0.80, 0.13, 0.14, 0.04, 1.00}
+
+%%%%%%%%
+% MATH %
+%%%%%%%%
+
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{amsmath}
+\usepackage{amsthm}
 
 %%%%%%%%%%%
 % GENERAL %
 %%%%%%%%%%%
 
-\usepackage{amsfonts}       % blackboard math symbols
-\usepackage{amsmath}
-\usepackage{amsthm}
-%%
 \usepackage[toc,page]{appendix}
+\usepackage[nottoc]{tocbibind}  % the nottoc option removes Contents from Contents
 %%
 \usepackage{booktabs}       % professional-quality tables
 \usepackage[font=small,labelfont=it]{caption}  % small is 11pt when normalsize is 12pt
 %%
-\usepackage{cleveref}       % must be loaded after amsmath
+\usepackage{cleveref}       % CAUTION: must be loaded after amsmath
 %%
-% \usepackage{mathptmx}       % Times New Roman
+% \usepackage{mathptmx}       % use Times New Roman
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
 %%
+% The printing company recommended equal margins on all pages; so no binding offset.
 \usepackage[
     left=30mm,
     right=30mm,
@@ -51,16 +57,16 @@
     bottom=30mm
 ]{geometry}
 \usepackage{graphicx}
-\usepackage{lettrine}       % for dropped capital letters (2 lines high)
+% \usepackage{lettrine}       % for dropped capital letters (2 lines high)
 \usepackage{mathtools}
 %%
 \usepackage{microtype}      % microtypography (improves visual appearance)
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
+% \usepackage{pdfpages}       % for including PDF pages
 \usepackage{setspace}       % define line spacing in paragraph
 %%
 \usepackage[labelfont=bf,textfont=normalfont]{subcaption}     % allows for subplots
 %%
-\usepackage{lipsum}         % Dummytext
 \usepackage{xargs}          % Use more than one optional parameter in a new commands
 \usepackage{url}            % simple URL typesetting
 
@@ -73,19 +79,23 @@
 \fancyhead{}
 \fancyfoot{}
 
-% \fancyhead[RE]{Chapter \thechapter}
-% \fancyhead[RO]{\rightmark}
+% \fancyhead[LE]{\thepage}  % uncomment for final (HARDBOUND) two-sided version
+% \fancyhead[RO]{\thepage}  % uncomment for final (HARDBOUND) two-sided version
+\fancyhead[R]{\thepage}   % uncomment for one-sided draft and final (ELECTRONIC) two-sided version
 
-% \fancyhead[LE]{\thepage}  % uncomment for two-sided version
-% \fancyhead[RO]{\thepage}  % uncomment for two-sided version
+% REFERENCES
+%   https://www.overleaf.com/learn/latex/How_to_Write_a_Thesis_in_LaTeX_(Part_2)%3A_Page_Layout
 
-\fancyhead[R]{\thepage}   % uncomment for one-sided version (draft)
-
-% \fancyfoot[LE,RO]{\thepage}
+%%%%%%%%%
+% OTHER %
+%%%%%%%%%
 
 \input{misc/todo}
 
 \usepackage{lineno}
-% \doublespacing
 \onehalfspacing
 % \linespread{1.25}  % this is equal to 1.5 linespacing in Microsoft Word
+% \doublespacing
+
+\author{Onno Pepijn Kampman}
+\date{September 2022}
