@@ -56,7 +56,7 @@ The main difference between the diagnosed lifetime occurrence and self-reported 
 Moreover, the connectivity rate-of-change edges are not affected for the depressed state cohorts.
 These differences are considered minor.
 However, the brain state analysis finds a more interesting contrast between these two paradigms.
-We found that hippocampal-prefrontal connections are more involved with lifetime history of depression, and anterior insular-prefrontal connections more involved with current depressive episodes.
+We found that hippocampal-prefrontal connections are more involved with a lifetime history of depression, and anterior insular-prefrontal connections are more involved with current depressive episodes.
 
 %%
 \subsection{Comparison to prior studies}
@@ -65,7 +65,7 @@ We found that hippocampal-prefrontal connections are more involved with lifetime
 While we compare directly to prior work, not all studies are created equally.
 Moreover, many previous findings may not replicate.
 In fact, there are many reasons why many neuroimaging depression study results may be false or inflated~\parencite{Flint2021}.
-The considerable number of studies looking to use neuroimaging to separate \gls{mdd} patients from \glspl{hc} still lack cohesion.
+The considerable number of studies looking to use neuroimaging to separate \gls{mdd} patients from \glspl{hc} still lacks cohesion.
 Sample sizes are often considered a key issue~\parencite{Varoquaux2018, Szucs2020, Libedinsky2022, Marek2022}.
 For \gls{mdd} estimation from structural \gls{mri} for example, \textcite{Flint2021} showed that small sample sizes can dramatically inflate the predictive power of models.
 We consider the large sample sizes in all benchmarks and experiments a major strength of the work in this thesis.
@@ -99,7 +99,7 @@ The story is similar for the two naive \gls{sw} approaches with window lengths o
 Therefore, we carefully conclude that \gls{sw}-based methods would return more false positives rather than false negatives.
 Based on our simulations benchmarking in \cref{ch:benchmarking}, this may come as no surprise.
 %
-However, all estimation methods find an increased rate-of-change for the \gls{dlpfc}--\gls{acc} edge, indicating that this finding is robust to \gls{tvfc} estimation method choice.
+However, all estimation methods find an increased rate-of-change for the \gls{dlpfc}--\gls{acc} edge, indicating that this finding is robust to the \gls{tvfc} estimation method choice.
 %
 Furthermore, all other methods do indeed find significantly increased \gls{tvfc} variance between all \glspl{fn}, in contrast to the \gls{svwp} estimates.
 As we have seen before, \gls{svwp} estimates are smooth compared to the other methods' estimates.
@@ -107,7 +107,7 @@ If we are to believe our benchmarking has been executed properly, all these find
 
 For the self-reported lifetime occurrence analysis, the \gls{dcc} methods do not find any significant alterations with depression across all edges and \gls{tvfc} summary measures.
 %
-All \gls{sw} methods find exactly the same single affected edge (\gls{hpc}--\gls{ai}), except for the 30-seconds \gls{sw} estimate that finds the rate-of-change to also be significantly affected for this edge.
+All \gls{sw} methods find exactly the same single affected edge (\gls{hpc}--\gls{ai}), except for the 30-second \gls{sw} estimate that finds the rate-of-change to also be significantly affected for this edge.
 %
 Overall, this shows that the reduced \gls{sfc} with depression for this edge is reasonably robust across \gls{tvfc} estimation method and should be studied further as an affected brain region connection.
 %
@@ -116,7 +116,7 @@ The 30~seconds \gls{sw} returns the same differences as the \gls{svwp} model, ex
 The \gls{sw-cv} approach only returns the two estimate means contrasts for the same two between-network connectivities as the \gls{svwp}.
 
 For the self-reported depressed state analysis, the \gls{dcc} methods predict a distinct set of edges whose mean \gls{tvfc} is affected in depression compared to both the \gls{sfc} and \gls{svwp} estimates.
-Furthermore, the joint approach returns many significantly different edges for the rate-of-change summary measure, where the pairwise implementation returns none (like the \gls{svwp} estimates).
+Furthermore, the joint approach returns many significantly different edges for the rate-of-change summary measure, whereas the pairwise implementation returns none (like the \gls{svwp} estimates).
 The \gls{sw-cv} estimates are broadly like the \gls{svwp} estimates, except for a curious rate-of-change \gls{pha}--\gls{mpfc} edge.
 %
 For the \gls{fn} analysis, all other \gls{tvfc} estimation methods find the same cohort contrasts.
@@ -125,5 +125,5 @@ However, the \gls{sw} methods also find differences in \gls{tvfc} variance, whic
 For the \gls{prs} analysis, none of the other methods' estimates are significantly different for any of the edges, just like the \gls{sfc} and \gls{svwp} estimates.
 The null finding is robust across \gls{tvfc} estimation methods.
 
-Lastly, we note that any estimation method may return spurious structure or fail to detect certain structures.
+Lastly, we note that any estimation method may return spurious structures or fail to detect certain structures.
 However, since we average across participants in cohorts, some of these failure modes may be hidden from our results.
