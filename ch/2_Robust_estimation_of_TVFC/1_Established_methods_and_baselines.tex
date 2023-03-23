@@ -58,14 +58,14 @@ As such it can be considered a (weighted) moving average.
 The benefits of using \gls{sw} include that it is well-established, computationally cheap, and simple to implement.
 
 \info[inline]{Paragraph: Discuss variations on sliding-windows functional connectivity.}
-Many variations on this method exist and how to best implement \gls{sw} methods has been studied extensively~\parencite[see e.g.][]{Mokhtari2019, Vergara2019}.
+Many variations of this method exist and how to best implement \gls{sw} methods has been studied extensively~\parencite[see e.g.][]{Mokhtari2019, Vergara2019}.
 One popular way to reduce sensitivity to outliers is \emph{tapered} \gls{sw}.
 This approach assigns less weight to observations further away from the center of the window~\parencite{Allen2014, Lindquist2014}.
 Effectively this just changes the shape of the window from rectangular/square into e.g.~a Gaussian curve.
 %
 Rules of thumb have been established regarding window length~$w$ and necessary data preprocessing steps.
 %
-The lack of consistency across studies in implementation of \gls{sw} is sub-optimal as it makes comparison across studies harder.
+The lack of consistency across studies in the implementation of \gls{sw} is sub-optimal as it makes comparison across studies harder.
 Furthermore, stacking heuristics does not scale.
 Typically, this situation is when we should start applying machine learning techniques~\parencite[][built this case beautifully]{Zinkevich2015}.
 
@@ -78,11 +78,11 @@ See \textcite{Lindquist2014, Leonardi2015, Hindriks2016} for more important nuan
 
 \info[inline]{Paragraph: Discuss our particular implementation.}
 In all experiments and benchmarks that follow in this thesis we implement a standard \gls{sw} approach to mimic a typical (often non-technical) investigator interested in using the construct of \gls{tvfc} to study the brain.
-Researchers are recommended to use a window length between 30 and 60 seconds~\parencite{Shirer2012}.
+Researchers are recommended to use a window length of between 30 and 60 seconds~\parencite{Shirer2012}.
 Both of these window lengths are implemented to test the limit cases.
 We implement the rectangular (non-tapered) window, with a step size of a single volume.
 We follow the rule of thumb proposed by \textcite{Leonardi2015} and high-pass filter the data to remove frequency components below $\frac{1}{w}$ before running the \gls{sw} algorithm.\footnote{\textcite{Smith2012} and \textcite{Hutchison2013} made similar suggestions.}
-Zeros are padded to the start and end of node time series to allow for computing the correlation coefficients around those locations.
+Zeros are padded to the start and end of the node time series to allow for computing the correlation coefficients around those locations.
 
 %%
 \subsection{Multivariate GARCH}
@@ -113,7 +113,7 @@ The general \gls{mgarch} framework considers a zero-mean vector stochastic proce
   \mathbf{y}_n = \mathbf{\Sigma}_n^{\frac12} \mathbf{\eta}_n,
 \end{equation}
 where $\mathbf{\eta}_n$ is an i.i.d. white noise vector process.
-As this is an autoregressive process, $\mathbf{\Sigma}_n$ is only conditioned on all observation up until time $n - 1$.
+As this is an autoregressive process, $\mathbf{\Sigma}_n$ is only conditioned on all observations up until time $n - 1$.
 It assumes that the variances of the individual node time series follow a vector autoregression (VAR) process.
 %
 Our job as the modeler is then to model $\mathbf{\Sigma}_n$, for which several options exist.
