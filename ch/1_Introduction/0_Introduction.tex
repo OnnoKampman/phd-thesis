@@ -3,7 +3,7 @@
 
 \info[inline]{Paragraph: Direct summary of what this thesis is about.}
 This thesis introduces novel approaches for robust estimation of \gls{tvfc} from \gls{fmri} neuroimaging data.
-\Gls{tvfc} is a construct that studies the time-varying nature of interaction between brain regions.
+\Gls{tvfc} is a construct that studies the time-varying nature of the interaction between brain regions.
 Estimation approaches are compared and evaluated to existing ones through a proposed benchmarking framework.
 %
 Afterwards, we use the best performing method to investigate how brain dynamics differ between depressed and healthy (control) subjects.
@@ -29,7 +29,7 @@ Starting from the fundamental building blocks, some researchers study ion channe
 Some look at small circuits of neurons, some look at whole-brain structures, some investigate emergent brain waves, and some try to model human brain function with animal or computational models and speculate how these relate to human brain function (sometimes referred to as comparative cognition).
 Neuroscientists have long considered that the brain is modular in its organization~\parencite{Prinz2006}.
 Many would therefore specialize in a particular brain \gls{roi} to study its function and relationship to other regions.
-Even though the view of the brain as a collection of entirely distinct modules has been abandoned, this tradition persists to some degree, and is often still (approximately) valid~\parencite{Genon2018}.
+Even though the view of the brain as a collection of entirely distinct modules has been abandoned, this tradition persists to some degree and is often still (approximately) valid~\parencite{Genon2018}.
 Moreover, contemporary neuroscientists have argued for a more sophisticated view of \emph{hierarchy} in such modularity.
 %
 The division between psychology and neuroscience has blurred and merged in recent years.
@@ -60,20 +60,20 @@ This `reproducibility crisis' started gaining traction about a decade ago, and t
 
 \info[inline]{Paragraph: Explain our point-of-view of the human brain.}
 The particular point-of-view of the human brain in this work is the following.
-We abstract away implementational level details, and consider the human brain as a complex, dynamic system organ that is divided into distinct yet interacting regions.\footnote{Brain regions and components (or `nodes', borrowing from graph theoretic jargon) can be defined in several ways, which will be addressed later.}
+We abstract away implementational level details and consider the human brain as a complex, dynamic system organ that is divided into distinct yet interacting regions.\footnote{Brain regions and components (or `nodes', borrowing from graph theoretic jargon) can be defined in several ways, which will be addressed later.}
 We will not go into depth on any neurobiological signatures of behavior and disorders.
 %
 This characterization is based on a historical trend.
 Early modern neuroscientists discovered that the brain can be \emph{segregated} into distinct cortical (and subcortical) regions with distinct functions.
 Naturally, it followed that neuroscientists became interested in how these regions connect and communicate with one another.
-This is often referred to as the `functional' architecture of the brain, in contrast with the better understood \emph{structural} or \emph{anatomical} brain architecture.
-Higher-order cognition and complex behavior is made possible by the spatiotemporal integration, re-organization, and segregation of brain regions~\parencite{Deco2011}.
+This is often referred to as the `functional' architecture of the brain, in contrast with the better-understood \emph{structural} or \emph{anatomical} brain architecture.
+Higher-order cognition and complex behavior are made possible by the spatiotemporal integration, re-organization, and segregation of brain regions~\parencite{Deco2011}.
 Over the years a plethora of studies has painted a picture of the brain as a complex, distributed, and adaptive network of anatomical and functional segregation and integration that re-organizes itself at different time scales to process information and address a given task.
 Brain constituent parts also exhibit complex system structures, such as modular and hierarchical topology~\parencite{Meunier2009, Deco2015}.
 Human brains have been found to rely on higher degrees of synergistic interactions compared to nonhuman primates, highlighting their importance to complex cognition~\parencite{Luppi2022}.
 %
-Anatomical organization and connectivity in the brain has been studied by a range of imaging methods, including \gls{mri}, which uses powerful magnetic fields and radio waves to produce high resolution images of the inside of the body, and \gls{dti}, which images axons in white matter tracts.
-Functional interactions, often referred to as `connectivity' too, can be characterized using neuroimaging methods such as \gls{fmri}~\parencite{Soares2016}, \gls{pet}, which requires an injection of positron emitting isotopes, \gls{nirs}, \gls{eeg}, and \gls{meg}~\parencite{Rossini2019}.
+Anatomical organization and connectivity in the brain has been studied by a range of imaging methods, including \gls{mri}, which uses powerful magnetic fields and radio waves to produce high-resolution images of the inside of the body, and \gls{dti}, which images axons in white matter tracts.
+Functional interactions, often referred to as `connectivity' too, can be characterized using neuroimaging methods such as \gls{fmri}~\parencite{Soares2016}, \gls{pet}, which requires an injection of positron-emitting isotopes, \gls{nirs}, \gls{eeg}, and \gls{meg}~\parencite{Rossini2019}.
 Crucially, such connectivity is usually not directly observed, and needs to be estimated.
 
 \info[inline]{Paragraph: Discuss confusing terminology of `connectivity'.}
