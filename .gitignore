@@ -1,6 +1,9 @@
 .DS_Store
 .vscode/
 
+fig/hcp/d50/
+fig/sim/d4s/
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
