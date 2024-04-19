@@ -26,9 +26,12 @@ I wrap up this thesis with a discussion of results and how this style of work fi
 
 ## Source code for experiments
 
-https://github.com/OnnoKampman/neuro-dynamic-covariance
+https://github.com/OnnoKampman/FCEst
+https://github.com/OnnoKampman/FCEst-benchmarking
 
 ## Word count
+
+The following command can be used to determine the word count of the thesis.
 
 `ps2ascii main.pdf | wc -w`
 
@@ -38,12 +41,12 @@ This document is generated using `Latexmk` version 4.77 and Biber version 2.17.
 
 You may need to clear the cache by running `rm -rf $(biber --cache)` if you encounter issues with compiling.
 
-I use Skim to view the generated PDF.
+I use Skim to view the generated PDF, which automatically updates.
 
 ## Inspiration
 
 [1] https://github.com/kks32/phd-thesis-template
 
-[1] https://github.com/duvenaud/phd-thesis
+[2] https://github.com/duvenaud/phd-thesis
 
-[1] https://jwalton.info/Embed-Publication-Matplotlib-Latex/
+[3] https://jwalton.info/Embed-Publication-Matplotlib-Latex/
